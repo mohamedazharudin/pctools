@@ -34,6 +34,13 @@ export default function Sidebar({ activeTab, setActiveTab }) {
 >
   HTML Entities
 </button>
+
+<button 
+        className={activeTab === 'resume' ? 'active' : ''} 
+        onClick={() => setActiveTab('resume')}
+      >
+        📄 Resume Builder
+      </button>
     </aside>
   );
 }

@@ -175,3 +175,27 @@ select, input[type="range"] {
 main, .content-wrapper {
   padding-top: 70px; /* 60px header + 10px extra spacing */
 }
+
+@media print {
+  /* Hide sidebar and inputs */
+  .sidebar,
+  .no-print,
+  button,
+  input,
+  textarea {
+    display: none !important;
+  }
+
+  /* Reset layout for the preview page */
+  body, .layout, main {
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #resume-preview {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+  }
+}
