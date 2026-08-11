@@ -5,6 +5,7 @@ import ImageCompressor from './components/ImageCompressor';
 import ColorPalette from './components/ColorPalette';
 import HtmlEntities from './components/HtmlEntities';
 import ResumeBuilder from './components/ResumeBuilder';
+import PdfWriter from './components/PdfWriter';
 // Inside the main render:
 import './App.css';
 
@@ -20,6 +21,7 @@ export default function App() {
         {activeTab === 'palette' && <ColorPalette />}
 {activeTab === 'entities' && <HtmlEntities />}
 {activeTab === 'resume' && <ResumeBuilder />}
+{activeTab === 'pdf-writer' && <PdfWriter />}
       </main>
     </div>
   );

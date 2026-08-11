@@ -36,137 +36,108 @@ export default function ResumeBuilder() {
   const removeEducation = (index) => setEducations(educations.filter((_, i) => i !== index));
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'left' }}>
-      <style>{`
-        @page {
-          margin: 0; /* Removes browser header/footer (localhost, date, title) */
-        }
-        @media print {
-          body * {
-            visibility: hidden !important;
-          }
-          #printable-resume, #printable-resume * {
-            visibility: visible !important;
-          }
-          #printable-resume {
-            position: absolute !important;
-            left: 0 !important;
-            top: 0 !important;
-            width: 100% !important;
-            min-height: 100vh !important;
-            margin: 0 !important;
-            padding: 40px !important;
-            box-shadow: none !important;
-            border: none !important;
-            box-sizing: border-box !important;
-          }
-          .remove-btn {
-            display: none !important;
-          }
-        }
-      `}</style>
-
-      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+    <div className="max-w-6xl mx-auto text-left">
+      <div className="flex flex-wrap gap-5">
         
         {/* FORM CONTROLS */}
-        <div style={{ flex: '1', minWidth: '320px', background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
-          <h2 style={{ color: '#1e293b', marginTop: 0 }}>📄 Resume Builder</h2>
-          <p style={{ color: '#64748b' }}>Fill out your details to generate your resume instantly.</p>
-          <hr style={{ border: 'none', borderTop: '1px solid #e2e8f0', margin: '15px 0' }} />
+        <div className="flex-1 min-w-[320px] bg-white p-5 rounded-lg shadow border border-slate-100">
+          <h2 className="text-slate-800 text-xl font-bold mt-0">📄 Resume Builder</h2>
+          <p className="text-slate-500 text-sm mb-4">Fill out your details to generate your resume instantly.</p>
+          <hr className="border-t border-slate-200 my-4" />
 
-          <h3>Personal Information</h3>
-          <input style={inputStyle} value={personal.name} onChange={(e) => setPersonal({ ...personal, name: e.target.value })} placeholder="Full Name" />
-          <input style={inputStyle} value={personal.title} onChange={(e) => setPersonal({ ...personal, title: e.target.value })} placeholder="Job Title" />
-          <input style={inputStyle} value={personal.email} onChange={(e) => setPersonal({ ...personal, email: e.target.value })} placeholder="Email" />
-          <input style={inputStyle} value={personal.phone} onChange={(e) => setPersonal({ ...personal, phone: e.target.value })} placeholder="Phone" />
-          <textarea style={inputStyle} value={personal.summary} onChange={(e) => setPersonal({ ...personal, summary: e.target.value })} placeholder="Summary" rows="3" />
+          <h3 className="font-semibold text-slate-800 my-2">Personal Information</h3>
+          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.name} onChange={(e) => setPersonal({ ...personal, name: e.target.value })} placeholder="Full Name" />
+          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.title} onChange={(e) => setPersonal({ ...personal, title: e.target.value })} placeholder="Job Title" />
+          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.email} onChange={(e) => setPersonal({ ...personal, email: e.target.value })} placeholder="Email" />
+          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.phone} onChange={(e) => setPersonal({ ...personal, phone: e.target.value })} placeholder="Phone" />
+          <textarea className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.summary} onChange={(e) => setPersonal({ ...personal, summary: e.target.value })} placeholder="Summary" rows="3" />
 
-          <h3>Skills</h3>
-          <div style={{ display: 'flex', gap: '5px', marginBottom: '10px' }}>
-            <input style={{ ...inputStyle, marginBottom: 0 }} value={skillInput} onChange={(e) => setSkillInput(e.target.value)} placeholder="Add a skill" />
-            <button style={btnStyle} onClick={addSkill}>Add</button>
+          <h3 className="font-semibold text-slate-800 my-2">Skills</h3>
+          <div className="flex gap-1.5 mb-2.5">
+            <input className="flex-1 p-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={skillInput} onChange={(e) => setSkillInput(e.target.value)} placeholder="Add a skill" />
+            <button className="px-3 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700" onClick={addSkill}>Add</button>
           </div>
 
-          <h3>Experience</h3>
+          <h3 className="font-semibold text-slate-800 my-2">Experience</h3>
           {experiences.map((exp, idx) => (
-            <div key={idx} style={{ borderBottom: '1px solid #ddd', paddingBottom: '10px', marginBottom: '10px' }}>
-              <input style={inputStyle} value={exp.company} onChange={(e) => { const newExp = [...experiences]; newExp[idx].company = e.target.value; setExperiences(newExp); }} placeholder="Company" />
-              <input style={inputStyle} value={exp.role} onChange={(e) => { const newExp = [...experiences]; newExp[idx].role = e.target.value; setExperiences(newExp); }} placeholder="Role" />
-              <input style={inputStyle} value={exp.duration} onChange={(e) => { const newExp = [...experiences]; newExp[idx].duration = e.target.value; setExperiences(newExp); }} placeholder="Duration" />
-              <textarea style={inputStyle} value={exp.details} onChange={(e) => { const newExp = [...experiences]; newExp[idx].details = e.target.value; setExperiences(newExp); }} placeholder="Details" />
-              <button style={{ ...btnStyle, background: '#ef4444' }} onClick={() => removeExperience(idx)}>Remove</button>
+            <div key={idx} className="border-b border-gray-200 pb-2.5 mb-2.5">
+              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.company} onChange={(e) => { const newExp = [...experiences]; newExp[idx].company = e.target.value; setExperiences(newExp); }} placeholder="Company" />
+              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.role} onChange={(e) => { const newExp = [...experiences]; newExp[idx].role = e.target.value; setExperiences(newExp); }} placeholder="Role" />
+              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.duration} onChange={(e) => { const newExp = [...experiences]; newExp[idx].duration = e.target.value; setExperiences(newExp); }} placeholder="Duration" />
+              <textarea className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.details} onChange={(e) => { const newExp = [...experiences]; newExp[idx].details = e.target.value; setExperiences(newExp); }} placeholder="Details" />
+              <button className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600" onClick={() => removeExperience(idx)}>Remove</button>
             </div>
           ))}
-          <button style={btnStyle} onClick={addExperience}>+ Add Experience</button>
+          <button className="px-3 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 my-1" onClick={addExperience}>+ Add Experience</button>
 
-          <h3>Education</h3>
+          <h3 className="font-semibold text-slate-800 my-2">Education</h3>
           {educations.map((edu, idx) => (
-            <div key={idx} style={{ borderBottom: '1px solid #ddd', paddingBottom: '10px', marginBottom: '10px' }}>
-              <input style={inputStyle} value={edu.school} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].school = e.target.value; setEducations(newEdu); }} placeholder="School" />
-              <input style={inputStyle} value={edu.degree} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].degree = e.target.value; setEducations(newEdu); }} placeholder="Degree" />
-              <input style={inputStyle} value={edu.year} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].year = e.target.value; setEducations(newEdu); }} placeholder="Year" />
-              <button style={{ ...btnStyle, background: '#ef4444' }} onClick={() => removeEducation(idx)}>Remove</button>
+            <div key={idx} className="border-b border-gray-200 pb-2.5 mb-2.5">
+              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={edu.school} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].school = e.target.value; setEducations(newEdu); }} placeholder="School" />
+              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={edu.degree} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].degree = e.target.value; setEducations(newEdu); }} placeholder="Degree" />
+              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={edu.year} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].year = e.target.value; setEducations(newEdu); }} placeholder="Year" />
+              <button className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600" onClick={() => removeEducation(idx)}>Remove</button>
             </div>
           ))}
-          <button style={btnStyle} onClick={addEducation}>+ Add Education</button>
+          <button className="px-3 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 my-1" onClick={addEducation}>+ Add Education</button>
 
           <br /><br />
-          <button style={{ ...btnStyle, background: '#10b981', width: '100%', padding: '12px', fontSize: '16px', fontWeight: 'bold' }} onClick={() => window.print()}>
+          <button className="w-full p-3 bg-emerald-500 text-white rounded text-base font-bold hover:bg-emerald-600 transition-colors" onClick={() => window.print()}>
             🖨️ Download / Print PDF
           </button>
         </div>
 
         {/* PRINTABLE RESUME PREVIEW */}
-        <div style={{ flex: '1', minWidth: '320px' }}>
-          <div id="printable-resume" style={{ background: 'white', padding: '40px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)', border: '1px solid #e2e8f0', minHeight: '650px' }}>
+        <div className="flex-1 min-w-[320px]">
+          <div id="printable-resume" className="bg-white p-10 rounded-lg shadow border border-slate-200 min-h-[650px]">
             
             {/* Header Section */}
-            <div style={{ marginBottom: '25px' }}>
-              <h1 style={{ margin: '0 0 8px 0', color: '#0f172a', fontSize: '32px' }}>{personal.name || 'Your Name'}</h1>
-              <h3 style={{ color: '#007bff', margin: '0 0 8px 0', fontSize: '18px' }}>{personal.title || 'Job Title'}</h3>
-              <p style={{ fontSize: '14px', color: '#64748b', margin: '0' }}>{personal.email} | {personal.phone}</p>
-              {personal.summary && <p style={{ fontSize: '14px', color: '#334155', marginTop: '12px', lineHeight: '1.6' }}>{personal.summary}</p>}
+            <div className="mb-6">
+              <h1 className="m-0 mb-2 text-slate-900 text-3xl font-bold">{personal.name || 'Your Name'}</h1>
+              <h3 className="text-blue-600 m-0 mb-2 text-lg font-semibold">{personal.title || 'Job Title'}</h3>
+              <p className="text-sm text-slate-500 m-0">{personal.email} | {personal.phone}</p>
+              {personal.summary && <p className="text-sm text-slate-700 mt-3 leading-relaxed">{personal.summary}</p>}
             </div>
 
-            <hr style={{ border: 'none', borderTop: '2px solid #e2e8f0', margin: '25px 0' }} />
+            <hr className="border-t-2 border-slate-200 my-6" />
 
             {/* Skills Section */}
-            <div style={{ marginBottom: '30px' }}>
-              <h3 style={{ color: '#1e293b', marginBottom: '12px', textTransform: 'uppercase', fontSize: '16px', letterSpacing: '1px' }}>Skills</h3>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <div className="mb-8">
+              <h3 className="text-slate-800 mb-3 uppercase text-base tracking-wider font-semibold">Skills</h3>
+              <div className="flex flex-wrap gap-2">
                 {skills.map((skill, i) => (
-                  <span key={i} style={{ background: '#f1f5f9', padding: '6px 12px', borderRadius: '4px', fontSize: '13px', border: '1px solid #e2e8f0' }}>
-                    {skill} <b className="remove-btn" style={{ cursor: 'pointer', color: 'red', marginLeft: '6px' }} onClick={() => removeSkill(i)}>×</b>
+                  <span key={i} className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded text-xs border border-slate-200 flex items-center">
+                    {skill} <b className="remove-btn text-red-500 ml-1.5 cursor-pointer" onClick={() => removeSkill(i)}>×</b>
                   </span>
                 ))}
               </div>
             </div>
 
             {/* Experience Section */}
-            <div style={{ marginBottom: '30px' }}>
-              <h3 style={{ color: '#1e293b', marginBottom: '15px', textTransform: 'uppercase', fontSize: '16px', letterSpacing: '1px' }}>Work Experience</h3>
+            <div className="mb-8">
+              <h3 className="text-slate-800 mb-4 uppercase text-base tracking-wider font-semibold">Work Experience</h3>
               {experiences.map((exp, i) => (
-                <div key={i} style={{ marginBottom: '20px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <strong style={{ fontSize: '15px', color: '#0f172a' }}>{exp.role}</strong>
-                    <small style={{ color: '#64748b', fontWeight: 'bold' }}>{exp.duration}</small>
+                <div key={i} className="mb-5">
+                  <div className="flex justify-between items-baseline">
+                    <strong className="text-sm text-slate-900 font-bold">{exp.role}</strong>
+                    <small className="text-slate-500 font-bold text-xs">{exp.duration}</small>
                   </div>
-                  <div style={{ color: '#007bff', fontSize: '14px', marginBottom: '6px' }}>{exp.company}</div>
-                  <p style={{ fontSize: '14px', margin: '0', color: '#334155', lineHeight: '1.5' }}>{exp.details}</p>
+                  <div className="text-blue-600 text-sm mb-1.5">{exp.company}</div>
+                  <p className="text-sm m-0 text-slate-700 leading-relaxed">{exp.details}</p>
                 </div>
               ))}
             </div>
 
             {/* Education Section */}
-            <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ color: '#1e293b', marginBottom: '15px', textTransform: 'uppercase', fontSize: '16px', letterSpacing: '1px' }}>Education</h3>
+            <div className="mb-5">
+              <h3 className="text-slate-800 mb-4 uppercase text-base tracking-wider font-semibold">Education</h3>
               {educations.map((edu, i) => (
-                <div key={i} style={{ marginBottom: '15px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <strong style={{ fontSize: '15px', color: '#0f172a' }}>{edu.degree}</strong>
-                    <small style={{ color: '#64748b', fontWeight: 'bold' }}>{edu.year}</small>
+                <div key={i} className="mb-4">
+                  <div className="flex justify-between items-baseline">
+                    <strong className="text-sm text-slate-900 font-bold">{edu.degree}</strong>
+                    <small className="text-slate-500 font-bold text-xs">{edu.year}</small>
                   </div>
-                  <div style={{ color: '#475569', fontSize: '14px' }}>{edu.school}</div>
+                  <div className="text-slate-600 text-sm">{edu.school}</div>
                 </div>
               ))}
             </div>
@@ -178,6 +149,3 @@ export default function ResumeBuilder() {
     </div>
   );
 }
-
-const inputStyle = { width: '100%', padding: '8px', marginBottom: '8px', borderRadius: '4px', border: '1px solid #ccc', boxSizing: 'border-box' };
-const btnStyle = { padding: '8px 12px', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', margin: '4px 0' };

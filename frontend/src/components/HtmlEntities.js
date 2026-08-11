@@ -47,9 +47,9 @@ export default function HtmlEntities() {
   );
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'left' }}>
-      <h1 style={{ fontSize: '28px', color: '#1e293b' }}>🔣 HTML Entities & Symbols</h1>
-      <p style={{ color: '#64748b' }}>Search and click any entity code to copy it directly.</p>
+    <div className="max-w-4xl mx-auto text-left">
+      <h1 className="text-3xl font-bold text-slate-800 mb-1">🔣 HTML Entities & Symbols</h1>
+      <p className="text-slate-500 text-sm mb-5">Search and click any entity code to copy it directly.</p>
 
       {/* Search Input */}
       <input
@@ -57,82 +57,37 @@ export default function HtmlEntities() {
         placeholder="Search by name, symbol, or entity (e.g. copyright, &copy;)..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        style={{
-          width: '100%',
-          padding: '12px 16px',
-          fontSize: '16px',
-          borderRadius: '8px',
-          border: '1px solid #cbd5e1',
-          marginBottom: '20px',
-          boxSizing: 'border-box'
-        }}
+        className="w-full p-3 text-base rounded-lg border border-slate-300 mb-5 focus:outline-blue-500 shadow-sm"
       />
 
       {copiedText && (
-        <div style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          backgroundColor: '#10b981',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '6px',
-          fontWeight: 'bold',
-          zIndex: 1000
-        }}>
+        <div className="fixed bottom-5 right-5 bg-emerald-500 text-white py-2 px-5 rounded-md font-bold shadow-lg z-50 animate-bounce">
           Copied "{copiedText}"!
         </div>
       )}
 
       {/* Entities Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: '15px'
-      }}>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
         {filteredEntities.map((item, idx) => (
-          <div key={idx} style={{
-            background: 'white',
-            borderRadius: '10px',
-            padding: '15px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-            textAlign: 'center',
-            border: '1px solid #e2e8f0'
-          }}>
-            <div style={{ fontSize: '36px', marginBottom: '8px', color: '#0f172a' }}>
+          <div key={idx} className="bg-white rounded-xl p-4 shadow-sm border border-slate-200 text-center hover:shadow-md transition-shadow">
+            <div className="text-4xl mb-2 text-slate-900 font-serif">
               {item.symbol}
             </div>
-            <div style={{ fontWeight: 'bold', fontSize: '14px', color: '#334155', marginBottom: '8px' }}>
+            <div className="font-bold text-xs text-slate-700 mb-3 truncate">
               {item.name}
             </div>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+            <div className="flex flex-col gap-1.5">
               <button
                 onClick={() => copyToClipboard(item.entity)}
-                style={{
-                  padding: '6px',
-                  fontSize: '12px',
-                  background: '#f1f5f9',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontFamily: 'monospace'
-                }}
+                className="p-1.5 text-xs bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded cursor-pointer font-mono text-slate-700 transition-colors"
               >
                 Named: <b>{item.entity}</b>
               </button>
               
               <button
                 onClick={() => copyToClipboard(item.code)}
-                style={{
-                  padding: '6px',
-                  fontSize: '12px',
-                  background: '#f1f5f9',
-                  border: '1px solid #cbd5e1',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontFamily: 'monospace'
-                }}
+                className="p-1.5 text-xs bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded cursor-pointer font-mono text-slate-700 transition-colors"
               >
                 Number: <b>{item.code}</b>
               </button>

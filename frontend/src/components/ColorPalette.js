@@ -17,70 +17,41 @@ export default function ColorPalette() {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'left' }}>
-      <h1 style={{ fontSize: '28px', color: '#1e293b' }}>🎨 Developer Color Palettes</h1>
-      <p style={{ color: '#64748b' }}>Click any color box or hex code to copy it to your clipboard.</p>
+    <div className="max-w-4xl mx-auto text-left">
+      <h1 className="text-3xl font-bold text-slate-800 mb-1">🎨 Developer Color Palettes</h1>
+      <p className="text-slate-500 text-sm mb-6">Click any color box or hex code to copy it to your clipboard.</p>
 
       {copiedColor && (
-        <div style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          backgroundColor: '#10b981',
-          color: 'white',
-          padding: '10px 20px',
-          borderRadius: '6px',
-          fontWeight: 'bold',
-          zIndex: 1000
-        }}>
+        <div className="fixed bottom-5 right-5 bg-emerald-500 text-white py-2 px-5 rounded-md font-bold shadow-lg z-50 animate-bounce">
           Copied {copiedColor} to clipboard!
         </div>
       )}
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-        gap: '20px',
-        marginTop: '25px'
-      }}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5 mt-6">
         {PALETTES.map((palette, idx) => (
-          <div key={idx} style={{
-            background: 'white',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            boxShadow: '0 4px 10px rgba(0,0,0,0.08)'
-          }}>
+          <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-md border border-slate-100">
             {/* Color Swatches */}
-            <div style={{ display: 'flex', height: '100px' }}>
+            <div className="flex h-24">
               {palette.colors.map((color, i) => (
                 <div
                   key={i}
                   onClick={() => copyToClipboard(color)}
-                  style={{
-                    flex: 1,
-                    backgroundColor: color,
-                    cursor: 'pointer'
-                  }}
+                  className="flex-1 cursor-pointer transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: color }}
                   title={`Click to copy ${color}`}
                 />
               ))}
             </div>
 
             {/* Info & Hex Codes */}
-            <div style={{ padding: '15px' }}>
-              <h3 style={{ margin: '0 0 10px 0', fontSize: '16px', color: '#1e293b' }}>{palette.name}</h3>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className="p-4">
+              <h3 className="m-0 mb-2.5 text-base font-bold text-slate-800">{palette.name}</h3>
+              <div className="flex justify-between">
                 {palette.colors.map((color, i) => (
                   <span
                     key={i}
                     onClick={() => copyToClipboard(color)}
-                    style={{
-                      fontSize: '11px',
-                      color: '#64748b',
-                      cursor: 'pointer',
-                      fontFamily: 'monospace',
-                      fontWeight: 'bold'
-                    }}
+                    className="text-[11px] text-slate-500 cursor-pointer font-mono font-bold hover:text-blue-600 transition-colors"
                   >
                     {color}
                   </span>
