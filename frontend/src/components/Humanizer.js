@@ -1,0 +1,112 @@
+import { useState } from 'react';
+
+export default function Humanizer() {
+  const [inputText, setInputText] = useState('');
+  const [outputText, setOutputText] = useState('');
+
+  const humanizeText = () => {
+    if (!inputText.trim()) return;
+
+    let text = inputText;
+
+    // 1. Shuffle/Exchange adjacent paragraphs occasionally
+    let paragraphs = text.split('\n\n').filter((p) => p.trim());
+    if (paragraphs.length > 2 && Math.random() > 0.5) {
+      const temp = paragraphs[0];
+      paragraphs[0] = paragraphs[1];
+      paragraphs[1] = temp;
+    }
+    text = paragraphs.join('\n\n');
+
+    // 2. Introduce word replacements (human casual terms)
+    const casualReplacements = {
+      'furthermore,': 'also,',
+      'moreover,': 'plus,',
+      'however,': 'but then,',
+      'utilize': 'use',
+      'additionally,': 'and another thing,',
+      'in conclusion,': 'all in all,',
+      'therefore,': 'so basically,',
+    };
+
+    Object.keys(casualReplacements).forEach((key) => {
+      const regex = new RegExp(key, 'gi');
+      text = text.replace(regex, casualReplacements[key]);
+    });
+
+    // 3. Process word-by-word for typos, extra commas, and spaces
+    let words = text.split(' ');
+    let result = words.map((word) => {
+      const rand = Math.random();
+
+      // Add extra comma randomly (3% chance)
+      if (rand < 0.03 && !word.includes(',')) {
+        word += ',';
+      }
+
+      // Add extra whitespace after word (4% chance)
+      if (rand > 0.03 && rand < 0.07) {
+        word += ' ';
+      }
+
+      // Swap adjacent letters inside long words (2% chance)
+      if (rand > 0.07 && rand < 0.09 && word.length > 5) {
+        const arr = word.split('');
+        const idx = Math.floor(Math.random() * (arr.length - 2)) + 1;
+        const temp = arr[idx];
+        arr[idx] = arr[idx + 1];
+        arr[idx + 1] = temp;
+        word = arr.join('');
+      }
+
+      // Duplicate a character randomly like "sooon" (2% chance)
+      if (rand > 0.09 && rand < 0.11 && word.length > 3) {
+        const idx = Math.floor(word.length / 2);
+        word = word.slice(0, idx) + word[idx] + word.slice(idx);
+      }
+
+      return word;
+    });
+
+    setOutputText(result.join(' '));
+  };
+
+  return (
+    <div className="max-w-3xl mx-auto p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+      <h2 className="text-xl font-bold mb-4 text-center">✍️ AI Text Humanizer</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        {/* Input Textarea */}
+        <div>
+          <label className="text-xs font-semibold text-slate-400 block mb-2">Paste AI Content:</label>
+          <textarea
+            rows="10"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            placeholder="Paste your AI generated blog post here..."
+            className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+          />
+        </div>
+
+        {/* Output Textarea */}
+        <div>
+          <label className="text-xs font-semibold text-slate-400 block mb-2">Humanized Output:</label>
+          <textarea
+            rows="10"
+            readOnly
+            value={outputText}
+            placeholder="Humanized version will appear here..."
+            className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none resize-none"
+          />
+        </div>
+      </div>
+
+      <button
+        onClick={humanizeText}
+        className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer"
+      >
+        ⚡ Humanize Text
+      </button>
+    </div>
+  );
+}
