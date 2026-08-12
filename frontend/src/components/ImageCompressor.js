@@ -27,61 +27,104 @@ export default function ImageCompressor() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow border border-slate-100 text-left">
-      <h1 className="text-2xl font-bold text-slate-800 mb-4">Image Compressor</h1>
-      
-      <div className="mb-4">
-        <input 
-          type="file" 
-          accept="image/*" 
-          onChange={handleImageUpload} 
-          className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer"
-        />
+    <div className="max-w-4xl mx-auto space-y-8">
+      {/* Tool Container */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-left">
+        <h2 className="text-xl font-bold text-center mb-6">⚡ Image Compressor</h2>
+        
+        <div className="mb-6">
+          <input 
+            type="file" 
+            accept="image/*" 
+            onChange={handleImageUpload} 
+            className="block w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-slate-800 file:text-white hover:file:bg-slate-700 cursor-pointer"
+          />
+        </div>
+
+        {image && (
+          <div className="flex flex-col sm:flex-row gap-4 mb-6 items-start sm:items-center bg-slate-950 p-4 rounded-xl border border-slate-800">
+            <label className="text-sm font-semibold text-slate-300 min-w-[110px]">
+              Quality: {Math.round(quality * 100)}%
+            </label>
+            <input 
+              type="range" 
+              min="0.1" 
+              max="1.0" 
+              step="0.1" 
+              value={quality} 
+              onChange={(e) => setQuality(e.target.value)} 
+              className="w-full sm:w-48 accent-blue-600 cursor-pointer"
+            />
+            <button 
+              className="w-full sm:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition-all cursor-pointer" 
+              onClick={compressImage}
+            >
+              Compress Image
+            </button>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {image && (
+            <div className="p-4 border border-slate-800 rounded-xl bg-slate-950 flex flex-col items-center">
+              <h3 className="font-semibold text-slate-300 mb-2">Original Image</h3>
+              <img src={image} alt="Original" className="max-h-64 object-contain rounded-lg" />
+            </div>
+          )}
+          {compressedUrl && (
+            <div className="p-4 border border-slate-800 rounded-xl bg-slate-950 flex flex-col items-center">
+              <h3 className="font-semibold text-slate-300 mb-2">Compressed Result</h3>
+              <img src={compressedUrl} alt="Compressed" className="max-h-64 object-contain rounded-lg mb-4" />
+              <a 
+                href={compressedUrl} 
+                download="compressed.jpg" 
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition-all cursor-pointer"
+              >
+                Download Compressed Image
+              </a>
+            </div>
+          )}
+        </div>
       </div>
 
-      {image && (
-        <div className="flex flex-col sm:flex-row gap-4 mb-6 items-start sm:items-center bg-slate-50 p-4 rounded-lg border border-slate-200">
-          <label className="text-sm font-semibold text-slate-700 min-w-[110px]">
-            Quality: {Math.round(quality * 100)}%
-          </label>
-          <input 
-            type="range" 
-            min="0.1" 
-            max="1.0" 
-            step="0.1" 
-            value={quality} 
-            onChange={(e) => setQuality(e.target.value)} 
-            className="w-full sm:w-48 accent-blue-600 cursor-pointer"
-          />
-          <button 
-            className="px-4 py-2 bg-blue-600 text-white rounded text-sm font-medium hover:bg-blue-700 transition-colors" 
-            onClick={compressImage}
-          >
-            Compress Image
-          </button>
-        </div>
-      )}
+      {/* Publisher Content for AdSense Approval */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+        <section>
+          <h3 className="text-lg font-bold text-white mb-2">About Online Image Compressor</h3>
+          <p>
+            Large image files can slow down website loading speeds and use up storage. This client-side Image 
+            Compressor reduces file size by tweaking JPG/JPEG quality settings using HTML5 Canvas—all directly inside 
+            your web browser.
+          </p>
+        </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {image && (
-          <div className="p-4 border border-slate-200 rounded-lg bg-slate-50 flex flex-col items-center">
-            <h3 className="font-semibold text-slate-700 mb-2">Original</h3>
-            <img src={image} alt="Original" className="max-h-64 object-contain rounded" />
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">How to Compress Images</h3>
+          <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+            <li>Click <strong className="text-slate-200">Choose File</strong> to upload your image from your device.</li>
+            <li>Adjust the <strong className="text-slate-200">Quality slider</strong> (10% to 100%) to select your compression level.</li>
+            <li>Click <strong className="text-slate-200">Compress Image</strong> to process the file instantly.</li>
+            <li>Preview the output and click <strong className="text-slate-200">Download Compressed Image</strong> to save it.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-medium text-slate-200">Are my images uploaded to external servers?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                No, all compression happens locally on your computer or phone using browser rendering APIs.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-slate-200">What output format is used for compression?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Images are converted to JPEG format to achieve maximum file size reduction while preserving clarity.
+              </p>
+            </div>
           </div>
-        )}
-        {compressedUrl && (
-          <div className="p-4 border border-slate-200 rounded-lg bg-slate-50 flex flex-col items-center">
-            <h3 className="font-semibold text-slate-700 mb-2">Compressed</h3>
-            <img src={compressedUrl} alt="Compressed" className="max-h-64 object-contain rounded mb-3" />
-            <a 
-              href={compressedUrl} 
-              download="compressed.jpg" 
-              className="px-4 py-2 bg-emerald-600 text-white rounded text-sm font-medium hover:bg-emerald-700 transition-colors"
-            >
-              Download
-            </a>
-          </div>
-        )}
+        </section>
       </div>
     </div>
   );

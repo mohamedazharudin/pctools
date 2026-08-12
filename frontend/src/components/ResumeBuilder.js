@@ -36,60 +36,61 @@ export default function ResumeBuilder() {
   const removeEducation = (index) => setEducations(educations.filter((_, i) => i !== index));
 
   return (
-    <div className="max-w-6xl mx-auto text-left">
+    <div className="max-w-6xl mx-auto text-left space-y-8">
+      {/* Tool Container */}
       <div className="flex flex-wrap gap-5">
         
         {/* FORM CONTROLS */}
-        <div className="flex-1 min-w-[320px] bg-white p-5 rounded-lg shadow border border-slate-100">
-          <h2 className="text-slate-800 text-xl font-bold mt-0">📄 Resume Builder</h2>
-          <p className="text-slate-500 text-sm mb-4">Fill out your details to generate your resume instantly.</p>
-          <hr className="border-t border-slate-200 my-4" />
+        <div className="flex-1 min-w-[320px] bg-slate-900 p-5 rounded-2xl shadow-xl border border-slate-800 text-white">
+          <h2 className="text-white text-xl font-bold mt-0">📄 Resume Builder</h2>
+          <p className="text-slate-400 text-sm mb-4">Fill out your details to generate your resume instantly.</p>
+          <hr className="border-t border-slate-800 my-4" />
 
-          <h3 className="font-semibold text-slate-800 my-2">Personal Information</h3>
-          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.name} onChange={(e) => setPersonal({ ...personal, name: e.target.value })} placeholder="Full Name" />
-          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.title} onChange={(e) => setPersonal({ ...personal, title: e.target.value })} placeholder="Job Title" />
-          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.email} onChange={(e) => setPersonal({ ...personal, email: e.target.value })} placeholder="Email" />
-          <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.phone} onChange={(e) => setPersonal({ ...personal, phone: e.target.value })} placeholder="Phone" />
-          <textarea className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={personal.summary} onChange={(e) => setPersonal({ ...personal, summary: e.target.value })} placeholder="Summary" rows="3" />
+          <h3 className="font-semibold text-slate-200 my-2">Personal Information</h3>
+          <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={personal.name} onChange={(e) => setPersonal({ ...personal, name: e.target.value })} placeholder="Full Name" />
+          <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={personal.title} onChange={(e) => setPersonal({ ...personal, title: e.target.value })} placeholder="Job Title" />
+          <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={personal.email} onChange={(e) => setPersonal({ ...personal, email: e.target.value })} placeholder="Email" />
+          <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={personal.phone} onChange={(e) => setPersonal({ ...personal, phone: e.target.value })} placeholder="Phone" />
+          <textarea className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 resize-none" value={personal.summary} onChange={(e) => setPersonal({ ...personal, summary: e.target.value })} placeholder="Summary" rows="3" />
 
-          <h3 className="font-semibold text-slate-800 my-2">Skills</h3>
-          <div className="flex gap-1.5 mb-2.5">
-            <input className="flex-1 p-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={skillInput} onChange={(e) => setSkillInput(e.target.value)} placeholder="Add a skill" />
-            <button className="px-3 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700" onClick={addSkill}>Add</button>
+          <h3 className="font-semibold text-slate-200 my-2">Skills</h3>
+          <div className="flex gap-2 mb-3">
+            <input className="flex-1 p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={skillInput} onChange={(e) => setSkillInput(e.target.value)} placeholder="Add a skill" />
+            <button className="px-4 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-500 transition-all cursor-pointer" onClick={addSkill}>Add</button>
           </div>
 
-          <h3 className="font-semibold text-slate-800 my-2">Experience</h3>
+          <h3 className="font-semibold text-slate-200 my-2">Experience</h3>
           {experiences.map((exp, idx) => (
-            <div key={idx} className="border-b border-gray-200 pb-2.5 mb-2.5">
-              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.company} onChange={(e) => { const newExp = [...experiences]; newExp[idx].company = e.target.value; setExperiences(newExp); }} placeholder="Company" />
-              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.role} onChange={(e) => { const newExp = [...experiences]; newExp[idx].role = e.target.value; setExperiences(newExp); }} placeholder="Role" />
-              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.duration} onChange={(e) => { const newExp = [...experiences]; newExp[idx].duration = e.target.value; setExperiences(newExp); }} placeholder="Duration" />
-              <textarea className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={exp.details} onChange={(e) => { const newExp = [...experiences]; newExp[idx].details = e.target.value; setExperiences(newExp); }} placeholder="Details" />
-              <button className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600" onClick={() => removeExperience(idx)}>Remove</button>
+            <div key={idx} className="border-b border-slate-800 pb-3 mb-3">
+              <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={exp.company} onChange={(e) => { const newExp = [...experiences]; newExp[idx].company = e.target.value; setExperiences(newExp); }} placeholder="Company" />
+              <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={exp.role} onChange={(e) => { const newExp = [...experiences]; newExp[idx].role = e.target.value; setExperiences(newExp); }} placeholder="Role" />
+              <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={exp.duration} onChange={(e) => { const newExp = [...experiences]; newExp[idx].duration = e.target.value; setExperiences(newExp); }} placeholder="Duration" />
+              <textarea className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 resize-none" value={exp.details} onChange={(e) => { const newExp = [...experiences]; newExp[idx].details = e.target.value; setExperiences(newExp); }} placeholder="Details" rows="2" />
+              <button className="px-3 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-500 transition-all cursor-pointer" onClick={() => removeExperience(idx)}>Remove</button>
             </div>
           ))}
-          <button className="px-3 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 my-1" onClick={addExperience}>+ Add Experience</button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-500 transition-all cursor-pointer my-1" onClick={addExperience}>+ Add Experience</button>
 
-          <h3 className="font-semibold text-slate-800 my-2">Education</h3>
+          <h3 className="font-semibold text-slate-200 my-2">Education</h3>
           {educations.map((edu, idx) => (
-            <div key={idx} className="border-b border-gray-200 pb-2.5 mb-2.5">
-              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={edu.school} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].school = e.target.value; setEducations(newEdu); }} placeholder="School" />
-              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={edu.degree} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].degree = e.target.value; setEducations(newEdu); }} placeholder="Degree" />
-              <input className="w-full p-2 mb-2 rounded border border-gray-300 text-sm focus:outline-blue-500" value={edu.year} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].year = e.target.value; setEducations(newEdu); }} placeholder="Year" />
-              <button className="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600" onClick={() => removeEducation(idx)}>Remove</button>
+            <div key={idx} className="border-b border-slate-800 pb-3 mb-3">
+              <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={edu.school} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].school = e.target.value; setEducations(newEdu); }} placeholder="School" />
+              <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={edu.degree} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].degree = e.target.value; setEducations(newEdu); }} placeholder="Degree" />
+              <input className="w-full p-2.5 mb-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500" value={edu.year} onChange={(e) => { const newEdu = [...educations]; newEdu[idx].year = e.target.value; setEducations(newEdu); }} placeholder="Year" />
+              <button className="px-3 py-1 bg-red-600 text-white text-xs rounded-lg hover:bg-red-500 transition-all cursor-pointer" onClick={() => removeEducation(idx)}>Remove</button>
             </div>
           ))}
-          <button className="px-3 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 my-1" onClick={addEducation}>+ Add Education</button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-semibold hover:bg-blue-500 transition-all cursor-pointer my-1" onClick={addEducation}>+ Add Education</button>
 
           <br /><br />
-          <button className="w-full p-3 bg-emerald-500 text-white rounded text-base font-bold hover:bg-emerald-600 transition-colors" onClick={() => window.print()}>
+          <button className="w-full p-3 bg-emerald-600 text-white rounded-xl text-base font-bold hover:bg-emerald-500 transition-all cursor-pointer" onClick={() => window.print()}>
             🖨️ Download / Print PDF
           </button>
         </div>
 
         {/* PRINTABLE RESUME PREVIEW */}
         <div className="flex-1 min-w-[320px]">
-          <div id="printable-resume" className="bg-white p-10 rounded-lg shadow border border-slate-200 min-h-[650px]">
+          <div id="printable-resume" className="bg-white p-10 rounded-2xl shadow-xl border border-slate-200 min-h-[650px] text-slate-900">
             
             {/* Header Section */}
             <div className="mb-6">
@@ -106,7 +107,7 @@ export default function ResumeBuilder() {
               <h3 className="text-slate-800 mb-3 uppercase text-base tracking-wider font-semibold">Skills</h3>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, i) => (
-                  <span key={i} className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded text-xs border border-slate-200 flex items-center">
+                  <span key={i} className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg text-xs border border-slate-200 flex items-center">
                     {skill} <b className="remove-btn text-red-500 ml-1.5 cursor-pointer" onClick={() => removeSkill(i)}>×</b>
                   </span>
                 ))}
@@ -145,6 +146,47 @@ export default function ResumeBuilder() {
           </div>
         </div>
 
+      </div>
+
+      {/* Publisher Content Section for AdSense Approval */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+        <section>
+          <h3 className="text-lg font-bold text-white mb-2">About the Online Resume Builder</h3>
+          <p>
+            Creating a professional, well-formatted resume is essential for job applications. 
+            This interactive online builder formats your personal details, work experience, education, 
+            and technical skills into a clean document ready to export or print as a PDF.
+          </p>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">How to Build Your Resume</h3>
+          <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+            <li>Fill in your full name, job title, email, phone number, and a brief professional summary.</li>
+            <li>Add key technical or soft skills one by one using the input field.</li>
+            <li>List your relevant work history, job roles, durations, and key responsibilities.</li>
+            <li>Include your educational background, degrees, and graduation dates.</li>
+            <li>Review the live preview on the right and click <strong className="text-slate-200">Download / Print PDF</strong> to export.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-medium text-slate-200">Is my resume data saved on any external servers?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                No, all inputs are processed locally in your browser memory for total privacy and data security.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-slate-200">How do I save my resume as a PDF file?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Click the green print button, then choose "Save as PDF" from your browser print destination options.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

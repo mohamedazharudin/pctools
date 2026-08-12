@@ -47,53 +47,93 @@ export default function HtmlEntities() {
   );
 
   return (
-    <div className="max-w-4xl mx-auto text-left">
-      <h1 className="text-3xl font-bold text-slate-800 mb-1">🔣 HTML Entities & Symbols</h1>
-      <p className="text-slate-500 text-sm mb-5">Search and click any entity code to copy it directly.</p>
+    <div className="max-w-4xl mx-auto space-y-8 text-left">
+      {/* Tool Container */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+        <h2 className="text-xl font-bold mb-1">🔣 HTML Entities & Symbols</h2>
+        <p className="text-slate-400 text-sm mb-5">Search and click any entity code to copy it directly to your clipboard.</p>
 
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search by name, symbol, or entity (e.g. copyright, &copy;)..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full p-3 text-base rounded-lg border border-slate-300 mb-5 focus:outline-blue-500 shadow-sm"
-      />
+        {/* Search Input */}
+        <input
+          type="text"
+          placeholder="Search by name, symbol, or entity (e.g. copyright, &copy;)..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full p-3 bg-slate-950 text-sm text-white rounded-xl border border-slate-800 mb-6 focus:outline-none focus:border-blue-500 shadow-sm"
+        />
 
-      {copiedText && (
-        <div className="fixed bottom-5 right-5 bg-emerald-500 text-white py-2 px-5 rounded-md font-bold shadow-lg z-50 animate-bounce">
-          Copied "{copiedText}"!
-        </div>
-      )}
+        {copiedText && (
+          <div className="fixed bottom-5 right-5 bg-emerald-600 text-white py-2 px-5 rounded-xl font-bold shadow-lg z-50 animate-bounce text-sm">
+            Copied "{copiedText}"!
+          </div>
+        )}
 
-      {/* Entities Grid */}
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
-        {filteredEntities.map((item, idx) => (
-          <div key={idx} className="bg-white rounded-xl p-4 shadow-sm border border-slate-200 text-center hover:shadow-md transition-shadow">
-            <div className="text-4xl mb-2 text-slate-900 font-serif">
-              {item.symbol}
-            </div>
-            <div className="font-bold text-xs text-slate-700 mb-3 truncate">
-              {item.name}
-            </div>
-            
-            <div className="flex flex-col gap-1.5">
-              <button
-                onClick={() => copyToClipboard(item.entity)}
-                className="p-1.5 text-xs bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded cursor-pointer font-mono text-slate-700 transition-colors"
-              >
-                Named: <b>{item.entity}</b>
-              </button>
+        {/* Entities Grid */}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+          {filteredEntities.map((item, idx) => (
+            <div key={idx} className="bg-slate-950 rounded-xl p-4 border border-slate-800 text-center hover:border-slate-700 transition-all">
+              <div className="text-4xl mb-2 text-white font-serif">
+                {item.symbol}
+              </div>
+              <div className="font-bold text-xs text-slate-300 mb-3 truncate">
+                {item.name}
+              </div>
               
-              <button
-                onClick={() => copyToClipboard(item.code)}
-                className="p-1.5 text-xs bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded cursor-pointer font-mono text-slate-700 transition-colors"
-              >
-                Number: <b>{item.code}</b>
-              </button>
+              <div className="flex flex-col gap-1.5">
+                <button
+                  onClick={() => copyToClipboard(item.entity)}
+                  className="p-1.5 text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-lg cursor-pointer font-mono text-slate-300 hover:text-white transition-colors"
+                >
+                  Named: <b className="text-blue-400">{item.entity}</b>
+                </button>
+                
+                <button
+                  onClick={() => copyToClipboard(item.code)}
+                  className="p-1.5 text-xs bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-lg cursor-pointer font-mono text-slate-300 hover:text-white transition-colors"
+                >
+                  Number: <b className="text-emerald-400">{item.code}</b>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Publisher Content Section for AdSense Approval */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+        <section>
+          <h3 className="text-lg font-bold text-white mb-2">About HTML Entities & Symbols Reference</h3>
+          <p>
+            HTML entities are sets of characters used to represent reserved HTML characters or non-standard symbols 
+            that are difficult to type on standard keyboards. Using entity codes ensures characters display reliably across all browsers.
+          </p>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">Named vs. Numeric Entities</h3>
+          <ul className="list-disc list-inside space-y-1.5 text-slate-400">
+            <li><strong className="text-slate-200">Named Entities:</strong> Human-readable aliases beginning with an ampersand and ending with a semicolon (e.g., <code className="text-blue-400">&amp;copy;</code>).</li>
+            <li><strong className="text-slate-200">Numeric Entities:</strong> Decimal numerical character references corresponding to Unicode positions (e.g., <code className="text-emerald-400">&amp;#169;</code>).</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-medium text-slate-200">Why should reserved characters like &lt; and &gt; be escaped?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Browsers mistake raw angle brackets for HTML tags, causing parsing errors or hidden content.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-slate-200">Are HTML entity names case-sensitive?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Yes, entity names are case-sensitive and must be written in lowercase or exact specified casing.
+              </p>
             </div>
           </div>
-        ))}
+        </section>
       </div>
     </div>
   );
