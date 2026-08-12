@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 export default function DonateModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(false);
-  const upiId = "aljadidazhar@upi"; // Replace with your actual UPI ID
-  const payeeName = "PcTools";
+  const upiId = "aljadidazhar-1@okicici"; // Replace with your actual UPI ID
+  const payeeName = "Mohamed Azharudin";
 
   if (!isOpen) return null;
 
@@ -38,25 +38,7 @@ export default function DonateModal({ isOpen, onClose }) {
           <img src={qrCodeUrl} alt="UPI QR Code" className="w-40 h-40 mx-auto" />
         </div>
 
-        {/* UPI ID Section */}
-        <div className="bg-slate-950 p-2.5 rounded-xl border border-slate-800 mb-3 flex justify-between items-center text-xs">
-          <span className="font-mono text-slate-300">{upiId}</span>
-          <button
-            onClick={handleCopy}
-            className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-semibold transition-all"
-          >
-            {copied ? 'Copied!' : 'Copy UPI'}
-          </button>
-        </div>
-
-        {/* Bank Account Details */}
-        <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-left text-xs space-y-1.5 text-slate-400 mb-4">
-          <p className="font-bold text-slate-200 border-b border-slate-800 pb-1">🏦 Bank Transfer Info</p>
-          <div className="flex justify-between"><span className="text-slate-500">Name:</span> <span className="text-slate-200 font-medium">PcTools</span></div>
-          <div className="flex justify-between"><span className="text-slate-500">Account No:</span> <span className="text-slate-200 font-mono">1234567890</span></div>
-          <div className="flex justify-between"><span className="text-slate-500">IFSC Code:</span> <span className="text-slate-200 font-mono">ABCD0123456</span></div>
-          <div className="flex justify-between"><span className="text-slate-500">Bank:</span> <span className="text-slate-200 font-medium">State Bank of India</span></div>
-        </div>
+      
 
         {/* Mobile Pay Button */}
         <a
