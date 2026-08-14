@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function AboutUs() {
+  const { t } = useTranslation();
+
   return (
     <div className="max-w-xl mx-auto p-8 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
       <div className="text-4xl mb-3">👋</div>
-      <h2 className="text-2xl font-bold mb-4">About PcTools</h2>
+      <h2 className="text-2xl font-bold mb-4">{t('aboutTitle', 'About PcTools')}</h2>
       
       <p className="text-slate-300 leading-relaxed mb-6">
-        I am trying to give all useful tools free. If you need any tool to suggest to add, just mail me at:
+        {t('aboutText', 'I am trying to give all useful tools free. If you need any tool to suggest to add, just mail me at:')}
       </p>
 
       <a 

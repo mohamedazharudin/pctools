@@ -1,0 +1,22 @@
+{
+  "title": "Video to Audio Converter",
+  "convertingText": "Converting video to audio...",
+  "downloadBtn": "Download MP3",
+  "noAudioTrackAlert": "No audio track found in this video!",
+  "aboutTitle": "About Online Video to Audio Converter",
+  "aboutText": "Extracting audio tracks from video files allows you to turn music clips, recorded talks, or video lectures into audio files. This converter processes video streams directly inside your browser to extract the sound channel instantly.",
+  "howToTitle": "How to Convert Video to Audio",
+  "step1Prefix": "Click",
+  "step1Btn": "Choose File",
+  "step1Suffix": "to select a video clip from your local storage.",
+  "step2": "Wait briefly while the browser captures and extracts the embedded audio stream.",
+  "step3": "Listen to the extracted audio track using the preview player.",
+  "step4Prefix": "Click",
+  "step4Btn": "Download MP3",
+  "step4Suffix": "to save the audio file to your device.",
+  "faqTitle": "Frequently Asked Questions",
+  "faq1Q": "Are my private videos uploaded to a server?",
+  "faq1A": "No, conversion runs entirely within your browser using modern Web Media APIs for high speed and total privacy.",
+  "faq2Q": "Which video formats are supported?",
+  "faq2A": "Most standard HTML5-supported video formats including MP4, WebM, and MOV are supported."
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Speaker Water Ejector",
+  "subtitle": "Turn your volume to 100% and face your device speakers downward.",
+  "ejectBtn": "⚡ Eject Water (Play Tone)",
+  "stopBtn": "🛑 Stop Sound",
+  "aboutTitle": "About Speaker Water Ejector",
+  "aboutText": "When liquid gets trapped inside phone or laptop speaker grills, it creates muffled sound output. This utility plays a low-frequency sound wave (165Hz sawtooth wave) that vibrates the speaker driver, pushing trapped moisture out through kinetic sound energy.",
+  "howToTitle": "How to Clear Water from Speakers",
+  "step1Prefix": "Increase your device sound volume to ",
+  "step1Bold": "100% max volume",
+  "step2": "Hold or position your phone/device so the speaker mesh points downward toward the floor.",
+  "step3Prefix": "Press ",
+  "step3Bold": "Eject Water",
+  "step3Suffix": " to activate the low-frequency acoustic vibrations.",
+  "step4": "Allow the sound to play for 30–60 seconds until tiny water droplets shake free.",
+  "faqTitle": "Frequently Asked Questions",
+  "faq1Q": "Why does a 165Hz sound frequency work?",
+  "faq1A": "Low-frequency sound waves cause maximum physical displacement of the speaker membrane, generating enough pressure to push water out.",
+  "faq2Q": "Will playing this sound damage my speaker?",
+  "faq2A": "No, standard audio tones emitted through the Web Audio API operate safely within default hardware limits."
+}

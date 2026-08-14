@@ -1,0 +1,22 @@
+{
+  "title": "Calculator",
+  "error": "Error",
+  "aboutTitle": "About the Online Web Calculator",
+  "aboutText": "Whether you need to perform quick daily calculations, manage budgets, or solve arithmetic equations, this browser-based calculator provides a clean, responsive layout for fast mathematical evaluations.",
+  "opsTitle": "Supported Arithmetic Operations",
+  "addLabel": "Addition (+):",
+  "addDesc": "Sum up numbers and values quickly.",
+  "subLabel": "Subtraction (-):",
+  "subDesc": "Calculate differences between amounts.",
+  "mulLabel": "Multiplication (×):",
+  "mulDesc": "Multiply integer and decimal values.",
+  "divLabel": "Division (÷):",
+  "divDesc": "Divide numbers instantly with precise results.",
+  "clearLabel": "Clear (C):",
+  "clearDesc": "Reset the calculation screen to start fresh.",
+  "faqTitle": "Frequently Asked Questions",
+  "faq1Q": "Does this calculator support decimal calculations?",
+  "faq1A": "Yes, you can input floating-point decimal numbers using the period (.) key for high-precision math.",
+  "faq2Q": "Is my calculation history saved online?",
+  "faq2A": "No, calculations run locally in your web browser, ensuring complete privacy and speed."
+}

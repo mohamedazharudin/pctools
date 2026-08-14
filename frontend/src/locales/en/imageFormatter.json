@@ -1,0 +1,21 @@
+{
+  "title": "Image Format Converter",
+  "toPng": "Convert to PNG",
+  "toJpeg": "Convert to JPEG",
+  "toWebp": "Convert to WEBP",
+  "convertBtn": "Convert Image",
+  "originalTitle": "Original Image",
+  "convertedTitle": "Converted Image",
+  "downloadBtn": "Download Image",
+  "aboutTitle": "About Online Image Format Converter",
+  "aboutText": "Different platforms require distinct image formats for optimization and compatibility. This browser tool allows you to easily convert image files between PNG, JPEG, and WebP formats instantly without downloading external software.",
+  "formatsTitle": "Supported Formats Explained",
+  "pngDesc": "Best for graphics, icons, and images requiring transparent backgrounds.",
+  "jpegDesc": "Ideal for complex photos and pictures with small file size requirements.",
+  "webpDesc": "Modern web format providing superior compression and image quality for faster web loading.",
+  "faqTitle": "Frequently Asked Questions",
+  "faq1Q": "Is my image uploaded to external servers?",
+  "faq1A": "No, conversion takes place entirely within your browser engine, keeping your files private and secure.",
+  "faq2Q": "Does converting formats reduce image quality?",
+  "faq2A": "PNG preserves original quality, while JPEG and WebP apply light compression optimized for web performance."
+}

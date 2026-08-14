@@ -1,14 +1,16 @@
 import { useState } from 'react';
-
-const PALETTES = [
-  { name: 'Midnight Developer', colors: ['#0f172a', '#1e293b', '#38bdf8', '#f8fafc'] },
-  { name: 'Neon Cyberpunk', colors: ['#0d0221', '#023e8a', '#00b4d8', '#ff007f'] },
-  { name: 'Modern Dark', colors: ['#18181b', '#27272a', '#a1a1aa', '#6366f1'] },
-  { name: 'Clean Light', colors: ['#ffffff', '#f1f5f9', '#0284c7', '#0f172a'] },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function ColorPalette() {
+  const { t } = useTranslation();
   const [copiedColor, setCopiedColor] = useState('');
+
+  const PALETTES = [
+    { name: t('palettes.midnight', 'Midnight Developer'), colors: ['#0f172a', '#1e293b', '#38bdf8', '#f8fafc'] },
+    { name: t('palettes.cyberpunk', 'Neon Cyberpunk'), colors: ['#0d0221', '#023e8a', '#00b4d8', '#ff007f'] },
+    { name: t('palettes.modernDark', 'Modern Dark'), colors: ['#18181b', '#27272a', '#a1a1aa', '#6366f1'] },
+    { name: t('palettes.cleanLight', 'Clean Light'), colors: ['#ffffff', '#f1f5f9', '#0284c7', '#0f172a'] },
+  ];
 
   const copyToClipboard = (color) => {
     navigator.clipboard.writeText(color);
@@ -20,12 +22,12 @@ export default function ColorPalette() {
     <div className="max-w-4xl mx-auto space-y-8 text-left">
       {/* Tool Container */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-        <h2 className="text-xl font-bold mb-1">🎨 Developer Color Palettes</h2>
-        <p className="text-slate-400 text-sm mb-6">Click any color box or hex code to copy it to your clipboard.</p>
+        <h2 className="text-xl font-bold mb-1">🎨 {t('title', 'Developer Color Palettes')}</h2>
+        <p className="text-slate-400 text-sm mb-6">{t('subtitle', 'Click any color box or hex code to copy it to your clipboard.')}</p>
 
         {copiedColor && (
           <div className="fixed bottom-5 right-5 bg-emerald-600 text-white py-2 px-5 rounded-xl font-bold shadow-lg z-50 animate-bounce text-sm">
-            Copied {copiedColor} to clipboard!
+            {t('copiedToastPrefix', 'Copied')} {copiedColor} {t('copiedToastSuffix', 'to clipboard!')}
           </div>
         )}
 
@@ -40,7 +42,7 @@ export default function ColorPalette() {
                     onClick={() => copyToClipboard(color)}
                     className="flex-1 cursor-pointer transition-opacity hover:opacity-90"
                     style={{ backgroundColor: color }}
-                    title={`Click to copy ${color}`}
+                    title={`${t('copyTooltip', 'Click to copy')} ${color}`}
                   />
                 ))}
               </div>
@@ -68,35 +70,34 @@ export default function ColorPalette() {
       {/* Publisher Content Section for AdSense Approval */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">About Developer Color Palettes</h3>
+          <h3 className="text-lg font-bold text-white mb-2">{t('aboutTitle', 'About Developer Color Palettes')}</h3>
           <p>
-            Choosing harmonious color schemes is essential for user interface design. 
-            This curated collection provides balanced hex code combinations optimized for modern dark and light user interface themes.
+            {t('aboutText', 'Choosing harmonious color schemes is essential for user interface design. This curated collection provides balanced hex code combinations optimized for modern dark and light user interface themes.')}
           </p>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">How to Use the Palette Tool</h3>
+          <h3 className="text-base font-semibold text-white mb-2">{t('howToTitle', 'How to Use the Palette Tool')}</h3>
           <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-            <li>Browse the available curated color combinations for your UI project.</li>
-            <li>Click directly on any color swatch or hex label to copy the hex code.</li>
-            <li>Paste the copied color values into your CSS, Tailwind, or design tool.</li>
+            <li>{t('step1', 'Browse the available curated color combinations for your UI project.')}</li>
+            <li>{t('step2', 'Click directly on any color swatch or hex label to copy the hex code.')}</li>
+            <li>{t('step3', 'Paste the copied color values into your CSS, Tailwind, or design tool.')}</li>
           </ol>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+          <h3 className="text-base font-semibold text-white mb-2">{t('faqTitle', 'Frequently Asked Questions')}</h3>
           <div className="space-y-3">
             <div>
-              <h4 className="font-medium text-slate-200">What color format is copied?</h4>
+              <h4 className="font-medium text-slate-200">{t('faq1Q', 'What color format is copied?')}</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                The tool copies standard 6-digit hex codes (e.g. #0f172a) ready for CSS stylesheets.
+                {t('faq1A', 'The tool copies standard 6-digit hex codes (e.g. #0f172a) ready for CSS stylesheets.')}
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-slate-200">Can I use these palettes in commercial projects?</h4>
+              <h4 className="font-medium text-slate-200">{t('faq2Q', 'Can I use these palettes in commercial projects?')}</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                Yes, all hex code combinations are open for royalty-free personal and commercial use.
+                {t('faq2A', 'Yes, all hex code combinations are open for royalty-free personal and commercial use.')}
               </p>
             </div>
           </div>
