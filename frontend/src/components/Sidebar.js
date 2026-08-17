@@ -20,6 +20,7 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) 
    { id: 'video-to-audio', label: '🎙️ video to audio' },
 { id: 'device-health', label: '💻 Device Health' },
 { id: 'water-remover', label: '💧 Speaker Water Ejector' },
+{ id: 'password-gen', label:'🔑 Password Generator' },
    //{ id: 'compass', label: '🧭 Compass' }
    { id: 'about', label: 'ℹ️ About Us' },
 

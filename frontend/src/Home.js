@@ -19,16 +19,17 @@ export default function Home({ setActiveTab }) {
     { id: 'video-to-audio', name: t('toolVideoAudioName', 'Video to Audio'), desc: t('toolVideoAudioDesc', 'Extract clean MP3 audio directly from video files.'), icon: '🎬' },
     { id: 'device-health', name: t('toolDeviceHealthName', 'System Health Checker'), desc: t('toolDeviceHealthDesc', 'Scan device RAM, CPU cores, battery, and speed.'), icon: '💻' },
     { id: 'water-remover', name: t('toolWaterRemoverName', 'Speaker Water Ejector'), desc: t('toolWaterRemoverDesc', 'Play 165Hz sound waves to clean trapped water.'), icon: '💧' },
+    { id: 'password-gen', name: t('toolPassGenName', 'Password Generator'), desc: t('toolPassGenDesc', 'Generate strong, random passwords instantly.'), icon: '🔑' }
   ];
 
   return (
-    <div className="max-w-5xl mx-auto text-left py-4 text-white">
+    <div className="max-w-5xl mx-auto text-left py-4 text-white px-4 sm:px-6">
       {/* Hero / Vision Section */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-950 text-white p-10 rounded-2xl shadow-xl border border-slate-800 mb-10">
-        <h1 className="text-4xl font-extrabold mb-4">
+      <div className="bg-gradient-to-r from-slate-900 to-blue-950 text-white p-6 sm:p-10 rounded-2xl shadow-xl border border-slate-800 mb-10">
+        <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold mb-4 leading-snug sm:leading-tight break-words">
           {t('heroTitle', 'Empowering Creators with Fast, Free Web Tools')}
         </h1>
-        <p className="text-slate-300 text-lg max-w-2xl leading-relaxed mb-6">
+        <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mb-6">
           {t('heroDesc', 'Our vision is to simplify daily developer and user workflows by building privacy-focused, browser-based utilities that require no installation or registration.')}
         </p>
         <button
@@ -59,7 +60,7 @@ export default function Home({ setActiveTab }) {
       </div>
 
       {/* Tools Showcase */}
-      <h2 className="text-2xl font-bold text-white mb-6">{t('availableTools', 'Available Utilities')}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">{t('availableTools', 'Available Utilities')}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
         {tools.map((tool) => (
           <div
@@ -75,8 +76,8 @@ export default function Home({ setActiveTab }) {
       </div>
 
       {/* FAQ Section */}
-      <div className="bg-slate-900 p-8 rounded-xl border border-slate-800">
-        <h2 className="text-xl font-bold text-white mb-4">{t('faqTitle', 'Frequently Asked Questions')}</h2>
+      <div className="bg-slate-900 p-6 sm:p-8 rounded-xl border border-slate-800">
+        <h2 className="text-lg sm:text-xl font-bold text-white mb-4">{t('faqTitle', 'Frequently Asked Questions')}</h2>
         <div className="space-y-4 text-sm text-slate-300">
           <div>
             <h4 className="font-semibold text-white">{t('homeFaq1Q', 'Are these tools completely free?')}</h4>
