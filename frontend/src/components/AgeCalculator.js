@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function AgeCalculator() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('ageCalculator');
   const [birthDate, setBirthDate] = useState('');
   const [age, setAge] = useState(null);
 

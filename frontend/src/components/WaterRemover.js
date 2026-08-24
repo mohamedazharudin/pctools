@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function WaterRemover() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('waterRemover');
   const [isPlaying, setIsPlaying] = useState(false);
   const audioCtxRef = useRef(null);
   const oscillatorRef = useRef(null);

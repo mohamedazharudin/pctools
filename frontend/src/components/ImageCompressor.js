@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function ImageCompressor() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('imageCompressor');
   const [image, setImage] = useState(null);
   const [quality, setQuality] = useState(0.7);
   const [compressedUrl, setCompressedUrl] = useState('');

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function ResumeBuilder() {
-  const { t } = useTranslation();
+ const { t } = useTranslation('resumeBuilder');
 
   const [personal, setPersonal] = useState({
     name: 'Jane Doe',

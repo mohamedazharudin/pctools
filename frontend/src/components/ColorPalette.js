@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function ColorPalette() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('colorPalette');
   const [copiedColor, setCopiedColor] = useState('');
 
   const PALETTES = [

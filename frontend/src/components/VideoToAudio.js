@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function VideoToAudio() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('videoToAudio');
   const [audioUrl, setAudioUrl] = useState(null);
   const [isConverting, setIsConverting] = useState(false);
 

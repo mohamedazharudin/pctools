@@ -25,12 +25,14 @@ import DeviceHealth from './components/DeviceHealth';
 import WaterRemover from './components/WaterRemover';
 import DonateModal from './components/DonateModal';
 import PasswordGenerator from './components/PasswordGenerator';
+import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import Home from './Home';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [isOpen, setIsOpen] = useState(false);
   const [isDonateOpen, setIsDonateOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   
   const { t, i18n } = useTranslation();
 
@@ -113,9 +115,10 @@ export default function App() {
         {activeTab === 'password-gen' && <PasswordGenerator />}
       </main>
 
-      {/* Footer & Donate Popup */}
-      <Footer setActiveTab={setActiveTab} />
+      {/* Footer & Modals */}
+      <Footer setActiveTab={setActiveTab} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
       <DonateModal isOpen={isDonateOpen} onClose={() => setIsDonateOpen(false)} />
+      <PrivacyPolicyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
     </div>
   );
 }

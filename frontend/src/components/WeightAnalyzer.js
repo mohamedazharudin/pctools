@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function WeightAnalyzer() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('weightAnalyzer');
   const [height, setHeight] = useState(''); // in cm
   const [weight, setWeight] = useState(''); // in kg
   const [gender, setGender] = useState('male');

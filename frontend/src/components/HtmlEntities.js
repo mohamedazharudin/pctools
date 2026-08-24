@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function HtmlEntities() {
-  const { t } = useTranslation();
+ const { t } = useTranslation('htmlEntities');
   const [search, setSearch] = useState('');
   const [copiedText, setCopiedText] = useState('');
 

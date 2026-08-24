@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function PasswordGenerator() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('passwordGenerator');
 
   const [length, setLength] = useState(16);
   const [includeUpper, setIncludeUpper] = useState(true);
@@ -44,7 +44,7 @@ export default function PasswordGenerator() {
   };
 
   const getStrength = () => {
-    if (!password) return { label: 'Weak', color: 'bg-red-500', width: 'w-1/4' };
+    if (!password) return { label: t('weak', 'Weak'), color: 'bg-red-500', width: 'w-1/4' };
     let score = 0;
     if (length >= 12) score++;
     if (length >= 16) score++;
@@ -52,16 +52,17 @@ export default function PasswordGenerator() {
     if (includeNumbers) score++;
     if (includeSymbols) score++;
 
-    if (score <= 2) return { label: 'Weak', color: 'bg-red-500', width: 'w-1/4' };
-    if (score <= 4) return { label: 'Medium', color: 'bg-yellow-500', width: 'w-2/4' };
-    if (score === 5) return { label: 'Strong', color: 'bg-emerald-500', width: 'w-3/4' };
-    return { label: 'Very Strong', color: 'bg-blue-500', width: 'w-full' };
+    if (score <= 2) return { label: t('weak', 'Weak'), color: 'bg-red-500', width: 'w-1/4' };
+    if (score <= 4) return { label: t('medium', 'Medium'), color: 'bg-yellow-500', width: 'w-2/4' };
+    if (score === 5) return { label: t('strong', 'Strong'), color: 'bg-emerald-500', width: 'w-3/4' };
+    return { label: t('veryStrong', 'Very Strong'), color: 'bg-blue-500', width: 'w-full' };
   };
 
   const strength = getStrength();
 
   return (
     <div className="max-w-4xl mx-auto text-left space-y-6 sm:space-y-8 overflow-hidden px-1 sm:px-0">
+      {/* Main Tool Card */}
       <div className="bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-xl border border-slate-800 text-white">
         <h2 className="text-white text-lg sm:text-xl font-bold mt-0 flex items-center gap-2">
           <span>🔑</span> {t('passGenTitle', 'Password Generator')}
@@ -167,6 +168,43 @@ export default function PasswordGenerator() {
         >
           ⚡ {t('generateBtn', 'Generate Password')}
         </button>
+      </div>
+
+      {/* Description and FAQ Sections */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+        <section>
+          <h3 className="text-lg font-bold text-white mb-2">{t('aboutTitle', 'About Strong Password Generator')}</h3>
+          <p>
+            {t('aboutText', 'Create cryptographically secure, random passwords instantly to protect your online accounts against unauthorized access and brute-force attacks.')}
+          </p>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">{t('howToTitle', 'How to Use')}</h3>
+          <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+            <li>{t('step1', 'Adjust the length slider to set your desired password length.')}</li>
+            <li>{t('step2', 'Check or uncheck character options like symbols, numbers, and capital letters.')}</li>
+            <li>{t('step3', 'Click Generate Password and copy your output directly.')}</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">{t('faqTitle', 'Frequently Asked Questions')}</h3>
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-medium text-slate-200">{t('faq1Q', 'Are generated passwords saved anywhere?')}</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {t('faq1A', 'No. Passwords are generated completely client-side inside your browser and are never sent to any server.')}
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-slate-200">{t('faq2Q', 'What makes a password strong?')}</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {t('faq2A', 'A strong password is at least 16 characters long and combines uppercase letters, lowercase letters, numbers, and symbols.')}
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

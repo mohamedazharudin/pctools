@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function DateDifference() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('dateDifference');
+  
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [diff, setDiff] = useState(null);
@@ -10,10 +11,15 @@ export default function DateDifference() {
   const calculateDifference = () => {
     if (!startDate || !endDate) return;
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    // Use UTC dates to prevent timezone offsets and Daylight Saving errors
+    const [sYear, sMonth, sDay] = startDate.split('-').map(Number);
+    const [eYear, eMonth, eDay] = endDate.split('-').map(Number);
+
+    const start = Date.UTC(sYear, sMonth - 1, sDay);
+    const end = Date.UTC(eYear, eMonth - 1, eDay);
+
     const timeDiff = Math.abs(end - start);
-    const totalDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    const totalDays = Math.round(timeDiff / (1000 * 60 * 60 * 24));
 
     setDiff(totalDays);
   };
@@ -73,9 +79,9 @@ export default function DateDifference() {
         <section>
           <h3 className="text-base font-semibold text-white mb-2">{t('howToTitle', 'How to Use')}</h3>
           <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-            <li>{t('step1Part1', 'Select your starting calendar date from the ')}<strong className="text-slate-200">{t('step1Btn', 'Start Date')}</strong>{t('step1Part2', ' picker.')}</li>
-            <li>{t('step2Part1', 'Select your ending target date from the ')}<strong className="text-slate-200">{t('step2Btn', 'End Date')}</strong>{t('step2Part2', ' picker.')}</li>
-            <li>{t('step3Part1', 'Click ')}<strong className="text-slate-200">{t('step3Btn', 'Calculate Difference')}</strong>{t('step3Part2', ' to display total elapsed days.')}</li>
+            <li>{t('step1Part1', 'Select your starting calendar date from the ')}<strong className="text-slate-200">{t('step1Field', 'Start Date field')}</strong>.</li>
+            <li>{t('step2Part1', 'Select your target ending date from the ')}<strong className="text-slate-200">{t('step2Field', 'End Date field')}</strong>.</li>
+            <li>{t('step3Part1', 'Click ')}<strong className="text-slate-200">{t('calcBtn', 'Calculate Difference')}</strong>{t('step3Part2', ' to display the total elapsed days.')}</li>
           </ol>
         </section>
 
@@ -91,7 +97,7 @@ export default function DateDifference() {
             <div>
               <h4 className="font-medium text-slate-200">{t('faq2Q', 'Does it account for leap years?')}</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq2A', 'Yes, JavaScript Date objects handle leap years and differing month lengths automatically.')}
+                {t('faq2A', 'Yes, UTC date calculations handle leap years and differing month lengths accurately.')}
               </p>
             </div>
           </div>

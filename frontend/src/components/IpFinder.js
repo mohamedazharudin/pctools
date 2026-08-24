@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function IpFinder() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('ipFinder');
   const [ipData, setIpData] = useState(null);
   const [loading, setLoading] = useState(true);
 

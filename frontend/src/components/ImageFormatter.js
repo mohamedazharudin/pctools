@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function ImageFormatter() {
-  const { t } = useTranslation();
+   const { t } = useTranslation('imageFormatter');
   const [image, setImage] = useState(null);
   const [format, setFormat] = useState('image/png');
   const [formattedUrl, setFormattedUrl] = useState('');

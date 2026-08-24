@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 export default function AboutUs() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('aboutUs');
 
   return (
     <div className="max-w-xl mx-auto p-8 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">

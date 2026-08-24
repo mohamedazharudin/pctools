@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 export default function Home({ setActiveTab }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('home');
 
   const tools = [
     { id: 'formatter', name: t('toolFormatterName', 'Image Formatter'), desc: t('toolFormatterDesc', 'Convert images to PNG, JPEG, or WEBP instantly.'), icon: '🖼️' },

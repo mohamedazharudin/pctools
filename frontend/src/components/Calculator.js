@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Calculator() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('calculator');
   const [display, setDisplay] = useState('0');
 
   const handleNum = (val) => {

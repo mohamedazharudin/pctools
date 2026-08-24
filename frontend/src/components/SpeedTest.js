@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function SpeedTest() {
-  const { t } = useTranslation();
+   const { t } = useTranslation('speedTest');
   const [speed, setSpeed] = useState(null);
   const [testing, setTesting] = useState(false);
 

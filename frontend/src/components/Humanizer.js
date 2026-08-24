@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Humanizer() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('humanizer');
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
 

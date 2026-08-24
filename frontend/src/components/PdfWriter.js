@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { jsPDF } from 'jspdf';
 
 export default function PdfWriter() {
-  const { t } = useTranslation();
+   const { t } = useTranslation('pdfWriter');
   const [title, setTitle] = useState(t('defaultTitle', 'My Document'));
   const [content, setContent] = useState(t('defaultContent', 'Write your text here...'));
 

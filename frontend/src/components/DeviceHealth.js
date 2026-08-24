@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function DeviceHealth() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('deviceHealth');
   const [healthData, setHealthData] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
 

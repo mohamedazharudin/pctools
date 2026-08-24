@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function AiDetector() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('aiDetector');
   const [inputText, setInputText] = useState('');
   const [analysis, setAnalysis] = useState(null);
 
