@@ -14,7 +14,7 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) 
     { id: 'date-diff', label: '📅 Days Difference' },
    // { id: 'baby-names', label: '👶 Baby Names' },
    { id: 'weight-analyzer', label: '⚖️ Weight Analyzer' },
-   { id: 'humanizer', label: '✍️ AI Humanizer' },
+  // { id: 'humanizer', label: '✍️ AI Humanizer' },
    { id: 'ai-detector', label: '🤖 AI Detector' },
    //{ id: 'audio-to-text', label: '🎙️ Audio to Text' },
    { id: 'video-to-audio', label: '🎙️ video to audio' },

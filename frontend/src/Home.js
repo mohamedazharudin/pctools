@@ -1,7 +1,21 @@
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function Home({ setActiveTab }) {
   const { t } = useTranslation('home');
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Format time as "11:21 AM"
+  const formattedTime = time.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
 
   const tools = [
     { id: 'formatter', name: t('toolFormatterName', 'Image Formatter'), desc: t('toolFormatterDesc', 'Convert images to PNG, JPEG, or WEBP instantly.'), icon: '🖼️' },
@@ -23,10 +37,20 @@ export default function Home({ setActiveTab }) {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto text-left py-4 text-white px-4 sm:px-6">
+    /* Outer container with white border margins */
+    <div className="max-w-5xl mx-auto text-left py-6 text-white px-4 sm:px-6 my-4 border border-white/20 rounded-3xl bg-slate-950/40 shadow-2xl">
       {/* Hero / Vision Section */}
-      <div className="bg-gradient-to-r from-slate-900 to-blue-950 text-white p-6 sm:p-10 rounded-2xl shadow-xl border border-slate-800 mb-10">
-        <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold mb-4 leading-snug sm:leading-tight break-words">
+      <div className="relative bg-gradient-to-r from-slate-900 to-blue-950 text-white p-6 sm:p-10 rounded-2xl shadow-xl border border-slate-800 mb-10">
+        
+        {/* Digital Clock Badge - Top Right */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-2 bg-slate-900/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-700/60 shadow-lg">
+          <span className="text-sm">🕒</span>
+          <span className="text-xs sm:text-sm font-bold text-slate-200 font-mono tracking-wider">
+            {formattedTime}
+          </span>
+        </div>
+
+        <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold mb-4 leading-snug sm:leading-tight break-words pr-28 sm:pr-36">
           {t('heroTitle', 'Empowering Creators with Fast, Free Web Tools')}
         </h1>
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl leading-relaxed mb-6">
