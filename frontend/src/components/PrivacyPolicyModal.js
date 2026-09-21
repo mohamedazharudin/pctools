@@ -1,8 +1,4 @@
-import { useTranslation } from 'react-i18next';
-
 export default function PrivacyPolicyModal({ isOpen, onClose }) {
- const { t } = useTranslation('aboutUs');
-
   if (!isOpen) return null;
 
   return (
@@ -12,7 +8,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose }) {
         {/* Header */}
         <div className="flex justify-between items-center pb-4 border-b border-slate-800">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <span>🛡️</span> {t('privacyTitle', 'Privacy Policy')}
+            <span>🛡️</span> Privacy Policy
           </h2>
           <button
             onClick={onClose}
@@ -59,7 +55,7 @@ export default function PrivacyPolicyModal({ isOpen, onClose }) {
             onClick={onClose}
             className="px-5 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl text-xs sm:text-sm transition-all cursor-pointer"
           >
-            {t('closeBtn', 'I Understand')}
+            I Understand
           </button>
         </div>
 

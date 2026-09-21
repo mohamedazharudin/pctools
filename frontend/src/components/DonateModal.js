@@ -2,12 +2,11 @@ import { useState } from 'react';
 
 export default function DonateModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(false);
-  const upiId = "aljadidazhar-1@okicici"; // Replace with your actual UPI ID
+  const upiId = "aljadidazhar-1@okicici";
   const payeeName = "Mohamed Azharudin";
 
   if (!isOpen) return null;
 
-  // Auto-generate UPI QR code
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
     `upi://pay?pa=${upiId}&pn=${payeeName}&cu=INR`
   )}`;
@@ -30,7 +29,7 @@ export default function DonateModal({ isOpen, onClose }) {
 
         <h3 className="text-xl font-bold mb-2">❤️ Support PcTools</h3>
         <p className="text-xs text-slate-400 mb-4">
-          Scan the QR code or use the bank details below to support server costs.
+          Scan the QR code or use the UPI ID below to help support server costs.
         </p>
 
         {/* Dynamic QR Code */}
@@ -38,7 +37,19 @@ export default function DonateModal({ isOpen, onClose }) {
           <img src={qrCodeUrl} alt="UPI QR Code" className="w-40 h-40 mx-auto" />
         </div>
 
-      
+        {/* UPI ID Copy Field */}
+        <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between mb-3 text-left">
+          <div>
+            <span className="text-[10px] text-slate-400 block uppercase font-mono">UPI ID</span>
+            <span className="text-xs font-mono font-bold text-slate-200">{upiId}</span>
+          </div>
+          <button
+            onClick={handleCopy}
+            className="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-xs rounded-lg transition-colors cursor-pointer text-blue-400 font-semibold"
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </button>
+        </div>
 
         {/* Mobile Pay Button */}
         <a

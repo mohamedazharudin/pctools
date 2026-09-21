@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export default function DeviceHealth() {
-  const { t } = useTranslation('deviceHealth');
   const [healthData, setHealthData] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
 
@@ -21,7 +19,7 @@ export default function DeviceHealth() {
       try {
         const battery = await navigator.getBattery();
         batteryLevel = `${Math.round(battery.level * 100)}%`;
-        isCharging = battery.charging ? t('chargingYes', 'Yes ⚡') : t('chargingNo', 'No 🔋');
+        isCharging = battery.charging ? 'Yes ⚡' : 'No 🔋';
       } catch (e) {
         console.error(e);
       }
@@ -37,7 +35,7 @@ export default function DeviceHealth() {
     if (navigator.storage && navigator.storage.estimate) {
       const estimate = await navigator.storage.estimate();
       const freeGB = ((estimate.quota - estimate.usage) / (1024 * 1024 * 1024)).toFixed(1);
-      storageQuota = `~${freeGB} GB ${t('availableUnit', 'Available')}`;
+      storageQuota = `~${freeGB} GB Available`;
     }
 
     // Overall Health Score logic
@@ -65,47 +63,47 @@ export default function DeviceHealth() {
     <div className="max-w-2xl mx-auto space-y-8 text-left">
       {/* Tool Card */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-        <h2 className="text-xl font-bold mb-4 text-center">💻 {t('title', 'System Health Checker')}</h2>
+        <h1 className="text-xl font-bold mb-4 text-center">💻 System Health Checker</h1>
 
         <button
           onClick={runHealthCheck}
           disabled={isScanning}
           className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 rounded-xl font-semibold transition-all cursor-pointer mb-6"
         >
-          {isScanning ? t('scanningBtn', '⚡ Scanning System...') : t('checkBtn', '🔍 Check System Health')}
+          {isScanning ? '⚡ Scanning System...' : '🔍 Check System Health'}
         </button>
 
         {healthData && (
           <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800 text-sm">
             <div className="text-center pb-3 border-b border-slate-800">
-              <span className="text-xs text-slate-400 block mb-1">{t('scoreLabel', 'Health Score')}</span>
+              <span className="text-xs text-slate-400 block mb-1">Health Score</span>
               <span className={`text-3xl font-black ${healthData.score >= 80 ? 'text-green-400' : 'text-yellow-400'}`}>
                 {healthData.score}/100
               </span>
             </div>
 
             <div className="flex justify-between border-b border-slate-800/60 pb-2">
-              <span className="text-slate-400">{t('cpuCoresLabel', 'CPU Cores:')}</span>
+              <span className="text-slate-400">CPU Cores:</span>
               <span className="font-bold">{healthData.cpuCores}</span>
             </div>
 
             <div className="flex justify-between border-b border-slate-800/60 pb-2">
-              <span className="text-slate-400">{t('ramLabel', 'Device RAM:')}</span>
+              <span className="text-slate-400">Device RAM:</span>
               <span className="font-bold">{healthData.ram}</span>
             </div>
 
             <div className="flex justify-between border-b border-slate-800/60 pb-2">
-              <span className="text-slate-400">{t('batteryLabel', 'Battery Level:')}</span>
+              <span className="text-slate-400">Battery Level:</span>
               <span className="font-bold">{healthData.batteryLevel} ({healthData.isCharging})</span>
             </div>
 
             <div className="flex justify-between border-b border-slate-800/60 pb-2">
-              <span className="text-slate-400">{t('networkLabel', 'Network Speed:')}</span>
+              <span className="text-slate-400">Network Speed:</span>
               <span className="font-bold">{healthData.networkType} ({healthData.downlink})</span>
             </div>
 
             <div className="flex justify-between">
-              <span className="text-slate-400">{t('storageLabel', 'Browser Storage:')}</span>
+              <span className="text-slate-400">Browser Storage:</span>
               <span className="font-bold text-blue-400">{healthData.storageQuota}</span>
             </div>
           </div>
@@ -115,35 +113,35 @@ export default function DeviceHealth() {
       {/* Publisher Content Section */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">{t('aboutTitle', 'About System Health Checker')}</h3>
+          <h2 className="text-lg font-bold text-white mb-2">About System Health Checker</h2>
           <p>
-            {t('aboutText', 'This tool inspects your device hardware status directly through browser APIs. It evaluates critical performance indicators such as available processor cores, system memory, battery levels, network speeds, and local storage limits.')}
+            This tool inspects your device hardware status directly through browser APIs. It evaluates critical performance indicators such as available processor cores, system memory, battery levels, network speeds, and local storage limits.
           </p>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">{t('metricsTitle', 'Metrics Examined')}</h3>
+          <h3 className="text-base font-semibold text-white mb-2">Metrics Examined</h3>
           <ul className="list-disc list-inside space-y-1.5 text-slate-400">
-            <li><strong className="text-slate-200">{t('metricCpuLabel', 'CPU Cores:')}</strong> {t('metricCpuDesc', 'Number of logical processing threads available for parallel tasks.')}</li>
-            <li><strong className="text-slate-200">{t('metricRamLabel', 'Device RAM:')}</strong> {t('metricRamDesc', 'Approximate system memory allocated to the web browser interface.')}</li>
-            <li><strong className="text-slate-200">{t('metricBatteryLabel', 'Battery Status:')}</strong> {t('metricBatteryDesc', 'Real-time charge level and external power connection status.')}</li>
-            <li><strong className="text-slate-200">{t('metricNetworkLabel', 'Network Connection:')}</strong> {t('metricNetworkDesc', 'Estimated network type (e.g. 4G/5G) and downlink throughput speed.')}</li>
+            <li><strong className="text-slate-200">CPU Cores:</strong> Number of logical processing threads available for parallel tasks.</li>
+            <li><strong className="text-slate-200">Device RAM:</strong> Approximate system memory allocated to the web browser interface.</li>
+            <li><strong className="text-slate-200">Battery Status:</strong> Real-time charge level and external power connection status.</li>
+            <li><strong className="text-slate-200">Network Connection:</strong> Estimated network type (e.g. 4G/5G) and downlink throughput speed.</li>
           </ul>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">{t('faqTitle', 'Frequently Asked Questions')}</h3>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
           <div className="space-y-3">
             <div>
-              <h4 className="font-medium text-slate-200">{t('faq1Q', 'Why are some fields listed as N/A?')}</h4>
+              <h4 className="font-medium text-slate-200">Why are some fields listed as N/A?</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq1A', 'Certain browser privacy settings or operating systems restrict access to hardware APIs like battery level or RAM details.')}
+                Certain browser privacy settings or operating systems restrict access to hardware APIs like battery level or RAM details.
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-slate-200">{t('faq2Q', 'Does this check install any software on my computer?')}</h4>
+              <h4 className="font-medium text-slate-200">Does this check install any software on my computer?</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq2A', 'No installations are needed; all measurements run via standard JavaScript Web APIs directly in your current browser tab.')}
+                No installations are needed; all measurements run via standard JavaScript Web APIs directly in your current browser tab.
               </p>
             </div>
           </div>

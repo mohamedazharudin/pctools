@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export default function Calculator() {
-  const { t } = useTranslation('calculator');
   const [display, setDisplay] = useState('0');
 
   const handleNum = (val) => {
@@ -28,15 +26,15 @@ export default function Calculator() {
         setDisplay(String(result));
       }
     } catch {
-      setDisplay(t('error', 'Error'));
+      setDisplay('Error');
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-2xl mx-auto space-y-8 text-left">
       {/* Calculator Tool */}
       <div className="max-w-md mx-auto p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-        <h2 className="text-xl font-bold mb-4 text-center">🧮 {t('title', 'Calculator')}</h2>
+        <h1 className="text-xl font-bold mb-4 text-center">🧮 Online Web Calculator</h1>
         
         {/* Display Screen */}
         <div className="bg-slate-950 p-4 rounded-xl text-right text-3xl font-mono mb-4 text-blue-400 overflow-x-auto">
@@ -72,36 +70,36 @@ export default function Calculator() {
       {/* Publisher Content Section */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">{t('aboutTitle', 'About the Online Web Calculator')}</h3>
+          <h2 className="text-lg font-bold text-white mb-2">About the Online Web Calculator</h2>
           <p>
-            {t('aboutText', 'Whether you need to perform quick daily calculations, manage budgets, or solve arithmetic equations, this browser-based calculator provides a clean, responsive layout for fast mathematical evaluations.')}
+            Whether you need to perform quick daily calculations, manage budgets, or solve arithmetic equations, this free browser-based calculator provides a clean, responsive layout for fast mathematical evaluations.
           </p>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">{t('opsTitle', 'Supported Arithmetic Operations')}</h3>
+          <h3 className="text-base font-semibold text-white mb-2">Supported Arithmetic Operations</h3>
           <ul className="list-disc list-inside space-y-1.5 text-slate-400">
-            <li><strong className="text-slate-200">{t('addLabel', 'Addition (+):')}</strong> {t('addDesc', 'Sum up numbers and values quickly.')}</li>
-            <li><strong className="text-slate-200">{t('subLabel', 'Subtraction (-):')}</strong> {t('subDesc', 'Calculate differences between amounts.')}</li>
-            <li><strong className="text-slate-200">{t('mulLabel', 'Multiplication (×):')}</strong> {t('mulDesc', 'Multiply integer and decimal values.')}</li>
-            <li><strong className="text-slate-200">{t('divLabel', 'Division (÷):')}</strong> {t('divDesc', 'Divide numbers instantly with precise results.')}</li>
-            <li><strong className="text-slate-200">{t('clearLabel', 'Clear (C):')}</strong> {t('clearDesc', 'Reset the calculation screen to start fresh.')}</li>
+            <li><strong className="text-slate-200">Addition (+):</strong> Sum up numbers and values quickly.</li>
+            <li><strong className="text-slate-200">Subtraction (-):</strong> Calculate differences between amounts.</li>
+            <li><strong className="text-slate-200">Multiplication (×):</strong> Multiply integer and decimal values.</li>
+            <li><strong className="text-slate-200">Division (÷):</strong> Divide numbers instantly with precise results.</li>
+            <li><strong className="text-slate-200">Clear (C):</strong> Reset the calculation screen to start fresh.</li>
           </ul>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">{t('faqTitle', 'Frequently Asked Questions')}</h3>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
           <div className="space-y-3">
             <div>
-              <h4 className="font-medium text-slate-200">{t('faq1Q', 'Does this calculator support decimal calculations?')}</h4>
+              <h4 className="font-medium text-slate-200">Does this calculator support decimal calculations?</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq1A', 'Yes, you can input floating-point decimal numbers using the period (.) key for high-precision math.')}
+                Yes, you can input floating-point decimal numbers using the period (.) key for high-precision math.
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-slate-200">{t('faq2Q', 'Is my calculation history saved online?')}</h4>
+              <h4 className="font-medium text-slate-200">Is my calculation history saved online?</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq2A', 'No, calculations run locally in your web browser, ensuring complete privacy and speed.')}
+                No, calculations run locally in your web browser, ensuring complete privacy and speed.
               </p>
             </div>
           </div>

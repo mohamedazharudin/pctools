@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Sidebar from './components/Sidebar';
 import ImageFormatter from './components/ImageFormatter';
 import ImageCompressor from './components/ImageCompressor';
@@ -33,54 +32,51 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
-  
-  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState('en');
 
   const toggleLanguage = () => {
-    const currentLang = i18n.language || 'en';
-    const nextLang = currentLang.startsWith('ta') ? 'en' : 'ta';
-    i18n.changeLanguage(nextLang);
+    setLanguage((prev) => (prev === 'en' ? 'ta' : 'en'));
   };
 
-  const isTamil = i18n.language && i18n.language.startsWith('ta');
+  const isTamil = language === 'ta';
 
   // Categorized tool menus with sub-tools
   const navCategories = [
     {
-      name: t('catMedia', 'Media Tools'),
+      name: 'Media Tools',
       tools: [
-        { id: 'formatter', label: t('navFormatter', 'Image Formatter') },
-        { id: 'compressor', label: t('navCompressor', 'Image Compressor') },
-        { id: 'video-to-audio', label: t('navVideoAudio', 'Video to Audio') },
-        { id: 'water-remover', label: t('navWaterRemover', 'Speaker Water Ejector') },
+        { id: 'formatter', label: 'Image Formatter' },
+        { id: 'compressor', label: 'Image Compressor' },
+        { id: 'video-to-audio', label: 'Video to Audio' },
+        { id: 'water-remover', label: 'Speaker Water Ejector' },
       ]
     },
     {
-      name: t('catDevDocs', 'Developer & Docs'),
+      name: 'Developer & Docs',
       tools: [
-        { id: 'pdf-writer', label: t('navPdfWriter', 'PDF Writer') },
-        { id: 'palette', label: t('navPalette', 'Color Palette') },
-        { id: 'entities', label: t('navEntities', 'HTML Entities') },
-        { id: 'resume', label: t('navResume', 'Resume Builder') },
-        { id: 'password-gen', label: t('navPasswordGen', 'Password Generator') },
+        { id: 'pdf-writer', label: 'PDF Writer' },
+        { id: 'palette', label: 'Color Palette' },
+        { id: 'entities', label: 'HTML Entities' },
+        { id: 'resume', label: 'Resume Builder' },
+        { id: 'password-gen', label: 'Password Generator' },
       ]
     },
     {
-      name: t('catCalculators', 'Calculators & Utilities'),
+      name: 'Calculators & Utilities',
       tools: [
-        { id: 'calculator', label: t('navCalculator', 'Standard Calculator') },
-        { id: 'age-calculator', label: t('navAgeCalc', 'Age Calculator') },
-        { id: 'date-diff', label: t('navDateDiff', 'Date Difference') },
-        { id: 'weight-analyzer', label: t('navWeight', 'Weight Analyzer') },
+        { id: 'calculator', label: 'Standard Calculator' },
+        { id: 'age-calculator', label: 'Age Calculator' },
+        { id: 'date-diff', label: 'Date Difference' },
+        { id: 'weight-analyzer', label: 'Weight Analyzer' },
       ]
     },
     {
-      name: t('catAiSystem', 'AI & System'),
+      name: 'AI & System',
       tools: [
-        { id: 'ai-detector', label: t('navAiDetector', 'AI Detector') },
-        { id: 'ip-finder', label: t('navIpFinder', 'IP Finder') },
-        { id: 'speed-test', label: t('navSpeedTest', 'Speed Test') },
-        { id: 'device-health', label: t('navDeviceHealth', 'Device Health') },
+        { id: 'ai-detector', label: 'AI Detector' },
+        { id: 'ip-finder', label: 'IP Finder' },
+        { id: 'speed-test', label: 'Speed Test' },
+        { id: 'device-health', label: 'Device Health' },
       ]
     }
   ];
@@ -98,7 +94,7 @@ export default function App() {
             >
               <span>☰</span>
               <span className="hidden xs:inline text-xs font-semibold uppercase tracking-wider text-slate-300">
-                {t('menu', 'Menu')}
+                Menu
               </span>
             </button>
             <span 
@@ -123,7 +119,7 @@ export default function App() {
               className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap"
             >
               <span>❤️</span>
-              <span className="hidden xs:inline">{t('donate', 'Donate')}</span>
+              <span className="hidden xs:inline">Donate</span>
             </button>
           </div>
         </div>
@@ -139,7 +135,7 @@ export default function App() {
                 : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
             }`}
           >
-            {t('navHome', 'Home')}
+            Home
           </button>
 
           {/* Dropdown Categories */}
@@ -179,7 +175,7 @@ export default function App() {
                 : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
             }`}
           >
-            {t('navAbout', 'About Us')}
+            About Us
           </button>
         </div>
       </header>

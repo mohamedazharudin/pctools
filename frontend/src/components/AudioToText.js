@@ -88,55 +88,96 @@ export default function AudioToText() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-      <h2 className="text-xl font-bold mb-4 text-center">🎙️ Audio to Text Converter</h2>
+    <div className="max-w-2xl mx-auto space-y-8 text-left">
+      {/* Interactive Tool Card */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+        <h1 className="text-xl font-bold mb-4 text-center">🎙️ Free Audio to Text Converter</h1>
 
-      {/* Mic Controls */}
-      <div className="flex gap-3 mb-4">
-        {!isListening ? (
+        {/* Mic Controls */}
+        <div className="flex gap-3 mb-4">
+          {!isListening ? (
+            <button
+              onClick={startListening}
+              className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer flex items-center justify-center gap-2"
+            >
+              🎤 Start Dictating
+            </button>
+          ) : (
+            <button
+              onClick={stopListening}
+              className="flex-1 py-3 bg-red-600 hover:bg-red-500 rounded-xl font-semibold transition-all cursor-pointer flex items-center justify-center gap-2 animate-pulse"
+            >
+              🛑 Stop Recording
+            </button>
+          )}
+
           <button
-            onClick={startListening}
-            className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer flex items-center justify-center gap-2"
+            onClick={() => setText('')}
+            className="px-4 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-semibold text-slate-300 transition-all cursor-pointer"
           >
-            🎤 Start Dictating
+            Clear
           </button>
-        ) : (
-          <button
-            onClick={stopListening}
-            className="flex-1 py-3 bg-red-600 hover:bg-red-500 rounded-xl font-semibold transition-all cursor-pointer flex items-center justify-center gap-2 animate-pulse"
-          >
-            🛑 Stop Recording
-          </button>
-        )}
+        </div>
 
-        <button
-          onClick={() => setText('')}
-          className="px-4 py-3 bg-slate-800 hover:bg-slate-700 rounded-xl font-semibold text-slate-300 transition-all cursor-pointer"
-        >
-          Clear
-        </button>
-      </div>
+        {/* File Upload Section */}
+        <div className="mb-4">
+          <label className="block text-xs font-semibold text-slate-400 mb-2">Or Upload Audio File (MP3, WAV):</label>
+          <input
+            type="file"
+            accept="audio/*"
+            onChange={handleFileUpload}
+            className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-white hover:file:bg-slate-700 cursor-pointer"
+          />
+          {isProcessing && <p className="text-xs text-blue-400 mt-2 animate-pulse">Transcribing uploaded file...</p>}
+        </div>
 
-      {/* File Upload Section */}
-      <div className="mb-4">
-        <label className="block text-xs font-semibold text-slate-400 mb-2">Or Upload Audio File (MP3, WAV):</label>
-        <input
-          type="file"
-          accept="audio/*"
-          onChange={handleFileUpload}
-          className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-white hover:file:bg-slate-700 cursor-pointer"
+        {/* Output Display */}
+        <textarea
+          rows="8"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Transcribed text will appear here..."
+          className="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
         />
-        {isProcessing && <p className="text-xs text-blue-400 mt-2 animate-pulse">Transcribing uploaded file...</p>}
       </div>
 
-      {/* Output Display */}
-      <textarea
-        rows="8"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Transcribed text will appear here..."
-        className="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
-      />
+      {/* Expanded SEO Publisher Article Section */}
+      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+        <section>
+          <h2 className="text-lg font-bold text-white mb-2">About the Online Audio to Text Converter</h2>
+          <p>
+            Convert spoken audio and speech into written text instantly with our browser-based speech recognition tool. Whether dictating notes live or playing recorded audio clips, this online speech-to-text utility processes speech accurately without installing external applications.
+          </p>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">How to Transcribe Audio</h3>
+          <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+            <li>Click <strong className="text-slate-200">Start Dictating</strong> and grant microphone access in your browser for live dictation.</li>
+            <li>Speak clearly into your microphone; transcribed sentences will automatically populate in the text window.</li>
+            <li>Alternatively, upload a supported audio file (such as MP3 or WAV) to convert recorded speech to text.</li>
+            <li>Copy or edit your generated transcript directly from the text area.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-medium text-slate-200">Which browsers are supported?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                The Web Speech API works best in Google Chrome, Microsoft Edge, and modern Chromium-based web browsers.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-slate-200">Are my audio files uploaded or stored on servers?</h4>
+              <p className="text-xs text-slate-400 mt-0.5">
+                No, speech recognition is handled locally by browser speech engines. Your recordings are not stored on remote servers.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

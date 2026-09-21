@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export default function Humanizer() {
-  const { t } = useTranslation('humanizer');
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
 
@@ -77,29 +75,29 @@ export default function Humanizer() {
     <div className="max-w-3xl mx-auto space-y-8">
       {/* Tool Card */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-        <h2 className="text-xl font-bold mb-4 text-center">✍️ {t('humanizerTitle', 'AI Text Humanizer')}</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">✍️ AI Text Humanizer</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {/* Input Textarea */}
           <div>
-            <label className="text-xs font-semibold text-slate-400 block mb-2">{t('inputLabel', 'Paste AI Content:')}</label>
+            <label className="text-xs font-semibold text-slate-400 block mb-2">Paste AI Content:</label>
             <textarea
               rows="10"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder={t('inputPlaceholder', 'Paste your AI generated blog post here...')}
+              placeholder="Paste your AI generated blog post here..."
               className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
             />
           </div>
 
           {/* Output Textarea */}
           <div>
-            <label className="text-xs font-semibold text-slate-400 block mb-2">{t('outputLabel', 'Humanized Output:')}</label>
+            <label className="text-xs font-semibold text-slate-400 block mb-2">Humanized Output:</label>
             <textarea
               rows="10"
               readOnly
               value={outputText}
-              placeholder={t('outputPlaceholder', 'Humanized version will appear here...')}
+              placeholder="Humanized version will appear here..."
               className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none resize-none"
             />
           </div>
@@ -109,42 +107,42 @@ export default function Humanizer() {
           onClick={humanizeText}
           className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer"
         >
-          ⚡ {t('humanizeBtn', 'Humanize Text')}
+          ⚡ Humanize Text
         </button>
       </div>
 
       {/* Publisher Content Section */}
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">{t('aboutHumanizerTitle', 'About the AI Text Humanizer')}</h3>
+          <h3 className="text-lg font-bold text-white mb-2">About the AI Text Humanizer</h3>
           <p>
-            {t('aboutHumanizerText', 'AI-generated content often sounds repetitive, overly formal, or structured. This text humanizer tool adjusts formal academic phrasing into natural, conversational language by replacing stiff transition words and adding natural sentence variation.')}
+            AI-generated content often sounds repetitive, overly formal, or structured. This text humanizer tool adjusts formal academic phrasing into natural, conversational language by replacing stiff transition words and adding natural sentence variation.
           </p>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">{t('howToUseTitle', 'How to Use the Humanizer Tool')}</h3>
+          <h3 className="text-base font-semibold text-white mb-2">How to Use the Humanizer Tool</h3>
           <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-            <li>{t('step1', 'Paste your AI-generated text or draft into the left input box.')}</li>
-            <li>{t('step2', 'Click the Humanize Text button.')}</li>
-            <li>{t('step3', 'Review the rephrased conversational output in the right box.')}</li>
-            <li>{t('step4', 'Copy the converted text directly for your writing projects.')}</li>
+            <li>Paste your AI-generated text or draft into the left input box.</li>
+            <li>Click the Humanize Text button.</li>
+            <li>Review the rephrased conversational output in the right box.</li>
+            <li>Copy the converted text directly for your writing projects.</li>
           </ol>
         </section>
 
         <section>
-          <h3 className="text-base font-semibold text-white mb-2">{t('faqTitle', 'Frequently Asked Questions')}</h3>
+          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
           <div className="space-y-3">
             <div>
-              <h4 className="font-medium text-slate-200">{t('faq1Q', 'How does text humanization work?')}</h4>
+              <h4 className="font-medium text-slate-200">How does text humanization work?</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq1A', 'It converts robotic vocabulary like "furthermore" or "utilize" into natural human terms like "also" and "use" while relaxing strict formal structure.')}
+                It converts robotic vocabulary like "furthermore" or "utilize" into natural human terms like "also" and "use" while relaxing strict formal structure.
               </p>
             </div>
             <div>
-              <h4 className="font-medium text-slate-200">{t('faq2Q', 'Is my text stored on any server?')}</h4>
+              <h4 className="font-medium text-slate-200">Is my text stored on any server?</h4>
               <p className="text-xs text-slate-400 mt-0.5">
-                {t('faq2A', 'No, all text transformations are performed locally inside your web browser for complete privacy.')}
+                No, all text transformations are performed locally inside your web browser for complete privacy.
               </p>
             </div>
           </div>

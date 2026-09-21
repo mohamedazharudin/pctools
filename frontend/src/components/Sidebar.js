@@ -12,19 +12,13 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) 
     { id: 'calculator', label: '🧮 Calculator' },
     { id: 'age-calculator', label: '🎂 Age Calculator' },
     { id: 'date-diff', label: '📅 Days Difference' },
-   // { id: 'baby-names', label: '👶 Baby Names' },
-   { id: 'weight-analyzer', label: '⚖️ Weight Analyzer' },
-  // { id: 'humanizer', label: '✍️ AI Humanizer' },
-   { id: 'ai-detector', label: '🤖 AI Detector' },
-   //{ id: 'audio-to-text', label: '🎙️ Audio to Text' },
-   { id: 'video-to-audio', label: '🎙️ video to audio' },
-{ id: 'device-health', label: '💻 Device Health' },
-{ id: 'water-remover', label: '💧 Speaker Water Ejector' },
-{ id: 'password-gen', label:'🔑 Password Generator' },
-   //{ id: 'compass', label: '🧭 Compass' }
-   { id: 'about', label: 'ℹ️ About Us' },
-
-   
+    { id: 'weight-analyzer', label: '⚖️ Weight Analyzer' },
+    { id: 'ai-detector', label: '🤖 AI Detector' },
+    { id: 'video-to-audio', label: '🎙️ Video to Audio' },
+    { id: 'device-health', label: '💻 Device Health' },
+    { id: 'water-remover', label: '💧 Speaker Water Ejector' },
+    { id: 'password-gen', label: '🔑 Password Generator' },
+    { id: 'about', label: 'ℹ️ About Us' },
   ];
 
   return (

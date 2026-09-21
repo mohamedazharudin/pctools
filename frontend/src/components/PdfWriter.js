@@ -1,15 +1,13 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { jsPDF } from 'jspdf';
 import { PDFDocument } from 'pdf-lib';
 
 export default function PdfWriter() {
-  const { t } = useTranslation('pdfWriter');
   const [activeMode, setActiveMode] = useState('writer');
 
   // PDF Writer States
-  const [title, setTitle] = useState(t('defaultTitle', 'My Document'));
-  const [content, setContent] = useState(t('defaultContent', 'Write your text here...'));
+  const [title, setTitle] = useState('My Document');
+  const [content, setContent] = useState('Write your text here...');
 
   // PDF Converter States
   const [activeTool, setActiveTool] = useState('jpg-to-pdf');
@@ -84,35 +82,35 @@ export default function PdfWriter() {
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
         {activeMode === 'writer' ? (
           <>
-            <h2 className="text-xl font-bold mb-2">📝 {t('title', 'PDF Writer & Generator')}</h2>
+            <h2 className="text-xl font-bold mb-2">📝 PDF Writer & Generator</h2>
             <p className="text-slate-400 text-sm mb-6">
-              {t('subtitle', 'Write your title and content below to convert it into a downloadable PDF document.')}
+              Write your title and content below to convert it into a downloadable PDF document.
             </p>
 
             <div className="flex flex-col gap-4 mb-6">
               <div>
                 <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                  {t('docTitleLabel', 'Document Title')}
+                  Document Title
                 </label>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500"
-                  placeholder={t('docTitlePlaceholder', 'Enter PDF Title')}
+                  placeholder="Enter PDF Title"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                  {t('docContentLabel', 'Document Content')}
+                  Document Content
                 </label>
                 <textarea
                   rows="10"
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 leading-relaxed resize-none"
-                  placeholder={t('docContentPlaceholder', 'Type your paragraphs here...')}
+                  placeholder="Type your paragraphs here..."
                 />
               </div>
             </div>
@@ -121,7 +119,7 @@ export default function PdfWriter() {
               onClick={exportToPdf}
               className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition-all cursor-pointer shadow-lg shadow-emerald-600/20"
             >
-              📄 {t('downloadBtn', 'Download PDF')}
+              📄 Download PDF
             </button>
           </>
         ) : (
@@ -186,9 +184,9 @@ export default function PdfWriter() {
 
       <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
         <section>
-          <h3 className="text-lg font-bold text-white mb-2">{t('aboutTitle', 'About Online PDF Tools')}</h3>
+          <h3 className="text-lg font-bold text-white mb-2">About Online PDF Tools</h3>
           <p>
-            {t('aboutText', 'Quickly create, convert, and format PDF documents entirely in your browser without uploading data to external servers.')}
+            Quickly create, convert, and format PDF documents entirely in your browser without uploading data to external servers.
           </p>
         </section>
       </div>
