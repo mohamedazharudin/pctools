@@ -27,7 +27,8 @@ import DonateModal from './components/DonateModal';
 import PasswordGenerator from './components/PasswordGenerator';
 import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import Home from './Home';
-
+import AptitudeQuestions from './components/AptitudeQuestions';
+import MernTutorial from './components/MernTutorial';
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,6 +59,8 @@ function AppContent() {
         { id: 'pdf-writer', label: 'PDF Writer' },
         { id: 'palette', label: 'Color Palette' },
         { id: 'entities', label: 'HTML Entities' },
+        { id: 'aptitude', label: 'Aptitude Test' },
+        { id: 'mern-tutorial', label: 'MERN Stack Guide' },
         { id: 'resumebuilder', label: 'Resume Builder' },
         { id: 'password-gen', label: 'Password Generator' },
       ]
@@ -204,6 +207,8 @@ function AppContent() {
           <Route path="/device-health" element={<DeviceHealth />} />
           <Route path="/water-remover" element={<WaterRemover />} />
           <Route path="/password-gen" element={<PasswordGenerator />} />
+          <Route path="/aptitude" element={<AptitudeQuestions />} />
+          <Route path="/mern-tutorial" element={<MernTutorial />} />
         </Routes>
       </main>
 
