@@ -107,12 +107,7 @@ export default function App() {
 
           {/* Right Actions: Language Toggle & Donate Button */}
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            <button
-              onClick={toggleLanguage}
-              className="px-2.5 sm:px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 rounded-xl text-xs font-bold text-slate-200 transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap"
-            >
-              <span>🌐</span> {isTamil ? 'English' : 'தமிழ்'}
-            </button>
+           
 
             <button
               onClick={() => setIsDonateOpen(true)}
