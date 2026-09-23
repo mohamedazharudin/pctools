@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import ImageFormatter from './components/ImageFormatter';
 import ImageCompressor from './components/ImageCompressor';
@@ -27,20 +28,20 @@ import PasswordGenerator from './components/PasswordGenerator';
 import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import Home from './Home';
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+function AppContent() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
-  const [language, setLanguage] = useState('en');
 
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'en' ? 'ta' : 'en'));
+  // Helper to sync tab clicks with clean browser paths
+  const handleTabChange = (tabId) => {
+    const path = tabId === 'home' ? '/' : `/${tabId}`;
+    navigate(path);
   };
 
-  const isTamil = language === 'ta';
-
-  // Categorized tool menus with sub-tools
   const navCategories = [
     {
       name: 'Media Tools',
@@ -57,7 +58,7 @@ export default function App() {
         { id: 'pdf-writer', label: 'PDF Writer' },
         { id: 'palette', label: 'Color Palette' },
         { id: 'entities', label: 'HTML Entities' },
-        { id: 'resume', label: 'Resume Builder' },
+        { id: 'resumebuilder', label: 'Resume Builder' },
         { id: 'password-gen', label: 'Password Generator' },
       ]
     },
@@ -81,11 +82,13 @@ export default function App() {
     }
   ];
 
+  // Derive current tab from URL path
+  const currentPath = location.pathname.substring(1) || 'home';
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Top Navbar */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/60 shadow-md">
-        {/* Upper Main Bar */}
         <div className="h-16 flex items-center justify-between px-3 sm:px-6">
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <button 
@@ -98,17 +101,14 @@ export default function App() {
               </span>
             </button>
             <span 
-              onClick={() => setActiveTab('home')}
+              onClick={() => handleTabChange('home')}
               className="font-bold text-base sm:text-lg text-slate-100 cursor-pointer truncate"
             >
               PcTools
             </span>
           </div>
 
-          {/* Right Actions: Language Toggle & Donate Button */}
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-           
-
             <button
               onClick={() => setIsDonateOpen(true)}
               className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap"
@@ -119,13 +119,12 @@ export default function App() {
           </div>
         </div>
 
-        {/* Categories Navbar - Hidden on mobile, visible on medium+ screens */}
+        {/* Categories Navbar */}
         <div className="hidden md:flex items-center gap-2 px-4 py-2 overflow-visible border-t border-slate-800/40 text-xs font-medium relative z-40">
-          {/* Home Direct Link */}
           <button
-            onClick={() => setActiveTab('home')}
+            onClick={() => handleTabChange('home')}
             className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
-              activeTab === 'home'
+              currentPath === 'home'
                 ? 'bg-blue-600 text-white font-semibold shadow'
                 : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
             }`}
@@ -133,23 +132,20 @@ export default function App() {
             Home
           </button>
 
-          {/* Dropdown Categories */}
           {navCategories.map((cat, index) => (
             <div key={index} className="relative group">
-              {/* Category Header Button */}
               <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 whitespace-nowrap cursor-pointer transition-all">
                 <span>{cat.name}</span>
                 <span className="text-[10px] opacity-70 group-hover:rotate-180 transition-transform">▼</span>
               </button>
 
-              {/* Hover Menu Dropdown */}
               <div className="absolute left-0 top-full hidden group-hover:flex flex-col bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-2 min-w-[200px] z-50 mt-1">
                 {cat.tools.map((tool) => (
                   <button
                     key={tool.id}
-                    onClick={() => setActiveTab(tool.id)}
+                    onClick={() => handleTabChange(tool.id)}
                     className={`text-left px-3 py-2 text-xs rounded-lg transition-all cursor-pointer ${
-                      activeTab === tool.id
+                      currentPath === tool.id
                         ? 'bg-blue-600 text-white font-semibold'
                         : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                     }`}
@@ -161,11 +157,10 @@ export default function App() {
             </div>
           ))}
 
-          {/* About Us Direct Link */}
           <button
-            onClick={() => setActiveTab('about')}
+            onClick={() => handleTabChange('about')}
             className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
-              activeTab === 'about'
+              currentPath === 'about'
                 ? 'bg-blue-600 text-white font-semibold shadow'
                 : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
             }`}
@@ -175,45 +170,55 @@ export default function App() {
         </div>
       </header>
 
-      {/* Floating Glassy Sidebar */}
+      {/* Sidebar Navigation */}
       <Sidebar 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
+        activeTab={currentPath} 
+        setActiveTab={handleTabChange} 
         isOpen={isOpen} 
         setIsOpen={setIsOpen} 
       />
 
-      {/* Main View Area with Responsive Top Padding */}
+      {/* Routes View Area */}
       <main className="flex-1 p-4 sm:p-6 pt-20 md:pt-32 max-w-7xl mx-auto w-full">
-        {activeTab === 'home' && <Home setActiveTab={setActiveTab} />}
-        {activeTab === 'formatter' && <ImageFormatter />}
-        {activeTab === 'compressor' && <ImageCompressor />}
-        {activeTab === 'palette' && <ColorPalette />}
-        {activeTab === 'entities' && <HtmlEntities />}
-        {activeTab === 'resume' && <ResumeBuilder />}
-        {activeTab === 'pdf-writer' && <PdfWriter />}
-        {activeTab === 'ip-finder' && <IpFinder />}
-        {activeTab === 'speed-test' && <SpeedTest />}
-        {activeTab === 'calculator' && <Calculator />}
-        {activeTab === 'age-calculator' && <AgeCalculator />}
-        {activeTab === 'date-diff' && <DateDifference />}
-        {activeTab === 'baby-names' && <BabyNameSuggester />}
-        {activeTab === 'weight-analyzer' && <WeightAnalyzer />}
-        {activeTab === 'humanizer' && <Humanizer />}
-        {activeTab === 'ai-detector' && <AiDetector />}
-        {activeTab === 'compass' && <Compass />}
-        {activeTab === 'about' && <AboutUs />}
-        {activeTab === 'audio-to-text' && <AudioToText />}
-        {activeTab === 'video-to-audio' && <VideoToAudio />}
-        {activeTab === 'device-health' && <DeviceHealth />}
-        {activeTab === 'water-remover' && <WaterRemover />}
-        {activeTab === 'password-gen' && <PasswordGenerator />}
+        <Routes>
+          <Route path="/" element={<Home setActiveTab={handleTabChange} />} />
+          <Route path="/formatter" element={<ImageFormatter />} />
+          <Route path="/compressor" element={<ImageCompressor />} />
+          <Route path="/palette" element={<ColorPalette />} />
+          <Route path="/entities" element={<HtmlEntities />} />
+          <Route path="/resume" element={<ResumeBuilder />} />
+          <Route path="/pdf-writer" element={<PdfWriter />} />
+          <Route path="/ip-finder" element={<IpFinder />} />
+          <Route path="/speed-test" element={<SpeedTest />} />
+          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/age-calculator" element={<AgeCalculator />} />
+          <Route path="/date-diff" element={<DateDifference />} />
+          <Route path="/baby-names" element={<BabyNameSuggester />} />
+          <Route path="/weight-analyzer" element={<WeightAnalyzer />} />
+          <Route path="/humanizer" element={<Humanizer />} />
+          <Route path="/ai-detector" element={<AiDetector />} />
+          <Route path="/compass" element={<Compass />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/audio-to-text" element={<AudioToText />} />
+          <Route path="/video-to-audio" element={<VideoToAudio />} />
+          <Route path="/device-health" element={<DeviceHealth />} />
+          <Route path="/water-remover" element={<WaterRemover />} />
+          <Route path="/password-gen" element={<PasswordGenerator />} />
+        </Routes>
       </main>
 
       {/* Footer & Modals */}
-      <Footer setActiveTab={setActiveTab} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
+      <Footer setActiveTab={handleTabChange} onOpenPrivacy={() => setIsPrivacyOpen(true)} />
       <DonateModal isOpen={isDonateOpen} onClose={() => setIsDonateOpen(false)} />
       <PrivacyPolicyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
