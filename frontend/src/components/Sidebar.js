@@ -6,6 +6,7 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) 
     { id: 'palette', label: '🎨 Color Palettes' },
     { id: 'entities', label: '🔣 HTML Entities' },
     { id: 'aptitude', label: '📝Aptitude Test' },
+    { id: 'mern-tutorial', label: '⚛️MERN Stack Guide' },
     { id: 'resume', label: '📄 Resume Builder' },
     { id: 'pdf-writer', label: '📝 PDF Writer' },
     { id: 'ip-finder', label: '🌐 IP Finder' },

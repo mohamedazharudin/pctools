@@ -139,7 +139,7 @@ function AppContent() {
             <div key={index} className="relative group">
               <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 whitespace-nowrap cursor-pointer transition-all">
                 <span>{cat.name}</span>
-                <span className="text-[10px] opacity-70 group-hover:rotate-180 transition-transform">▼</span>
+                <span className="text-[20px] opacity-70 group-hover:rotate-180 transition-transform">▼</span>
               </button>
 
               <div className="absolute left-0 top-full hidden group-hover:flex flex-col bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-2 min-w-[200px] z-50 mt-1">
