@@ -3,16 +3,19 @@ import { useState } from 'react';
 export default function VideoToAudio() {
   const [audioUrl, setAudioUrl] = useState(null);
   const [isConverting, setIsConverting] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const convertVideoToAudio = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
     setIsConverting(true);
+    setProgress(0);
     setAudioUrl(null);
 
     const video = document.createElement('video');
     video.src = URL.createObjectURL(file);
+    video.muted = true; // Mute video during extraction
 
     video.onloadeddata = () => {
       const stream = video.captureStream ? video.captureStream() : video.mozCaptureStream();
@@ -33,6 +36,15 @@ export default function VideoToAudio() {
         const blob = new Blob(chunks, { type: 'audio/mp3' });
         setAudioUrl(URL.createObjectURL(blob));
         setIsConverting(false);
+        setProgress(100);
+      };
+
+      // Track progress as the video plays silently in the background
+      video.ontimeupdate = () => {
+        if (video.duration) {
+          const currentProgress = Math.round((video.currentTime / video.duration) * 100);
+          setProgress(currentProgress);
+        }
       };
 
       mediaRecorder.start();
@@ -57,7 +69,20 @@ export default function VideoToAudio() {
           className="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer mb-4"
         />
 
-        {isConverting && <p className="text-blue-400 text-sm animate-pulse mb-4">Converting video to audio...</p>}
+        {isConverting && (
+          <div className="mb-4 space-y-2">
+            <div className="flex justify-between text-xs text-blue-400 font-semibold px-1">
+              <span>Converting video to audio...</span>
+              <span>{progress}%</span>
+            </div>
+            <div className="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+              <div
+                className="bg-blue-600 h-2.5 rounded-full transition-all duration-150 ease-out"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+          </div>
+        )}
 
         {audioUrl && (
           <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">

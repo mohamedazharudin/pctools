@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { jsPDF } from 'jspdf';
 import { PDFDocument } from 'pdf-lib';
+import mammoth from 'mammoth';
+import * as XLSX from 'xlsx';
+import html2pdf from 'html2pdf.js';
+import * as pdfjsLib from 'pdfjs-dist';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
 export default function PdfWriter() {
   const [activeMode, setActiveMode] = useState('writer');
 
-  // PDF Writer States
   const [title, setTitle] = useState('My Document');
   const [content, setContent] = useState('Write your text here...');
 
-  // PDF Converter States
   const [activeTool, setActiveTool] = useState('jpg-to-pdf');
   const [file, setFile] = useState(null);
   const [outputUrl, setOutputUrl] = useState('');
@@ -17,14 +22,14 @@ export default function PdfWriter() {
 
   const converterTools = [
     { id: 'jpg-to-pdf', name: 'JPG to PDF', locked: false },
-    { id: 'word-to-pdf', name: 'WORD to PDF', locked: true },
+    { id: 'word-to-pdf', name: 'WORD to PDF', locked: false },
     { id: 'powerpoint-to-pdf', name: 'POWERPOINT to PDF', locked: true },
-    { id: 'excel-to-pdf', name: 'EXCEL to PDF', locked: true },
+    { id: 'excel-to-pdf', name: 'EXCEL to PDF', locked: false },
     { id: 'html-to-pdf', name: 'HTML to PDF', locked: true },
-    { id: 'pdf-to-jpg', name: 'PDF to JPG', locked: true },
-    { id: 'pdf-to-word', name: 'PDF to WORD', locked: true },
+    { id: 'pdf-to-jpg', name: 'PDF to JPG', locked: false },
+    { id: 'pdf-to-word', name: 'PDF to WORD', locked: false },
     { id: 'pdf-to-powerpoint', name: 'PDF to POWERPOINT', locked: true },
-    { id: 'pdf-to-excel', name: 'PDF to EXCEL', locked: true },
+    { id: 'pdf-to-excel', name: 'PDF to EXCEL', locked: false },
     { id: 'pdf-to-pdfa', name: 'PDF to PDF/A', locked: true },
   ];
 
@@ -51,11 +56,169 @@ export default function PdfWriter() {
         const pdfBytes = await pdfDoc.save();
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         setOutputUrl(URL.createObjectURL(blob));
+      } else if (activeTool === 'word-to-pdf') {
+        const arrayBuffer = await file.arrayBuffer();
+        const result = await mammoth.extractRawText({ arrayBuffer });
+        const extractedText = result.value || 'Empty Document';
+
+        const pdf = new jsPDF();
+        pdf.setFontSize(12);
+        const splitText = pdf.splitTextToSize(extractedText, 170);
+        
+        let cursorY = 20;
+        splitText.forEach((line) => {
+          if (cursorY > 280) {
+            pdf.addPage();
+            cursorY = 20;
+          }
+          pdf.text(line, 20, cursorY);
+          cursorY += 7;
+        });
+
+        const pdfBlob = pdf.output('blob');
+        setOutputUrl(URL.createObjectURL(pdfBlob));
+      } else if (activeTool === 'excel-to-pdf') {
+        const arrayBuffer = await file.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        
+        const sheetData = XLSX.utils.sheet_to_txt(worksheet);
+
+        const pdf = new jsPDF();
+        pdf.setFontSize(10);
+        const splitText = pdf.splitTextToSize(sheetData || 'Empty Sheet', 170);
+
+        let cursorY = 20;
+        splitText.forEach((line) => {
+          if (cursorY > 280) {
+            pdf.addPage();
+            cursorY = 20;
+          }
+          pdf.text(line, 20, cursorY);
+          cursorY += 6;
+        });
+
+        const pdfBlob = pdf.output('blob');
+        setOutputUrl(URL.createObjectURL(pdfBlob));
+      } else if (activeTool === 'html-to-pdf') {
+        const htmlText = await file.text();
+        const element = document.createElement('div');
+        element.innerHTML = htmlText;
+
+        const pdfBlob = await html2pdf()
+          .from(element)
+          .set({ margin: 10, filename: 'converted.pdf' })
+          .outputPdf('blob');
+
+        setOutputUrl(URL.createObjectURL(pdfBlob));
+      } else if (activeTool === 'pdf-to-jpg') {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const page = await pdf.getPage(1);
+        
+        const viewport = page.getViewport({ scale: 1.5 });
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        await page.render({ canvasContext: context, viewport }).promise;
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            setOutputUrl(URL.createObjectURL(blob));
+          }
+        }, 'image/jpeg');
+      } else if (activeTool === 'pdf-to-word') {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        
+        let fullText = '';
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const textContent = await page.getTextContent();
+          const pageText = textContent.items.map((item) => item.str).join(' ');
+          fullText += pageText + '\n\n';
+        }
+
+        const paragraphs = fullText.split('\n').map(line => 
+          new Paragraph({
+            children: [new TextRun(line)]
+          })
+        );
+
+        const doc = new Document({
+          sections: [{ children: paragraphs }]
+        });
+
+        const docxBlob = await Packer.toBlob(doc);
+        setOutputUrl(URL.createObjectURL(docxBlob));
+      } else if (activeTool === 'pdf-to-excel') {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+        const rowsData = [];
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const textContent = await page.getTextContent();
+          
+          let lastY = null;
+          let currentRow = [];
+
+          textContent.items.forEach((item) => {
+            const currentY = item.transform[5];
+            if (lastY !== null && Math.abs(currentY - lastY) > 5) {
+              rowsData.push(currentRow);
+              currentRow = [];
+            }
+            currentRow.push(item.str);
+            lastY = currentY;
+          });
+
+          if (currentRow.length > 0) {
+            rowsData.push(currentRow);
+          }
+        }
+
+        const worksheet = XLSX.utils.aoa_to_sheet(rowsData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const excelBlob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        setOutputUrl(URL.createObjectURL(excelBlob));
       }
     } catch (err) {
       console.error(err);
     }
     setLoading(false);
+  };
+
+  const getAcceptedFormats = () => {
+    switch (activeTool) {
+      case 'jpg-to-pdf':
+        return 'image/jpeg, image/png';
+      case 'word-to-pdf':
+        return '.docx';
+      case 'excel-to-pdf':
+        return '.xlsx, .xls';
+      case 'html-to-pdf':
+        return '.html, .htm';
+      case 'pdf-to-jpg':
+      case 'pdf-to-word':
+      case 'pdf-to-excel':
+        return '.pdf';
+      default:
+        return '*';
+    }
+  };
+
+  const getDownloadFileName = () => {
+    if (activeTool === 'pdf-to-jpg') return 'converted.jpg';
+    if (activeTool === 'pdf-to-word') return 'converted.docx';
+    if (activeTool === 'pdf-to-excel') return 'converted.xlsx';
+    return 'converted.pdf';
   };
 
   return (
@@ -155,7 +318,7 @@ export default function PdfWriter() {
             <div className="flex flex-col items-center gap-4 bg-slate-950 p-6 rounded-xl border border-slate-800">
               <input
                 type="file"
-                accept="image/jpeg, image/png"
+                accept={getAcceptedFormats()}
                 onChange={(e) => setFile(e.target.files[0])}
                 className="text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-white cursor-pointer"
               />
@@ -165,13 +328,13 @@ export default function PdfWriter() {
                 disabled={!file || loading}
                 className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-all cursor-pointer"
               >
-                {loading ? 'Converting...' : 'Convert JPG to PDF'}
+                {loading ? 'Converting...' : `Convert ${converterTools.find((t) => t.id === activeTool)?.name}`}
               </button>
 
               {outputUrl && (
                 <a
                   href={outputUrl}
-                  download="converted.pdf"
+                  download={getDownloadFileName()}
                   className="mt-2 text-blue-400 underline text-sm"
                 >
                   Download Converted File
