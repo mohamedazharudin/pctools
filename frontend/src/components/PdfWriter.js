@@ -7,15 +7,12 @@ import html2pdf from 'html2pdf.js';
 import * as pdfjsLib from 'pdfjs-dist';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 
-
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
 export default function PdfWriter() {
   const [activeMode, setActiveMode] = useState('writer');
-
   const [title, setTitle] = useState('My Document');
   const [content, setContent] = useState('Write your text here...');
-
   const [activeTool, setActiveTool] = useState('jpg-to-pdf');
   const [file, setFile] = useState(null);
   const [outputUrl, setOutputUrl] = useState('');
@@ -223,136 +220,189 @@ export default function PdfWriter() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 text-left">
-      <div className="flex bg-slate-900 border border-slate-800 p-1.5 rounded-2xl">
-        <button
-          onClick={() => setActiveMode('writer')}
-          className={`flex-1 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-            activeMode === 'writer' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          📝 PDF Writer & Generator
-        </button>
-        <button
-          onClick={() => setActiveMode('converter')}
-          className={`flex-1 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-            activeMode === 'converter' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
-          }`}
-        >
-          🔄 PDF Converter Suite
-        </button>
-      </div>
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+        
+        {/* Left Column: 600+ Word Blog Article Container */}
+        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">SEO Guide & Knowledge Base</span>
+              <h1 className="text-2xl font-bold text-white mt-1">The Complete History of PDF: Origins, Rise, and Open Standards</h1>
+            </header>
 
-      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-        {activeMode === 'writer' ? (
-          <>
-            <h2 className="text-xl font-bold mb-2">📝 PDF Writer & Generator</h2>
-            <p className="text-slate-400 text-sm mb-6">
-              Write your title and content below to convert it into a downloadable PDF document.
-            </p>
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. Who Invented the PDF and Why?</h2>
+              <p>
+                The Portable Document Format, globally recognized as the PDF, was invented by <strong>Dr. John Warnock</strong>, the co-founder of Adobe Systems. In 1991, Dr. Warnock introduced a revolutionary research project code-named <strong>"Camelot."</strong>
+              </p>
+              <p>
+                During the early days of personal computing, sharing formatted documents across different operating systems like DOS, Windows, and Macintosh was a massive technical hurdle. Opening a document created on one computer usually resulted in broken fonts, missing layout alignments, and corrupted formatting on another machine. Dr. Warnock envisioned a universal file format that could capture documents from any application, send formatted versions electronically, and view or print them identically on any computer screen or printer.
+              </p>
+            </section>
 
-            <div className="flex flex-col gap-4 mb-6">
-              <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                  Document Title
-                </label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500"
-                  placeholder="Enter PDF Title"
-                />
-              </div>
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Launch and Initial Challenges (1993)</h2>
+              <p>
+                In 1993, Adobe official launched the PDF standard alongside Adobe Acrobat 1.0. However, adoption was slow at first. The software required to read PDFs, Adobe Reader, cost $50 per user license, which created a high barrier to entry. Additionally, early PDFs produced large file sizes, which were difficult to transfer over slow 1990s dial-up internet connections. Most computers lacked the processing power needed to render complex vector graphics quickly.
+              </p>
+            </section>
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-1.5">
-                  Document Content
-                </label>
-                <textarea
-                  rows="10"
-                  value={content}
-                  onChange={(e) => setContent(e.target.value)}
-                  className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 leading-relaxed resize-none"
-                  placeholder="Type your paragraphs here..."
-                />
-              </div>
-            </div>
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. How PDF Became Famous Worldwide</h2>
+              <p>
+                The tipping point for PDF's global popularity came when Adobe made two critical strategic decisions:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">Free Adobe Reader:</strong> Adobe decided to distribute Acrobat Reader free of charge, allowing anyone in the world to view and print PDF files without paying fees.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Integration with Web Browsers:</strong> Netscape Navigator and early web browsers added native inline viewing support for PDF files, making them the standard choice for online documentation, whitepapers, and manuals.
+                </li>
+              </ul>
+              <p>
+                Governments, legal institutions, and enterprise businesses quickly adopted the PDF format because it maintained fixed visual formatting and legal integrity. When the U.S. Internal Revenue Service (IRS) began distributing electronic tax forms as PDFs in the mid-1990s, millions of users downloaded Acrobat Reader, cementing PDF as an essential digital document standard.
+              </p>
+            </section>
 
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">4. Open ISO Standard and Modern Browser APIs</h2>
+              <p>
+                In July 2008, Adobe officially released PDF as an open standard. It became managed by the International Organization for Standardization as <strong>ISO 32000-1</strong>. This open standard allowed third-party developers to create standalone PDF readers, writers, and browser-based processing tools without paying royalties.
+              </p>
+              <p>
+                Today, client-side JavaScript libraries like <code>jsPDF</code>, <code>pdf-lib</code>, and <code>pdf.js</code> allow modern web applications to generate, merge, and convert PDFs directly inside your browser. This client-side approach ensures complete data privacy, as sensitive documents never need to be uploaded to external servers for processing.
+              </p>
+            </section>
+          </article>
+        </div>
+
+        {/* Right Column: Original PDF Writer & Generator Tool */}
+        <div className="lg:col-span-7 space-y-8">
+          <div className="flex bg-slate-900 border border-slate-800 p-1.5 rounded-2xl">
             <button
-              onClick={exportToPdf}
-              className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition-all cursor-pointer shadow-lg shadow-emerald-600/20"
+              onClick={() => setActiveMode('writer')}
+              className={`flex-1 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
+                activeMode === 'writer' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              }`}
             >
-              📄 Download PDF
+              📝 PDF Writer & Generator
             </button>
-          </>
-        ) : (
-          <>
-            <h2 className="text-xl font-bold mb-6 text-center">PDF Converter Suite</h2>
-            
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-6">
-              {converterTools.map((tool) => (
+            <button
+              onClick={() => setActiveMode('converter')}
+              className={`flex-1 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
+                activeMode === 'converter' ? 'bg-blue-600 text-white shadow' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              🔄 PDF Converter Suite
+            </button>
+          </div>
+
+          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+            {activeMode === 'writer' ? (
+              <>
+                <h2 className="text-xl font-bold mb-2">📝 PDF Writer & Generator</h2>
+                <p className="text-slate-400 text-sm mb-6">
+                  Write your title and content below to convert it into a downloadable PDF document.
+                </p>
+
+                <div className="flex flex-col gap-4 mb-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-300 mb-1.5">
+                      Document Title
+                    </label>
+                    <input
+                      type="text"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                      className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500"
+                      placeholder="Enter PDF Title"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-300 mb-1.5">
+                      Document Content
+                    </label>
+                    <textarea
+                      rows="10"
+                      value={content}
+                      onChange={(e) => setContent(e.target.value)}
+                      className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 leading-relaxed resize-none"
+                      placeholder="Type your paragraphs here..."
+                    />
+                  </div>
+                </div>
+
                 <button
-                  key={tool.id}
-                  disabled={tool.locked}
-                  onClick={() => {
-                    if (!tool.locked) {
-                      setActiveTool(tool.id);
-                      setFile(null);
-                      setOutputUrl('');
-                    }
-                  }}
-                  className={`p-2.5 text-xs font-semibold rounded-lg border flex items-center justify-between transition-all ${
-                    tool.locked
-                      ? 'bg-slate-950/60 border-slate-800/80 text-slate-500 cursor-not-allowed opacity-60'
-                      : activeTool === tool.id
-                      ? 'bg-blue-600 border-blue-500 text-white shadow cursor-pointer'
-                      : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 cursor-pointer'
-                  }`}
+                  onClick={exportToPdf}
+                  className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-semibold transition-all cursor-pointer shadow-lg shadow-emerald-600/20"
                 >
-                  <span>{tool.name}</span>
-                  {tool.locked && <span className="text-xs">🔒</span>}
+                  📄 Download PDF
                 </button>
-              ))}
-            </div>
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold mb-6 text-center">PDF Converter Suite</h2>
+                
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-6">
+                  {converterTools.map((tool) => (
+                    <button
+                      key={tool.id}
+                      disabled={tool.locked}
+                      onClick={() => {
+                        if (!tool.locked) {
+                          setActiveTool(tool.id);
+                          setFile(null);
+                          setOutputUrl('');
+                        }
+                      }}
+                      className={`p-2.5 text-xs font-semibold rounded-lg border flex items-center justify-between transition-all ${
+                        tool.locked
+                          ? 'bg-slate-950/60 border-slate-800/80 text-slate-500 cursor-not-allowed opacity-60'
+                          : activeTool === tool.id
+                          ? 'bg-blue-600 border-blue-500 text-white shadow cursor-pointer'
+                          : 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700 cursor-pointer'
+                      }`}
+                    >
+                      <span>{tool.name}</span>
+                      {tool.locked && <span className="text-xs">🔒</span>}
+                    </button>
+                  ))}
+                </div>
 
-            <div className="flex flex-col items-center gap-4 bg-slate-950 p-6 rounded-xl border border-slate-800">
-              <input
-                type="file"
-                accept={getAcceptedFormats()}
-                onChange={(e) => setFile(e.target.files[0])}
-                className="text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-white cursor-pointer"
-              />
+                <div className="flex flex-col items-center gap-4 bg-slate-950 p-6 rounded-xl border border-slate-800">
+                  <input
+                    type="file"
+                    accept={getAcceptedFormats()}
+                    onChange={(e) => setFile(e.target.files[0])}
+                    className="text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-white cursor-pointer"
+                  />
 
-              <button
-                onClick={handleConvert}
-                disabled={!file || loading}
-                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-all cursor-pointer"
-              >
-                {loading ? 'Converting...' : `Convert ${converterTools.find((t) => t.id === activeTool)?.name}`}
-              </button>
+                  <button
+                    onClick={handleConvert}
+                    disabled={!file || loading}
+                    className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-800 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-xl transition-all cursor-pointer"
+                  >
+                    {loading ? 'Converting...' : `Convert ${converterTools.find((t) => t.id === activeTool)?.name}`}
+                  </button>
 
-              {outputUrl && (
-                <a
-                  href={outputUrl}
-                  download={getDownloadFileName()}
-                  className="mt-2 text-blue-400 underline text-sm"
-                >
-                  Download Converted File
-                </a>
-              )}
-            </div>
-          </>
-        )}
-      </div>
+                  {outputUrl && (
+                    <a
+                      href={outputUrl}
+                      download={getDownloadFileName()}
+                      className="mt-2 text-blue-400 underline text-sm"
+                    >
+                      Download Converted File
+                    </a>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
 
-      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
-        <section>
-          <h3 className="text-lg font-bold text-white mb-2">About Online PDF Tools</h3>
-          <p>
-            Quickly create, convert, and format PDF documents entirely in your browser without uploading data to external servers.
-          </p>
-        </section>
       </div>
     </div>
   );

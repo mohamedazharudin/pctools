@@ -80,7 +80,7 @@ function AppContent() {
     {
       name: 'AI & System',
       tools: [
-        { id: 'ai-detector', label: 'AI Detector' },
+       // { id: 'ai-detector', label: 'AI Detector' },
         { id: 'ip-finder', label: 'IP Finder' },
         { id: 'speed-test', label: 'Speed Test' },
         { id: 'device-health', label: 'Device Health' },

@@ -14,56 +14,108 @@ export default function Compass() {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 text-left">
-      {/* Interactive Compass Tool */}
-      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
-        <h1 className="text-xl font-bold mb-6">🧭 Online Digital Compass</h1>
-        <div className="relative w-48 h-48 mx-auto border-4 border-slate-700 rounded-full flex items-center justify-center">
-          <div 
-            className="text-4xl transition-transform duration-200"
-            style={{ transform: `rotate(${-heading}deg)` }}
-          >
-            ⬆️
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+        
+        {/* Left Column: Detailed Article Container */}
+        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Navigation & Device Sensors</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Understanding Mobile Orientation and Digital Compass Magnetometry</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. How Mobile Compass Sensors Work</h2>
+              <p>
+                Modern mobile devices determine orientation by combining data from onboard magnetometers, gyroscopes, and accelerometers. Internal sensors detect earth magnetic field vectors relative to device orientation axes.
+              </p>
+              <p>
+                Sensor fusion algorithms process raw data in real time to filter out sudden movements and deliver smooth degree readings across 360 degrees.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Device Orientation Web APIs</h2>
+              <p>
+                Web applications access real-time orientation data using standardized browser event hooks:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">Alpha Rotation:</strong> Represents motion around the Z-axis (0 to 360 degrees) relative to Earth compass direction.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Webkit Compass Heading:</strong> Provides direct magnetic north heading degrees on iOS Safari environments.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Sensor Calibration:</strong> Requires holding devices flat away from magnetic interference sources like metallic cases.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. True North vs. Magnetic North</h2>
+              <p>
+                Browser digital compasses measure magnetic north rather than geographical true north. Magnetic declination variances depend on current geographical location and regional magnetic field anomalies.
+              </p>
+            </section>
+          </article>
+        </div>
+
+        {/* Right Column: Interactive Tool & FAQ */}
+        <div className="lg:col-span-7 space-y-8">
+          {/* Interactive Compass Tool */}
+          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
+            <h1 className="text-xl font-bold mb-6">🧭 Online Digital Compass</h1>
+            <div className="relative w-48 h-48 mx-auto border-4 border-slate-700 rounded-full flex items-center justify-center">
+              <div 
+                className="text-4xl transition-transform duration-200"
+                style={{ transform: `rotate(${-heading}deg)` }}
+              >
+                ⬆️
+              </div>
+            </div>
+            <p className="mt-4 text-2xl font-bold text-blue-400">{heading}°</p>
+          </div>
+
+          {/* SEO Publisher Article Section */}
+          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+            <section>
+              <h2 className="text-lg font-bold text-white mb-2">About the Online Digital Compass</h2>
+              <p>
+                This free online compass helps you find cardinal directions directly from your web browser. It uses your device hardware sensors to display real-time magnetic heading readings in degrees.
+              </p>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Use the Compass</h3>
+              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+                <li>Open this webpage on a mobile device or tablet equipped with orientation sensors.</li>
+                <li>Allow location or orientation permission requests if prompted by your browser.</li>
+                <li>Hold your device flat and level relative to the ground to ensure accurate direction readings.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-medium text-slate-200">Why does the compass not work on my desktop computer?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Most standard desktop computers lack built-in magnetometer and gyroscope hardware needed for orientation tracking.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-slate-200">Is my location data saved?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    No, direction calculations run locally inside your browser and no orientation data is collected or saved.
+                  </p>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
-        <p className="mt-4 text-2xl font-bold text-blue-400">{heading}°</p>
-      </div>
 
-      {/* SEO Publisher Article Section */}
-      <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
-        <section>
-          <h2 className="text-lg font-bold text-white mb-2">About the Online Digital Compass</h2>
-          <p>
-            This free online compass helps you find cardinal directions directly from your web browser. It uses your device hardware sensors to display real-time magnetic heading readings in degrees.
-          </p>
-        </section>
-
-        <section>
-          <h3 className="text-base font-semibold text-white mb-2">How to Use the Compass</h3>
-          <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-            <li>Open this webpage on a mobile device or tablet equipped with orientation sensors.</li>
-            <li>Allow location or orientation permission requests if prompted by your browser.</li>
-            <li>Hold your device flat and level relative to the ground to ensure accurate direction readings.</li>
-          </ol>
-        </section>
-
-        <section>
-          <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
-          <div className="space-y-3">
-            <div>
-              <h4 className="font-medium text-slate-200">Why does the compass not work on my desktop computer?</h4>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Most standard desktop computers lack built-in magnetometer and gyroscope hardware needed for orientation tracking.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-slate-200">Is my location data saved?</h4>
-              <p className="text-xs text-slate-400 mt-0.5">
-                No, direction calculations run locally inside your browser and no orientation data is collected or saved.
-              </p>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );

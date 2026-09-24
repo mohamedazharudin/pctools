@@ -58,7 +58,7 @@ const quizData = {
     { id: 2, question: "Which HTML tag is used to define an internal style sheet?", options: ["<css>", "<script>", "<style>", "<link>"], answer: 2 },
     { id: 3, question: "Which HTML attribute is used to define inline styles?", options: ["styles", "style", "class", "font"], answer: 1 },
     { id: 4, question: "Which is the correct CSS syntax?", options: ["body {color: black;}", "{body:color=black;}", "body:color=black;", "{body;color:black;}"], answer: 0 },
-    { id: 5, question: "How do you insert a comment in a CSS file?", options: ["// this is a comment", "/* this is a comment */", "' this is a comment", "<!-- this is a comment -->"], answer: 1 },
+    { id: 5, question: "How do you insert a comment in a CSS file?", options: ["// this is a comment", "/* this is a comment */", "' this is a comment", ""], answer: 1 },
     { id: 6, question: "Which property is used to change the background color?", options: ["color", "bgcolor", "background-color", "canvas-color"], answer: 2 },
     { id: 7, question: "How do you add a background color for all <h1> elements?", options: ["all.h1 {background-color:#FFFFFF;}", "h1.all {background-color:#FFFFFF;}", "h1 {background-color:#FFFFFF;}", "h1 (background-color:#FFFFFF;)"], answer: 2 },
     { id: 8, question: "Which CSS property is used to change the text color of an element?", options: ["fgcolor", "text-color", "color", "font-color"], answer: 2 },
@@ -107,7 +107,7 @@ const quizData = {
   ],
   javascript: [
     { id: 1, question: "Which keyword declares a block-scoped variable in JavaScript?", options: ["var", "let", "define", "set"], answer: 1 },
-    { id: 2, question: "Which syntax is used to write a comment in JavaScript?", options: ["<!-- comment -->", "// comment", "/* comment */", "Both // and /* */"], answer: 3 },
+    { id: 2, question: "Which syntax is used to write a comment in JavaScript?", options: ["", "// comment", "/* comment */", "Both // and /* */"], answer: 3 },
     { id: 3, question: "What is the output of typeof null in JavaScript?", options: ["'null'", "'undefined'", "'object'", "'number'"], answer: 2 },
     { id: 4, question: "Which method converts a string to an integer?", options: ["parseInteger()", "parseInt()", "Number.toInt()", "convertToInt()"], answer: 1 },
     { id: 5, question: "How do you declare a constant variable in JavaScript?", options: ["constant x = 10;", "const x = 10;", "var const x = 10;", "let const x = 10;"], answer: 1 },
@@ -192,90 +192,182 @@ export default function AptitudeQuestions() {
   const isFormComplete = Object.keys(userAnswers).length === currentQuestions.length;
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-slate-100">
-      <h1 className="text-3xl font-bold text-center mb-2">Aptitude Quiz</h1>
-      <p className="text-center text-slate-400 text-sm mb-6">
-        Select a programming language and answer all 50 questions to get your score.
-      </p>
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+        
+        {/* Left Column: Educational Content Article */}
+        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Web Development Fundamentals</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Mastering Core Frontend Aptitude: HTML, CSS & JavaScript</h1>
+            </header>
 
-      {/* Language Switcher Tabs */}
-      <div className="flex justify-center gap-3 mb-8">
-        {[
-          { id: 'html', label: 'HTML', icon: '🌐' },
-          { id: 'css', label: 'CSS', icon: '🎨' },
-          { id: 'javascript', label: 'JavaScript', icon: '⚡' },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => handleTopicChange(tab.id)}
-            className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer flex items-center gap-2 ${
-              selectedTopic === tab.id
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-                : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700/80'
-            }`}
-          >
-            <span>{tab.icon}</span>
-            <span>{tab.label}</span>
-          </button>
-        ))}
-      </div>
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. Core Concepts & Technical Standards</h2>
+              <p>
+                Developing web applications requires a clear understanding of frontend building blocks. HTML provides structural semantics, CSS controls layout presentation, and JavaScript enables interactivity.
+              </p>
+              <p>
+                Aptitude evaluations focus on understanding syntax, default browser behavior, DOM API methods, and modern standards like ES6 and flexbox/grid layout systems.
+              </p>
+            </section>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {currentQuestions.map((q, qIdx) => (
-          <div key={q.id} className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl">
-            <p className="font-semibold text-base mb-3">
-              {qIdx + 1}. {q.question}
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Essential Development Topics</h2>
+              <p>
+                Key areas covered across web technologies include:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">Semantic Markup:</strong> Using structural tags like <code className="text-blue-400">&lt;article&gt;</code>, <code className="text-blue-400">&lt;nav&gt;</code>, and accessibility attributes correctly.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Layout & Styling Logic:</strong> Understanding specificity rules, CSS units (rem vs px), and responsive media query techniques.
+                </li>
+                <li>
+                  <strong className="text-slate-200">JavaScript Execution:</strong> Mastering variable scoping, asynchronous promises, array methods, and event propagation models.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. Assessment Strategy</h2>
+              <p>
+                Working through standardized technical questions reinforces fundamental knowledge, helps identify knowledge gaps, and prepares developers for technical interviews and coding certification evaluations.
+              </p>
+            </section>
+          </article>
+        </div>
+
+        {/* Right Column: Interactive Quiz Tool & Publisher Section */}
+        <div className="lg:col-span-7 space-y-8">
+          {/* Interactive Quiz Box */}
+          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-slate-100">
+            <h1 className="text-3xl font-bold text-center mb-2">Aptitude Quiz</h1>
+            <p className="text-center text-slate-400 text-sm mb-6">
+              Select a programming language and answer all 50 questions to get your score.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {q.options.map((option, optIdx) => {
-                const label = String.fromCharCode(65 + optIdx);
-                const isSelected = userAnswers[q.id] === optIdx;
-
-                return (
-                  <button
-                    type="button"
-                    key={optIdx}
-                    onClick={() => handleSelectOption(q.id, optIdx)}
-                    className={`text-left p-3 rounded-lg border text-sm transition-all cursor-pointer flex items-center gap-2 ${
-                      isSelected
-                        ? 'bg-blue-600/20 border-blue-500 text-white font-medium'
-                        : 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800'
-                    }`}
-                  >
-                    <span className="font-bold text-blue-400">{label}.</span>
-                    <span>{option}</span>
-                  </button>
-                );
-              })}
+            {/* Language Switcher Tabs */}
+            <div className="flex justify-center gap-3 mb-8">
+              {[
+                { id: 'html', label: 'HTML', icon: '🌐' },
+                { id: 'css', label: 'CSS', icon: '🎨' },
+                { id: 'javascript', label: 'JavaScript', icon: '⚡' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTopicChange(tab.id)}
+                  className={`px-5 py-2.5 rounded-xl font-bold text-sm transition-all cursor-pointer flex items-center gap-2 ${
+                    selectedTopic === tab.id
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+                      : 'bg-slate-800/80 text-slate-300 hover:bg-slate-700/80'
+                  }`}
+                >
+                  <span>{tab.icon}</span>
+                  <span>{tab.label}</span>
+                </button>
+              ))}
             </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {currentQuestions.map((q, qIdx) => (
+                <div key={q.id} className="p-4 bg-slate-950/60 border border-slate-800 rounded-xl">
+                  <p className="font-semibold text-base mb-3">
+                    {qIdx + 1}. {q.question}
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {q.options.map((option, optIdx) => {
+                      const label = String.fromCharCode(65 + optIdx);
+                      const isSelected = userAnswers[q.id] === optIdx;
+
+                      return (
+                        <button
+                          type="button"
+                          key={optIdx}
+                          onClick={() => handleSelectOption(q.id, optIdx)}
+                          className={`text-left p-3 rounded-lg border text-sm transition-all cursor-pointer flex items-center gap-2 ${
+                            isSelected
+                              ? 'bg-blue-600/20 border-blue-500 text-white font-medium'
+                              : 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800'
+                          }`}
+                        >
+                          <span className="font-bold text-blue-400">{label}.</span>
+                          <span>{option}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              <div className="sticky bottom-4 bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-slate-800 shadow-2xl">
+                <button
+                  type="submit"
+                  disabled={!isFormComplete}
+                  className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                >
+                  {isFormComplete
+                    ? `Submit ${selectedTopic.toUpperCase()} Quiz`
+                    : `Answer All Questions (${Object.keys(userAnswers).length}/50)`}
+                </button>
+              </div>
+            </form>
+
+            {score !== null && (
+              <div className="mt-6 p-6 bg-emerald-950/80 border border-emerald-700/60 text-center rounded-xl text-emerald-200">
+                <h2 className="text-2xl font-bold">Quiz Completed!</h2>
+                <p className="mt-2 text-lg">
+                  Your Score: <span className="font-bold text-white text-2xl">{score}</span> / {currentQuestions.length}
+                </p>
+                <p className="text-sm mt-1 text-emerald-300">
+                  Percentage: {((score / currentQuestions.length) * 100).toFixed(1)}%
+                </p>
+              </div>
+            )}
           </div>
-        ))}
 
-        <div className="sticky bottom-4 bg-slate-900/90 backdrop-blur-md p-4 rounded-xl border border-slate-800 shadow-2xl">
-          <button
-            type="submit"
-            disabled={!isFormComplete}
-            className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-xl shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-          >
-            {isFormComplete
-              ? `Submit ${selectedTopic.toUpperCase()} Quiz`
-              : `Answer All Questions (${Object.keys(userAnswers).length}/50)`}
-          </button>
-        </div>
-      </form>
+          {/* Publisher Content Section */}
+          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+            <section>
+              <h3 className="text-lg font-bold text-white mb-2">About Web Development Aptitude Quizzes</h3>
+              <p>
+                Interactive quizzes allow developers to assess their foundational understanding across frontend technologies. Regular practice reinforces standard syntax, core terminology, and framework prerequisites.
+              </p>
+            </section>
 
-      {score !== null && (
-        <div className="mt-6 p-6 bg-emerald-950/80 border border-emerald-700/60 text-center rounded-xl text-emerald-200">
-          <h2 className="text-2xl font-bold">Quiz Completed!</h2>
-          <p className="mt-2 text-lg">
-            Your Score: <span className="font-bold text-white text-2xl">{score}</span> / {currentQuestions.length}
-          </p>
-          <p className="text-sm mt-1 text-emerald-300">
-            Percentage: {((score / currentQuestions.length) * 100).toFixed(1)}%
-          </p>
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Use This Quiz</h3>
+              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+                <li>Select your desired topic using the top navigation buttons (HTML, CSS, or JavaScript).</li>
+                <li>Answer all 50 multiple-choice questions for the selected category.</li>
+                <li>Submit the form at the bottom to receive instant score metrics and feedback.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-medium text-slate-200">Can I retake the test?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Yes, switching categories or refreshing the page resets selected answers so you can retake quizzes anytime.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-slate-200">Are my results stored on a server?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    No, all state management and scoring logic run locally in your web browser.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
-      )}
+
+      </div>
     </div>
   );
 }
