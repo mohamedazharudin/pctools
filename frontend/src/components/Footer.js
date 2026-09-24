@@ -21,17 +21,23 @@ export default function Footer({ setActiveTab, onOpenPrivacy }) {
             About Us
           </button>
           <button 
+            onClick={() => setActiveTab('contact')} 
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Contact Us
+          </button>
+          <button 
+            onClick={() => setActiveTab('terms')} 
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Terms & Conditions
+          </button>
+          <button 
             onClick={onOpenPrivacy} 
             className="hover:text-white transition-colors cursor-pointer"
           >
             Privacy Policy
           </button>
-          <a 
-            href="mailto:aljadidazhar@gmail.com" 
-            className="hover:text-white transition-colors"
-          >
-            Contact
-          </a>
         </div>
 
         <p className="text-xs text-slate-500">

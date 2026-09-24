@@ -18,6 +18,8 @@ import Humanizer from './components/Humanizer';
 import AiDetector from './components/AiDetector';
 import Compass from './components/Compass';
 import AboutUs from './components/AboutUs';
+import ContactUs from './components/ContactUs';
+import TermsAndConditions from './components/TermsAndConditions';
 import Footer from './components/Footer';
 import AudioToText from './components/AudioToText';
 import VideoToAudio from './components/VideoToAudio';
@@ -29,6 +31,7 @@ import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import Home from './Home';
 import AptitudeQuestions from './components/AptitudeQuestions';
 import MernTutorial from './components/MernTutorial';
+
 function AppContent() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -170,6 +173,28 @@ function AppContent() {
           >
             About Us
           </button>
+          
+          <button
+            onClick={() => handleTabChange('contact')}
+            className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
+              currentPath === 'contact'
+                ? 'bg-blue-600 text-white font-semibold shadow'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+            }`}
+          >
+            Contact Us
+          </button>
+
+          <button
+            onClick={() => handleTabChange('terms')}
+            className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
+              currentPath === 'terms'
+                ? 'bg-blue-600 text-white font-semibold shadow'
+                : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+            }`}
+          >
+            Terms & Conditions
+          </button>
         </div>
       </header>
 
@@ -202,6 +227,8 @@ function AppContent() {
           <Route path="/ai-detector" element={<AiDetector />} />
           <Route path="/compass" element={<Compass />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
           <Route path="/audio-to-text" element={<AudioToText />} />
           <Route path="/video-to-audio" element={<VideoToAudio />} />
           <Route path="/device-health" element={<DeviceHealth />} />
