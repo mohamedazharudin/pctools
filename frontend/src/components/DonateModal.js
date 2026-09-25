@@ -4,12 +4,13 @@ export default function DonateModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(false);
   const upiId = "aljadidazhar-1@okicici";
   const payeeName = "Mohamed Azharudin";
+  const note = "Donation from supporter of PcTools";
 
   if (!isOpen) return null;
 
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
-    `upi://pay?pa=${upiId}&pn=${payeeName}&cu=INR`
-  )}`;
+  // Added &tn=${encodeURIComponent(note)} for the donation message
+  const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&tn=${encodeURIComponent(note)}&cu=INR`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUrl)}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(upiId);
@@ -53,7 +54,7 @@ export default function DonateModal({ isOpen, onClose }) {
 
         {/* Mobile Pay Button */}
         <a
-          href={`upi://pay?pa=${upiId}&pn=${payeeName}&cu=INR`}
+          href={upiUrl}
           className="block w-full py-2.5 bg-green-600 hover:bg-green-500 rounded-xl font-semibold text-xs transition-all text-white"
         >
           📲 Open UPI App Directly
