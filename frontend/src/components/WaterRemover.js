@@ -1,9 +1,12 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function WaterRemover() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(60);
+
   const audioCtxRef = useRef(null);
   const oscillatorRef = useRef(null);
+  const timerRef = useRef(null);
 
   const startWaterRemoval = () => {
     // Create Audio Context
@@ -27,18 +30,50 @@ export default function WaterRemover() {
     osc.start();
     oscillatorRef.current = osc;
     setIsPlaying(true);
+    setTimeLeft(60);
+
+    // Start 60-second countdown
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          stopWaterRemoval();
+          return 60;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
   };
 
   const stopWaterRemoval = () => {
-    if (oscillatorRef.current) {
-      oscillatorRef.current.stop();
-      oscillatorRef.current.disconnect();
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
     }
-    if (audioCtxRef.current) {
+    if (oscillatorRef.current) {
+      try {
+        oscillatorRef.current.stop();
+        oscillatorRef.current.disconnect();
+      } catch (e) {
+        // Ignore if already stopped
+      }
+    }
+    // Check if AudioContext is open before closing to avoid errors
+    if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
       audioCtxRef.current.close();
     }
     setIsPlaying(false);
+    setTimeLeft(60);
   };
+
+  // Safe cleanup on page change / unmount
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
+        audioCtxRef.current.close();
+      }
+    };
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -105,10 +140,15 @@ export default function WaterRemover() {
               Turn your volume to 100% and face your device speakers downward.
             </p>
 
-            <div className="relative w-40 h-40 mx-auto mb-6 flex items-center justify-center bg-slate-950 border border-slate-800 rounded-full">
-              <span className={`text-6xl ${isPlaying ? 'animate-bounce' : ''}`}>
+            <div className="relative w-40 h-40 mx-auto mb-6 flex flex-col items-center justify-center bg-slate-950 border border-slate-800 rounded-full">
+              <span className={`text-5xl ${isPlaying ? 'animate-bounce' : ''}`}>
                 {isPlaying ? '🔊' : '💧'}
               </span>
+              {isPlaying && (
+                <span className="text-xs font-mono font-bold text-blue-400 mt-2">
+                  Auto-stop in: {timeLeft}s
+                </span>
+              )}
             </div>
 
             {!isPlaying ? (
@@ -116,14 +156,14 @@ export default function WaterRemover() {
                 onClick={startWaterRemoval}
                 className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer shadow-lg shadow-blue-600/20"
               >
-                ⚡ Eject Water (Play Tone)
+                ⚡ Eject Water (Play 1-Min Tone)
               </button>
             ) : (
               <button
                 onClick={stopWaterRemoval}
                 className="w-full py-3.5 bg-red-600 hover:bg-red-500 rounded-xl font-semibold transition-all cursor-pointer animate-pulse"
               >
-                🛑 Stop Sound
+                🛑 Stop Sound ({timeLeft}s left)
               </button>
             )}
           </div>
@@ -136,7 +176,7 @@ export default function WaterRemover() {
                 <li>Increase your device sound volume to <strong className="text-slate-200">100% max volume</strong>.</li>
                 <li>Hold or position your phone/device so the speaker mesh points downward toward the floor.</li>
                 <li>Press <strong className="text-slate-200">Eject Water</strong> to activate the low-frequency acoustic vibrations.</li>
-                <li>Allow the sound to play for 30–60 seconds until tiny water droplets shake free.</li>
+                <li>Allow the sound to play; it will automatically stop after 60 seconds once droplets shake free.</li>
               </ol>
             </section>
 
@@ -160,7 +200,7 @@ export default function WaterRemover() {
                 <div>
                   <h4 className="font-semibold text-slate-200">How long should I run the tone?</h4>
                   <p className="text-xs text-slate-400 mt-1">
-                    Running the audio pulse for 30 to 60 seconds is usually sufficient to clear droplets from standard phone speaker grills.
+                    The tool runs automatically for 60 seconds, which is optimal to clear trapped droplets from standard phone speaker grills.
                   </p>
                 </div>
               </div>

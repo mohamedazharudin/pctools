@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import ImageFormatter from './components/ImageFormatter';
@@ -39,8 +39,23 @@ function AppContent() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  
+  // State for live clock and search input
+  const [time, setTime] = useState(new Date());
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // Helper to sync tab clicks with clean browser paths
+  // Clock timer setup
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formattedTime = time.toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+
   const handleTabChange = (tabId) => {
     const path = tabId === 'home' ? '/' : `/${tabId}`;
     navigate(path);
@@ -80,7 +95,6 @@ function AppContent() {
     {
       name: 'AI & System',
       tools: [
-       // { id: 'ai-detector', label: 'AI Detector' },
         { id: 'ip-finder', label: 'IP Finder' },
         { id: 'speed-test', label: 'Speed Test' },
         { id: 'device-health', label: 'Device Health' },
@@ -88,14 +102,21 @@ function AppContent() {
     }
   ];
 
-  // Derive current tab from URL path
+  // Flat list of all tools for quick search navigation
+  const allTools = navCategories.flatMap(cat => cat.tools);
+  const filteredTools = searchQuery.trim() 
+    ? allTools.filter(tool => tool.label.toLowerCase().includes(searchQuery.toLowerCase()))
+    : [];
+
   const currentPath = location.pathname.substring(1) || 'home';
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Top Navbar */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/60 shadow-md">
-        <div className="h-16 flex items-center justify-between px-3 sm:px-6">
+        <div className="h-16 flex items-center justify-between px-3 sm:px-6 gap-2">
+          
+          {/* Left: Menu & Brand */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <button 
               onClick={() => setIsOpen(!isOpen)} 
@@ -114,7 +135,55 @@ function AppContent() {
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          {/* Center: Search Bar with Dropdown Results */}
+          <div className="relative flex-1 max-w-xs sm:max-w-md mx-2">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="🔍 Search tools..."
+              className="w-full px-3 sm:px-4 py-1.5 bg-slate-950/80 border border-slate-700/80 rounded-xl text-xs sm:text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 shadow-inner transition-all"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-white"
+              >
+                ✕
+              </button>
+            )}
+
+            {/* Live Search Dropdown */}
+            {searchQuery.trim() !== '' && (
+              <div className="absolute left-0 right-0 top-full mt-1 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl p-2 z-50 max-h-60 overflow-y-auto">
+                {filteredTools.length > 0 ? (
+                  filteredTools.map((tool) => (
+                    <button
+                      key={tool.id}
+                      onClick={() => {
+                        handleTabChange(tool.id);
+                        setSearchQuery('');
+                      }}
+                      className="w-full text-left px-3 py-2 text-xs sm:text-sm text-slate-200 hover:bg-blue-600 hover:text-white rounded-lg transition-all"
+                    >
+                      {tool.label}
+                    </button>
+                  ))
+                ) : (
+                  <div className="px-3 py-2 text-xs text-slate-400">No matching tools found</div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Right: Live Clock & Donate Button */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Live Time Badge */}
+            <div className="hidden sm:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-300">
+              <span>🕒</span>
+              <span className="font-semibold">{formattedTime}</span>
+            </div>
+
             <button
               onClick={() => setIsDonateOpen(true)}
               className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap"
@@ -174,27 +243,7 @@ function AppContent() {
             About Us
           </button>
           
-          <button
-            onClick={() => handleTabChange('contact')}
-            className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
-              currentPath === 'contact'
-                ? 'bg-blue-600 text-white font-semibold shadow'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-            }`}
-          >
-            Contact Us
-          </button>
-
-          <button
-            onClick={() => handleTabChange('terms')}
-            className={`px-3 py-1.5 rounded-lg whitespace-nowrap transition-all cursor-pointer ${
-              currentPath === 'terms'
-                ? 'bg-blue-600 text-white font-semibold shadow'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
-            }`}
-          >
-            Terms & Conditions
-          </button>
+    
         </div>
       </header>
 

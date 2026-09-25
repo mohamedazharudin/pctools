@@ -15,7 +15,7 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) 
     { id: 'age-calculator', label: '🎂 Age Calculator' },
     { id: 'date-diff', label: '📅 Days Difference' },
     { id: 'weight-analyzer', label: '⚖️ Weight Analyzer' },
-    { id: 'ai-detector', label: '🤖 AI Detector' },
+   // { id: 'ai-detector', label: '🤖 AI Detector' },
     { id: 'video-to-audio', label: '🎙️ Video to Audio' },
     { id: 'device-health', label: '💻 Device Health' },
     { id: 'water-remover', label: '💧 Speaker Water Ejector' },
