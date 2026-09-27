@@ -14,4 +14,27 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  top: 0px !important;
+
+}
+/* Restrict Google Translate dropdown inside container */
+#google_translate_element {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+#google_translate_element select {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border: 1px solid #334155 !important;
+  border-radius: 0.75rem !important;
+  padding: 0.5rem !important;
+  width: 100% !important;
+  outline: none !important;
+  font-size: 0.75rem !important;
+}
+
+/* Hide top Google Translate banner frame */
+.goog-te-banner-frame {
+  display: none !important;
 }

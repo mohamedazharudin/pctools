@@ -27,7 +27,31 @@ export default function Home({ setActiveTab }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Run Speed Test & Fetch Device Info automatically on Page Load / Refresh
+  // Initialize Google Translate Script
+  useEffect(() => {
+    window.googleTranslateElementInit = () => {
+      if (window.google && window.google.translate) {
+        new window.google.translate.TranslateElement(
+          {
+            pageLanguage: 'en',
+            layout: window.google.translate.TranslateElement.InlineLayout.VERTICAL,
+            autoDisplay: false,
+          },
+          'google_translate_element'
+        );
+      }
+    };
+  
+    if (!document.getElementById('google-translate-script')) {
+      const script = document.createElement('script');
+      script.id = 'google-translate-script';
+      script.type = 'text/javascript';
+      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  // Run Speed Test & Fetch Device Info automatically on Page Load
   useEffect(() => {
     runSpeedTest();
 
@@ -76,7 +100,6 @@ export default function Home({ setActiveTab }) {
     { id: 'password-gen', name: 'Password Generator', desc: 'Generate strong, random passwords instantly.', icon: '🔑' }
   ];
 
-  // Filter tools based on internal search
   const filteredTools = tools.filter(
     (tool) =>
       tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -99,7 +122,6 @@ export default function Home({ setActiveTab }) {
   const prevMonth = () => setCurrentDate(new Date(year, month - 1, 1));
   const nextMonth = () => setCurrentDate(new Date(year, month + 1, 1));
 
-  // Handler for Google Web Search
   const handleGoogleSearch = (e) => {
     e.preventDefault();
     if (googleQuery.trim()) {
@@ -109,13 +131,21 @@ export default function Home({ setActiveTab }) {
 
   return (
     <div className="max-w-[90rem] mx-auto py-6 px-4 sm:px-6 my-4">
-      {/* Grid Layout: Main Container on Left, 2 Containers on Right */}
+      {/* Grid Layout: Left Translator Sidebar (2 cols), Main Container (6 cols), Right Widgets (4 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        {/* Main Container */}
-        <div className="lg:col-span-8 text-left text-white border border-white/20 rounded-3xl bg-slate-950/40 shadow-2xl p-6 sm:p-8">
+        {/* Left Side: Translator Widget */}
+        <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 p-4 rounded-3xl shadow-xl backdrop-blur-md sticky top-24">
+          <h3 className="font-bold text-xs text-white flex items-center gap-1.5 mb-3">
+            <span>🌐</span> Language
+          </h3>
+          <div id="google_translate_element" className="w-full text-xs overflow-hidden rounded-xl bg-slate-950 p-2 border border-slate-800"></div>
+        </div>
+
+        {/* Center: Main Container */}
+        <div className="lg:col-span-6 text-left text-white border border-white/20 rounded-3xl bg-slate-950/40 shadow-2xl p-6 sm:p-8">
           
-          {/* Top Google Search Bar inside Main Container */}
+          {/* Top Google Search Bar */}
           <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl shadow-lg mb-8 backdrop-blur-md">
             <form onSubmit={handleGoogleSearch} className="flex items-center gap-3">
               <span className="text-xl pl-1">🌐</span>
@@ -130,12 +160,12 @@ export default function Home({ setActiveTab }) {
                 type="submit"
                 className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm rounded-xl shadow transition-all whitespace-nowrap cursor-pointer"
               >
-                Search Google
+                Search
               </button>
             </form>
           </div>
 
-          {/* Hero / Vision Section */}
+          {/* Hero Section */}
           <div className="relative bg-gradient-to-r from-slate-900 via-slate-900 to-blue-950 text-white p-6 sm:p-10 rounded-2xl shadow-xl border border-slate-800 mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/30 rounded-full text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4">
               <span>⭐</span> "Best site to be as your home page"
@@ -161,7 +191,7 @@ export default function Home({ setActiveTab }) {
           </h2>
 
           {filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
               {filteredTools.map((tool) => (
                 <div
                   key={tool.id}
@@ -189,43 +219,9 @@ export default function Home({ setActiveTab }) {
             </div>
           )}
 
-          {/* FAQ Section */}
-          <div className="bg-slate-900 p-6 sm:p-8 rounded-xl border border-slate-800 mb-12">
-            <h2 className="text-lg sm:text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
-            <div className="space-y-4 text-sm text-slate-300">
-              <div>
-                <h4 className="font-semibold text-white">Are these tools completely free?</h4>
-                <p className="text-slate-400">Yes, all utilities on our platform are entirely free to use without restrictions.</p>
-              </div>
-              <div>
-                <h4 className="font-semibold text-white">Is my data uploaded anywhere?</h4>
-                <p className="text-slate-400">No, image conversions, audio processing, and document generations happen directly inside your web browser.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Our Mission Section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 bg-slate-900 rounded-xl shadow-sm border border-slate-800">
-              <div className="text-3xl mb-2">⚡</div>
-              <h3 className="font-bold text-white text-lg mb-1">Instant Performance</h3>
-              <p className="text-slate-400 text-sm">All operations run locally in your browser for maximum processing speed.</p>
-            </div>
-            <div className="p-6 bg-slate-900 rounded-xl shadow-sm border border-slate-800">
-              <div className="text-3xl mb-2">🔒</div>
-              <h3 className="font-bold text-white text-lg mb-1">100% Privacy Focused</h3>
-              <p className="text-slate-400 text-sm">Your files and text are processed client-side and never uploaded to external servers.</p>
-            </div>
-            <div className="p-6 bg-slate-900 rounded-xl shadow-sm border border-slate-800">
-              <div className="text-3xl mb-2">💡</div>
-              <h3 className="font-bold text-white text-lg mb-1">Zero Friction</h3>
-              <p className="text-slate-400 text-sm">No paywalls, hidden limits, or forced sign-ups—just direct access to essential utilities.</p>
-            </div>
-          </div>
-
         </div>
 
-        {/* Right Side - Exactly 2 Containers */}
+        {/* Right Side: Calendar, Device Health & Speed Test */}
         <div className="lg:col-span-4 space-y-6 sticky top-24">
           
           {/* Container 1: Calendar */}
@@ -271,10 +267,10 @@ export default function Home({ setActiveTab }) {
             </div>
           </div>
 
-          {/* Container 2: Combined Speed Test & Device Health */}
+          {/* Container 2: Speed Test & Device Health */}
           <div className="bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl backdrop-blur-md space-y-6">
             
-            {/* Speed Test Section */}
+            {/* Speed Test */}
             <div>
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-bold text-sm text-white flex items-center gap-2">
@@ -302,7 +298,7 @@ export default function Home({ setActiveTab }) {
 
             <hr className="border-slate-800/80" />
 
-            {/* Device Health Section */}
+            {/* Device Health */}
             <div>
               <div className="flex items-center justify-between mb-3">
                 <h3 className="font-bold text-sm text-white flex items-center gap-2">
