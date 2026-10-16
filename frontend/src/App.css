@@ -2,12 +2,7 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f9;
-}
-
+/* Main Layout Structure */
 .layout {
   display: flex;
   min-height: 100vh;
@@ -48,7 +43,7 @@ body {
   font-weight: bold;
 }
 
-/* Content Area */
+/* Content Area & Tools */
 .content {
   flex: 1;
   padding: 40px;
@@ -79,11 +74,13 @@ body {
   border-radius: 8px;
 }
 
-select, input[type="range"] {
+select,
+input[type="range"] {
   padding: 8px;
   font-size: 16px;
 }
 
+/* Buttons & Cards */
 .btn {
   background-color: #007bff;
   color: white;
@@ -115,7 +112,7 @@ select, input[type="range"] {
   background: white;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   flex: 1;
   text-align: center;
 }
@@ -127,57 +124,40 @@ select, input[type="range"] {
   object-fit: contain;
 }
 
-
-
-
-/* Style the header containing the logo */
+/* Header & Logo */
 .main-header {
-  /* Fixes the header to the top of the screen */
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Makes the header span the full width */
-  height: 60px; /* Sets a fixed height for your header */
-  background-color: #ffffff; /* Sets the header background color */
-  
-  /* Positions the content (logo) using Flexbox */
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
   display: flex;
-  align-items: center; /* Vertically centers the logo inside the header */
-  padding: 0 20px; /* Adds space from the left and right edges */
-  
-  /* Adds depth and ensures the header is on top of other content */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 
-/* Style the link container */
 .logo-link {
   display: flex;
   align-items: center;
-  text-decoration: none; /* Removes the underline from the link */
+  text-decoration: none;
 }
 
-/* Style the actual logo image */
 .site-logo {
-  /* Controls the height of the icon */
-  height: 40px; 
-  
-  /* Keeps the aspect ratio from being distorted */
-  width: auto; 
-  
-  /* Adds a small amount of spacing to the right */
-  margin-right: 10px; 
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
 }
 
-/* IMPORTANT: Adjust the rest of your site's content 
-   so it isn't hidden behind the fixed header. 
-   Set the padding to match the header's height (60px). */
-main, .content-wrapper {
-  padding-top: 70px; /* 60px header + 10px extra spacing */
+main,
+.content-wrapper {
+  padding-top: 70px;
 }
 
+/* Print Rules */
 @media print {
-  /* Hide sidebar and inputs */
   .sidebar,
   .no-print,
   button,
@@ -186,8 +166,9 @@ main, .content-wrapper {
     display: none !important;
   }
 
-  /* Reset layout for the preview page */
-  body, .layout, main {
+  body,
+  .layout,
+  main {
     background: white !important;
     padding: 0 !important;
     margin: 0 !important;

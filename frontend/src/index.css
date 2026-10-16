@@ -4,37 +4,12 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-  top: 0px !important;
-
-}
-/* Restrict Google Translate dropdown inside container */
-#google_translate_element {
-  max-width: 100% !important;
-  overflow: hidden !important;
-}
-
-#google_translate_element select {
-  background-color: #0f172a !important;
-  color: #ffffff !important;
-  border: 1px solid #334155 !important;
-  border-radius: 0.75rem !important;
-  padding: 0.5rem !important;
-  width: 100% !important;
-  outline: none !important;
-  font-size: 0.75rem !important;
-}
-
-/* Hide top Google Translate banner frame */
-.goog-te-banner-frame {
-  display: none !important;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('../public/windows-11.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
