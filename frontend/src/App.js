@@ -41,20 +41,24 @@ function AppContent() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   
   // State for live clock and search input
-  const [time, setTime] = useState(new Date());
+  const [isMounted, setIsMounted] = useState(false);
+  const [time, setTime] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Clock timer setup
   useEffect(() => {
+    setIsMounted(true);
+    setTime(new Date());
+
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const formattedTime = time.toLocaleTimeString([], {
+  const formattedTime = isMounted && time ? time.toLocaleTimeString([], {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true
-  });
+  }) : '';
 
   const handleTabChange = (tabId) => {
     const path = tabId === 'home' ? '/' : `/${tabId}`;
@@ -112,7 +116,7 @@ function AppContent() {
   const currentPath = location.pathname.substring(1) || 'home';
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <div suppressHydrationWarning={true} className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
       {/* Top Navbar */}
       <header className="fixed top-0 left-0 right-0 z-30 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/60 shadow-md">
         <div className="h-16 flex items-center justify-between px-3 sm:px-6 gap-2">
@@ -181,7 +185,7 @@ function AppContent() {
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="hidden sm:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-300">
               <span>🕒</span>
-              <span className="font-semibold">{formattedTime}</span>
+              <span className="font-semibold">{isMounted ? formattedTime : '--:--'}</span>
             </div>
 
             <button
