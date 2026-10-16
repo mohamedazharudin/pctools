@@ -1,6 +1,8 @@
 export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) {
   const navItems = [
     { id: 'home', label: '🏠 Home' },
+    { id: 'typing-test', label: '⌨️Typing Speed Tester', },
+
     { id: 'formatter', label: '🖼️ Image Formatter' },
     { id: 'compressor', label: '⚡ Image Compressor' },
     { id: 'palette', label: '🎨 Color Palettes' },
@@ -19,6 +21,7 @@ export default function Sidebar({ activeTab, setActiveTab, isOpen, setIsOpen }) 
     { id: 'video-to-audio', label: '🎙️ Video to Audio' },
     { id: 'device-health', label: '💻 Device Health' },
     { id: 'water-remover', label: '💧 Speaker Water Ejector' },
+    
     { id: 'password-gen', label: '🔑 Password Generator' },
     { id: 'about', label: 'ℹ️ About Us' },
   ];

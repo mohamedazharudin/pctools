@@ -12,16 +12,15 @@ import SpeedTest from './components/SpeedTest';
 import Calculator from './components/Calculator';
 import AgeCalculator from './components/AgeCalculator';
 import DateDifference from './components/DateDifference';
-import BabyNameSuggester from './components/BabyNameSuggester';
+
 import WeightAnalyzer from './components/WeightAnalyzer';
 import Humanizer from './components/Humanizer';
-import AiDetector from './components/AiDetector';
-import Compass from './components/Compass';
+
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import TermsAndConditions from './components/TermsAndConditions';
 import Footer from './components/Footer';
-import AudioToText from './components/AudioToText';
+
 import VideoToAudio from './components/VideoToAudio';
 import DeviceHealth from './components/DeviceHealth';
 import WaterRemover from './components/WaterRemover';
@@ -31,6 +30,7 @@ import PrivacyPolicyModal from './components/PrivacyPolicyModal';
 import Home from './Home';
 import AptitudeQuestions from './components/AptitudeQuestions';
 import MernTutorial from './components/MernTutorial';
+import TypingTest from './components/TypingTest';
 
 function AppContent() {
   const navigate = useNavigate();
@@ -81,6 +81,7 @@ function AppContent() {
         { id: 'mern-tutorial', label: 'MERN Stack Guide' },
         { id: 'resumebuilder', label: 'Resume Builder' },
         { id: 'password-gen', label: 'Password Generator' },
+        { id: 'typing-test', label: 'Typing Speed Tester' },
       ]
     },
     {
@@ -135,8 +136,8 @@ function AppContent() {
             </span>
           </div>
 
-          {/* Center: Search Bar with Dropdown Results */}
-          <div className="relative flex-1 max-w-xs sm:max-w-md mx-2">
+          {/* Right Corner: Search Bar with Dropdown Results */}
+          <div className="relative w-full max-w-xs sm:max-w-md ml-auto">
             <input
               type="text"
               value={searchQuery}
@@ -178,7 +179,6 @@ function AppContent() {
 
           {/* Right: Live Clock & Donate Button */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Live Time Badge */}
             <div className="hidden sm:flex items-center gap-1.5 bg-slate-950/60 border border-slate-800 px-3 py-1.5 rounded-xl text-xs font-mono text-slate-300">
               <span>🕒</span>
               <span className="font-semibold">{formattedTime}</span>
@@ -188,7 +188,7 @@ function AppContent() {
               onClick={() => setIsDonateOpen(true)}
               className="px-2.5 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-1 whitespace-nowrap"
             >
-              <span>❤️</span>
+              <span>Support me by Donating❤️</span>
               <span className="hidden xs:inline">Donate</span>
             </button>
           </div>
@@ -242,8 +242,6 @@ function AppContent() {
           >
             About Us
           </button>
-          
-    
         </div>
       </header>
 
@@ -270,21 +268,21 @@ function AppContent() {
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/age-calculator" element={<AgeCalculator />} />
           <Route path="/date-diff" element={<DateDifference />} />
-          <Route path="/baby-names" element={<BabyNameSuggester />} />
+     
           <Route path="/weight-analyzer" element={<WeightAnalyzer />} />
           <Route path="/humanizer" element={<Humanizer />} />
-          <Route path="/ai-detector" element={<AiDetector />} />
-          <Route path="/compass" element={<Compass />} />
+
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/terms" element={<TermsAndConditions />} />
-          <Route path="/audio-to-text" element={<AudioToText />} />
+        
           <Route path="/video-to-audio" element={<VideoToAudio />} />
           <Route path="/device-health" element={<DeviceHealth />} />
           <Route path="/water-remover" element={<WaterRemover />} />
           <Route path="/password-gen" element={<PasswordGenerator />} />
           <Route path="/aptitude" element={<AptitudeQuestions />} />
           <Route path="/mern-tutorial" element={<MernTutorial />} />
+          <Route path="/typing-test" element={<TypingTest />} />
         </Routes>
       </main>
 

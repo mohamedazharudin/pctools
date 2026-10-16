@@ -90,7 +90,7 @@ export default function Home({ setActiveTab }) {
     { id: 'palette', name: 'Color Palettes', desc: 'Explore developer palettes and copy hex codes with one click.', icon: '🎨' },
     { id: 'entities', name: 'HTML Entities', desc: 'Find and copy named or numerical HTML symbols.', icon: '🔣' },
     { id: 'resume', name: 'Resume Builder', desc: 'Generate and print a professional resume instantly.', icon: '📄' },
-    { id: 'baby-names', name: 'Baby Name Generator', desc: 'Generate unique baby names instantly.', icon: '👶' },
+    { id: 'typing-test', name: 'Typing Speed Tester', desc: 'Test your typing speed (WPM) and accuracy with a live timer.', icon: '⌨️' },
     { id: 'weight-analyzer', name: 'Weight Analyzer', desc: 'Calculate BMI and find ideal body weight range.', icon: '⚖️' },
     { id: 'compass', name: 'Digital Compass', desc: 'Check directional heading using orientation sensors.', icon: '🧭' },
     { id: 'audio-to-text', name: 'Audio to Text', desc: 'Convert live microphone dictation into written text.', icon: '🎙️' },
@@ -130,20 +130,11 @@ export default function Home({ setActiveTab }) {
   };
 
   return (
-    <div className="max-w-[90rem] mx-auto py-6 px-4 sm:px-6 my-4">
-      {/* Grid Layout: Left Translator Sidebar (2 cols), Main Container (6 cols), Right Widgets (4 cols) */}
+    <div className="max-w-[95rem] mx-auto py-6 px-4 sm:px-6 my-4">
+      {/* Grid Layout: Full 12 Column Main Container */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        {/* Left Side: Translator Widget */}
-        <div className="lg:col-span-2 bg-slate-900/90 border border-slate-800 p-4 rounded-3xl shadow-xl backdrop-blur-md sticky top-24">
-          <h3 className="font-bold text-xs text-white flex items-center gap-1.5 mb-3">
-            <span>🌐</span> Language
-          </h3>
-          <div id="google_translate_element" className="w-full text-xs overflow-hidden rounded-xl bg-slate-950 p-2 border border-slate-800"></div>
-        </div>
-
-        {/* Center: Main Container */}
-        <div className="lg:col-span-6 text-left text-white border border-white/20 rounded-3xl bg-slate-950/40 shadow-2xl p-6 sm:p-8">
+        <div className="lg:col-span-12 text-left text-white border border-white/20 rounded-3xl bg-slate-950/40 shadow-2xl p-6 sm:p-8">
           
           {/* Top Google Search Bar */}
           <div className="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl shadow-lg mb-8 backdrop-blur-md">
@@ -185,13 +176,134 @@ export default function Home({ setActiveTab }) {
             </button>
           </div>
 
+          {/* Widgets Layout inside 12-Column Container */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            
+            {/* 1. Language Widget (Left) */}
+            <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl shadow-xl backdrop-blur-md">
+              <h3 className="font-bold text-xs text-white flex items-center gap-1.5 mb-3">
+                <span>🌐</span> Language
+              </h3>
+              <div id="google_translate_element" className="w-full text-xs overflow-hidden rounded-xl bg-slate-950 p-2 border border-slate-800"></div>
+            </div>
+
+            {/* 2. Network Speed Widget (Left) */}
+            <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl shadow-xl backdrop-blur-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-bold text-xs text-white flex items-center gap-1.5">
+                    <span>⚡</span> Network Speed
+                  </h3>
+                  <button
+                    onClick={runSpeedTest}
+                    disabled={isTestingSpeed}
+                    className="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-[10px] font-medium rounded transition-all cursor-pointer disabled:opacity-50"
+                  >
+                    {isTestingSpeed ? '...' : 'Retest'}
+                  </button>
+                </div>
+                <div className="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 text-center">
+                  <div className="text-[10px] text-slate-400 mb-0.5">Auto-tested on load</div>
+                  <div className="text-lg font-black text-blue-400 font-mono">
+                    {isTestingSpeed ? (
+                      <span className="text-xs text-blue-400 animate-pulse">Testing...</span>
+                    ) : (
+                      speedResult || '— Mbps'
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Calendar Widget (Right) */}
+            <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl shadow-xl backdrop-blur-md">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-xs text-white flex items-center gap-1.5">
+                  <span>📅</span> Calendar
+                </h3>
+                <div className="flex items-center gap-1">
+                  <button onClick={prevMonth} className="p-0.5 hover:bg-slate-800 rounded text-slate-400 hover:text-white text-xs">◀</button>
+                  <button onClick={nextMonth} className="p-0.5 hover:bg-slate-800 rounded text-slate-400 hover:text-white text-xs">▶</button>
+                </div>
+              </div>
+
+              <div className="text-center font-bold text-slate-200 text-xs mb-2">
+                {monthNames[month]} {year}
+              </div>
+
+              <div className="grid grid-cols-7 gap-1 text-center text-[9px] font-bold text-slate-400 mb-1">
+                <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+              </div>
+
+              <div className="grid grid-cols-7 gap-1 text-center text-[10px]">
+                {Array.from({ length: firstDayIndex }).map((_, i) => (
+                  <div key={`empty-${i}`} />
+                ))}
+                {Array.from({ length: daysInMonth }).map((_, i) => {
+                  const day = i + 1;
+                  const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+                  return (
+                    <div
+                      key={day}
+                      className={`py-1 rounded font-medium ${
+                        isToday 
+                          ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/30' 
+                          : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
+                      }`}
+                    >
+                      {day}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 4. Device Health Widget (Right) */}
+            <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl shadow-xl backdrop-blur-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-bold text-xs text-white flex items-center gap-1.5">
+                    <span>💻</span> Device Health
+                  </h3>
+                  <button
+                    onClick={() => setActiveTab('device-health')}
+                    className="text-[10px] text-blue-400 hover:underline"
+                  >
+                    More →
+                  </button>
+                </div>
+                <div className="space-y-1.5 text-[11px] bg-slate-950/50 p-2.5 rounded-xl border border-slate-800/60">
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="text-slate-400">Cores:</span>
+                    <span className="font-mono text-white font-semibold">{deviceInfo.cores}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="text-slate-400">RAM:</span>
+                    <span className="font-mono text-white font-semibold">{deviceInfo.ram}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="text-slate-400">Battery:</span>
+                    <span className="font-mono text-emerald-400 font-semibold">{deviceInfo.battery}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="text-slate-400">Status:</span>
+                    <span className="font-semibold text-emerald-400 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span> Online
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
           {/* Tools Showcase */}
           <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
             {searchQuery ? `Search Results (${filteredTools.length})` : 'Available Utilities'}
           </h2>
 
           {filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
               {filteredTools.map((tool) => (
                 <div
                   key={tool.id}
@@ -218,122 +330,6 @@ export default function Home({ setActiveTab }) {
               </button>
             </div>
           )}
-
-        </div>
-
-        {/* Right Side: Calendar, Device Health & Speed Test */}
-        <div className="lg:col-span-4 space-y-6 sticky top-24">
-          
-          {/* Container 1: Calendar */}
-          <div className="bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl backdrop-blur-md">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-sm text-white flex items-center gap-2">
-                <span>📅</span> Calendar
-              </h3>
-              <div className="flex items-center gap-1">
-                <button onClick={prevMonth} className="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all text-xs">◀</button>
-                <button onClick={nextMonth} className="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-all text-xs">▶</button>
-              </div>
-            </div>
-
-            <div className="text-center font-bold text-slate-200 text-sm mb-3">
-              {monthNames[month]} {year}
-            </div>
-
-            <div className="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-slate-400 mb-2">
-              <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
-            </div>
-
-            <div className="grid grid-cols-7 gap-1 text-center text-xs">
-              {Array.from({ length: firstDayIndex }).map((_, i) => (
-                <div key={`empty-${i}`} />
-              ))}
-              {Array.from({ length: daysInMonth }).map((_, i) => {
-                const day = i + 1;
-                const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
-                return (
-                  <div
-                    key={day}
-                    className={`py-1.5 rounded-lg font-medium transition-all ${
-                      isToday 
-                        ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/30' 
-                        : 'text-slate-300 hover:bg-slate-800/80 hover:text-white'
-                    }`}
-                  >
-                    {day}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Container 2: Speed Test & Device Health */}
-          <div className="bg-slate-900/90 border border-slate-800 p-5 rounded-3xl shadow-xl backdrop-blur-md space-y-6">
-            
-            {/* Speed Test */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-sm text-white flex items-center gap-2">
-                  <span>⚡</span> Network Speed
-                </h3>
-                <button
-                  onClick={runSpeedTest}
-                  disabled={isTestingSpeed}
-                  className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium rounded-lg transition-all cursor-pointer disabled:opacity-50"
-                >
-                  {isTestingSpeed ? 'Testing...' : 'Retest'}
-                </button>
-              </div>
-              <div className="p-3 bg-slate-950/80 rounded-2xl border border-slate-800 text-center">
-                <div className="text-xs text-slate-400 mb-1">Auto-tested on refresh</div>
-                <div className="text-2xl font-black text-blue-400 font-mono">
-                  {isTestingSpeed ? (
-                    <span className="text-sm text-blue-400 animate-pulse">Running test...</span>
-                  ) : (
-                    speedResult || '— Mbps'
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <hr className="border-slate-800/80" />
-
-            {/* Device Health */}
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-sm text-white flex items-center gap-2">
-                  <span>💻</span> Device Health
-                </h3>
-                <button
-                  onClick={() => setActiveTab('device-health')}
-                  className="text-xs text-blue-400 hover:underline"
-                >
-                  More Details →
-                </button>
-              </div>
-              <div className="space-y-2 text-xs bg-slate-950/50 p-3 rounded-2xl border border-slate-800/60">
-                <div className="flex justify-between items-center text-slate-300">
-                  <span className="text-slate-400">CPU Cores:</span>
-                  <span className="font-mono text-white font-semibold">{deviceInfo.cores}</span>
-                </div>
-                <div className="flex justify-between items-center text-slate-300">
-                  <span className="text-slate-400">Estimated RAM:</span>
-                  <span className="font-mono text-white font-semibold">{deviceInfo.ram}</span>
-                </div>
-                <div className="flex justify-between items-center text-slate-300">
-                  <span className="text-slate-400">Battery Level:</span>
-                  <span className="font-mono text-emerald-400 font-semibold">{deviceInfo.battery}</span>
-                </div>
-                <div className="flex justify-between items-center text-slate-300">
-                  <span className="text-slate-400">Status:</span>
-                  <span className="font-semibold text-emerald-400 flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span> Online
-                  </span>
-                </div>
-              </div>
-            </div>
-
-          </div>
 
         </div>
 
