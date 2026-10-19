@@ -306,6 +306,7 @@ function AppContent() {
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [showDonateTip, setShowDonateTip] = useState(false); // Donation tip popup state
   const [isMaximized, setIsMaximized] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -358,14 +359,6 @@ function AppContent() {
     };
   }, [isDragging, isMaximized]);
 
-
-  useEffect(() => {
-    setIsMounted(true);
-    setTime(new Date());
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
   // Return empty strings during server render / initial pre-render
   const formattedTime = isMounted && time ? time.toLocaleTimeString([], {
     hour: '2-digit',
@@ -384,6 +377,12 @@ function AppContent() {
     navigate(path);
     setIsWindowOpen(true);
     setIsStartOpen(false);
+    setShowDonateTip(false); // Hide tip when opening a new app
+  };
+
+  const handleCloseWindow = () => {
+    setIsWindowOpen(false);
+    setShowDonateTip(true); // Trigger donation tip popup whenever window closes
   };
 
   const currentPath = location.pathname.substring(1) || 'home';
@@ -417,41 +416,42 @@ function AppContent() {
   return (
     <div className="relative w-screen h-screen overflow-hidden select-none bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center font-sans">
       
-    {/* Desktop Shortcuts Grid */}
-    {(!isWindowOpen || window.innerWidth >= 640) && (
-      <div className="absolute top-2 left-2 right-2 sm:right-auto sm:top-4 sm:left-4 bottom-14 z-10 grid grid-cols-4 sm:flex sm:flex-col sm:flex-wrap gap-1 sm:gap-2 overflow-y-auto sm:overflow-x-auto max-h-[calc(100vh-70px)] p-1">
-        {desktopShortcuts.map((shortcut) => (
-          <div
-            key={shortcut.id}
-            onClick={() => handleTabChange(shortcut.id)}
-            className="flex flex-col items-center w-full sm:w-20 p-1.5 sm:p-2 rounded-xl hover:bg-white/10 hover:border hover:border-white/20 cursor-pointer group transition-all text-center"
-          >
-            <div className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-slate-900/50 backdrop-blur-md border border-white/20 shadow-lg text-lg sm:text-xl group-hover:scale-105 transition-transform">
-              {shortcut.icon}
+      {/* Desktop Shortcuts Grid */}
+      {(!isWindowOpen || window.innerWidth >= 640) && (
+        <div className="absolute top-2 left-2 right-2 sm:right-auto sm:top-4 sm:left-4 bottom-14 z-10 grid grid-cols-4 sm:flex sm:flex-col sm:flex-wrap gap-1 sm:gap-2 overflow-y-auto sm:overflow-x-auto max-h-[calc(100vh-70px)] p-1">
+          {desktopShortcuts.map((shortcut) => (
+            <div
+              key={shortcut.id}
+              onClick={() => handleTabChange(shortcut.id)}
+              className="flex flex-col items-center w-full sm:w-20 p-1.5 sm:p-2 rounded-xl hover:bg-white/10 hover:border hover:border-white/20 cursor-pointer group transition-all text-center"
+            >
+              <div className="w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-slate-900/50 backdrop-blur-md border border-white/20 shadow-lg text-lg sm:text-xl group-hover:scale-105 transition-transform">
+                {shortcut.icon}
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-medium text-white drop-shadow mt-1 leading-tight line-clamp-2 w-full">
+                {shortcut.name}
+              </span>
             </div>
-            <span className="text-[10px] sm:text-[11px] font-medium text-white drop-shadow mt-1 leading-tight line-clamp-2 w-full">
-              {shortcut.name}
-            </span>
-          </div>
-        ))}
-      </div>
-    )}
+          ))}
+        </div>
+      )}
 
- {/* RIGHT-SIDE DESKTOP INFO / MISSION BANNER */}
-<div className="hidden lg:flex flex-col items-end text-right absolute top-6 right-6 z-0 max-w-sm p-6 bg-gradient-to-br from-black/70 to-slate-900/60 backdrop-blur-2xl border border-cyan-500/30 rounded-3xl shadow-2xl space-y-3 pointer-events-none">
-  <h1 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 tracking-wide">
-    Pctools Hub
-  </h1>
-  <h2 className="text-sm font-bold text-white tracking-tight">
-    Premium & Paid Apps, Fully Free
-  </h2>
-  <h3 className="text-xs text-slate-300 leading-relaxed font-normal">
-    We believe top-tier developer software and utilities should be accessible to everyone without paywalls.
-  </h3>
-  <h4 className="text-[11px] text-cyan-300 font-mono pt-1 border-t border-white/10 w-full text-right">
-    Support our open mission! ❤️
-  </h4>
-</div>
+      {/* RIGHT-SIDE DESKTOP INFO / MISSION BANNER */}
+      <div className="hidden lg:flex flex-col items-end text-right absolute top-6 right-6 z-0 max-w-sm p-6 bg-gradient-to-br from-black/70 to-slate-900/60 backdrop-blur-2xl border border-cyan-500/30 rounded-3xl shadow-2xl space-y-3 pointer-events-none">
+        <h1 className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 tracking-wide">
+          Pctools Hub
+        </h1>
+        <h2 className="text-sm font-bold text-white tracking-tight">
+          Premium & Paid Apps, Fully Free
+        </h2>
+        <h3 className="text-xs text-slate-300 leading-relaxed font-normal">
+          We believe top-tier developer software and utilities should be accessible to everyone without paywalls.
+        </h3>
+        <h4 className="text-[11px] text-cyan-300 font-mono pt-1 border-t border-white/10 w-full text-right">
+          Support our open mission! ❤️
+        </h4>
+      </div>
+
       {/* Workspace App Window */}
       {isWindowOpen && (
         <div
@@ -483,7 +483,7 @@ function AppContent() {
             {/* Title Bar Controls */}
             <div className="flex items-center gap-1 shrink-0" onMouseDown={(e) => e.stopPropagation()}>
               <button 
-                onClick={() => setIsWindowOpen(false)} 
+                onClick={handleCloseWindow} 
                 className="px-2.5 sm:px-3 py-1 text-slate-400 hover:bg-white/10 rounded text-xs transition cursor-pointer"
                 title="Minimize"
               >
@@ -497,7 +497,7 @@ function AppContent() {
                 {isMaximized ? '🗗' : '🗖'}
               </button>
               <button 
-                onClick={() => setIsWindowOpen(false)} 
+                onClick={handleCloseWindow} 
                 className="px-2.5 sm:px-3 py-1 text-slate-400 hover:bg-red-600 hover:text-white rounded text-xs transition cursor-pointer"
                 title="Close Window"
               >
@@ -557,126 +557,136 @@ function AppContent() {
         </div>
       )}
 
-     {/* Windows 11 Taskbar */}
-{/* Windows 11 Taskbar */}
-{/* Windows 11 Taskbar */}
-<footer className="fixed bottom-0 left-0 right-0 h-12 bg-[#181818]/90 backdrop-blur-2xl border-t border-white/10 px-2 sm:px-4 flex items-center justify-between z-50 text-xs text-slate-300">
-  
-  {/* ================= MOBILE VERSION ONLY (sm:hidden) ================= */}
-  <div className="flex sm:hidden items-center justify-between w-full h-full">
-    {/* Left Corner: Start Menu & Home */}
-    <div className="flex items-center gap-1 shrink-0">
-      <button
-        onClick={() => setIsStartOpen(!isStartOpen)}
-        className={`p-1.5 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isStartOpen ? 'bg-white/20' : ''}`}
-        title="Start"
-      >
-        <div className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5">
-          <span className="bg-cyan-400 rounded-sm"></span>
-          <span className="bg-cyan-400 rounded-sm"></span>
-          <span className="bg-cyan-400 rounded-sm"></span>
-          <span className="bg-cyan-400 rounded-sm"></span>
+      {/* Windows 11 Taskbar */}
+      <footer className="fixed bottom-0 left-0 right-0 h-12 bg-[#181818]/90 backdrop-blur-2xl border-t border-white/10 px-2 sm:px-4 flex items-center justify-between z-50 text-xs text-slate-300">
+        
+        {/* ================= MOBILE VERSION ONLY (sm:hidden) ================= */}
+        <div className="flex sm:hidden items-center justify-between w-full h-full">
+          <div className="flex items-center gap-1 shrink-0">
+            <button
+              onClick={() => setIsStartOpen(!isStartOpen)}
+              className={`p-1.5 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isStartOpen ? 'bg-white/20' : ''}`}
+              title="Start"
+            >
+              <div className="grid grid-cols-2 gap-0.5 w-3.5 h-3.5">
+                <span className="bg-cyan-400 rounded-sm"></span>
+                <span className="bg-cyan-400 rounded-sm"></span>
+                <span className="bg-cyan-400 rounded-sm"></span>
+                <span className="bg-cyan-400 rounded-sm"></span>
+              </div>
+            </button>
+
+            <button 
+              onClick={() => {
+                navigate('/');
+                setIsWindowOpen(true);
+                setShowDonateTip(false);
+              }}
+              className={`p-1.5 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isWindowOpen && currentPath === 'home' ? 'bg-white/20 border-b-2 border-cyan-400' : ''}`}
+              title="Desktop Home"
+            >
+              🏠
+            </button>
+          </div>
+
+          <div className="flex items-center gap-1 text-[9px] text-slate-400 overflow-x-auto no-scrollbar px-1 whitespace-nowrap">
+            <button onClick={() => handleTabChange('about')} className="hover:underline hover:text-white">About</button>
+            <span>•</span>
+            <button onClick={() => handleTabChange('contact')} className="hover:underline hover:text-white">Contact</button>
+            <span>•</span>
+            <button onClick={() => handleTabChange('terms')} className="hover:underline hover:text-white">Terms</button>
+            <span>•</span>
+            <button onClick={() => setIsPrivacyOpen(true)} className="hover:underline hover:text-white">Privacy</button>
+          </div>
+
+          <div className="font-mono text-[9px] text-slate-300 shrink-0">
+            <span>{formattedTime}</span>
+          </div>
         </div>
-      </button>
 
-      <button 
-        onClick={() => {
-          navigate('/');
-          setIsWindowOpen(true);
-        }}
-        className={`p-1.5 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isWindowOpen && currentPath === 'home' ? 'bg-white/20 border-b-2 border-cyan-400' : ''}`}
-        title="Desktop Home"
-      >
-        🏠
-      </button>
-    </div>
+        {/* ================= PC / DESKTOP VERSION ONLY (hidden sm:flex) ================= */}
+        <div className="hidden sm:flex items-center justify-between w-full h-full">
+          <div className="w-16"></div>
 
-    {/* Center: Links (About, Contact, Terms, Privacy) */}
-    <div className="flex items-center gap-1 text-[9px] text-slate-400 overflow-x-auto no-scrollbar px-1 whitespace-nowrap">
-      <button onClick={() => handleTabChange('about')} className="hover:underline hover:text-white">About</button>
-      <span>•</span>
-      <button onClick={() => handleTabChange('contact')} className="hover:underline hover:text-white">Contact</button>
-      <span>•</span>
-      <button onClick={() => handleTabChange('terms')} className="hover:underline hover:text-white">Terms</button>
-      <span>•</span>
-      <button onClick={() => setIsPrivacyOpen(true)} className="hover:underline hover:text-white">Privacy</button>
-    </div>
+          {/* Centered Taskbar Buttons */}
+          <div className="flex items-center gap-1.5 mx-auto bg-white/5 border border-white/10 px-2.5 py-1 rounded-full shadow-lg relative">
+            
+            {/* AUTOMATIC DONATION TIP POPUP WITH ARROW */}
+            {showDonateTip && (
+              <div className="absolute -top-16 left-1/2 -translate-x-1/2 bg-cyan-600 text-white text-xs px-3.5 py-2 rounded-xl shadow-2xl flex flex-col items-center animate-bounce z-50 whitespace-nowrap">
+                <span className="font-semibold">Please donate if you like! ❤️</span>
+                <div className="w-3 h-3 bg-cyan-600 rotate-45 absolute -bottom-1.5"></div>
+              </div>
+            )}
 
-    {/* Right Corner: Time */}
-    <div className="font-mono text-[9px] text-slate-300 shrink-0">
-      <span>{formattedTime}</span>
-    </div>
-  </div>
+            <button
+              onClick={() => setIsStartOpen(!isStartOpen)}
+              className={`p-2 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isStartOpen ? 'bg-white/20' : ''}`}
+              title="Start"
+            >
+              <div className="grid grid-cols-2 gap-0.5 w-4 h-4">
+                <span className="bg-cyan-400 rounded-sm"></span>
+                <span className="bg-cyan-400 rounded-sm"></span>
+                <span className="bg-cyan-400 rounded-sm"></span>
+                <span className="bg-cyan-400 rounded-sm"></span>
+              </div>
+            </button>
 
+            <button 
+              onClick={() => {
+                navigate('/');
+                setIsWindowOpen(true);
+                setShowDonateTip(false);
+              }}
+              className={`p-2 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isWindowOpen && currentPath === 'home' ? 'bg-white/20 border-b-2 border-cyan-400' : ''}`}
+              title="Desktop Home"
+            >
+              🏠
+            </button>
 
-  {/* ================= PC / DESKTOP VERSION ONLY (hidden sm:flex) ================= */}
-  <div className="hidden sm:flex items-center justify-between w-full h-full">
-    <div className="w-16"></div>
+            <button 
+              onClick={() => {
+                setIsDonateOpen(true);
+                setShowDonateTip(false);
+              }}
+              className="p-2 rounded-xl transition-all hover:bg-white/15 text-rose-400 active:scale-95 cursor-pointer"
+              title="Support / Donate"
+            >
+              ❤️
+            </button>
+          </div>
 
-    {/* Centered Taskbar Buttons */}
-    <div className="flex items-center gap-1.5 mx-auto bg-white/5 border border-white/10 px-2.5 py-1 rounded-full shadow-lg">
-      <button
-        onClick={() => setIsStartOpen(!isStartOpen)}
-        className={`p-2 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isStartOpen ? 'bg-white/20' : ''}`}
-        title="Start"
-      >
-        <div className="grid grid-cols-2 gap-0.5 w-4 h-4">
-          <span className="bg-cyan-400 rounded-sm"></span>
-          <span className="bg-cyan-400 rounded-sm"></span>
-          <span className="bg-cyan-400 rounded-sm"></span>
-          <span className="bg-cyan-400 rounded-sm"></span>
+          {/* System Tray & Links */}
+          <div className="flex items-center gap-3 text-xs text-slate-300">
+            <div className="flex items-center gap-2 text-[11px] text-slate-400">
+              <button onClick={() => handleTabChange('about')} className="hover:underline hover:text-white cursor-pointer">About</button>
+              <span>•</span>
+              <button onClick={() => handleTabChange('contact')} className="hover:underline hover:text-white cursor-pointer">Contact</button>
+              <span>•</span>
+              <button onClick={() => handleTabChange('terms')} className="hover:underline hover:text-white cursor-pointer">Terms</button>
+              <span>•</span>
+              <button onClick={() => setIsPrivacyOpen(true)} className="hover:underline hover:text-white cursor-pointer">Privacy</button>
+            </div>
+            
+            <div className="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-lg border border-white/10 text-[11px]">
+              <span>🌐</span>
+              <span>🔊</span>
+              <span>🔋</span>
+            </div>
+
+            <div className="flex flex-col items-end leading-tight font-mono text-[11px]">
+              <span>{formattedTime}</span>
+              <span className="text-[10px] text-slate-400">{formattedDate}</span>
+            </div>
+          </div>
         </div>
-      </button>
 
-      <button 
-        onClick={() => {
-          navigate('/');
-          setIsWindowOpen(true);
-        }}
-        className={`p-2 rounded-xl transition-all hover:bg-white/15 active:scale-95 cursor-pointer ${isWindowOpen && currentPath === 'home' ? 'bg-white/20 border-b-2 border-cyan-400' : ''}`}
-        title="Desktop Home"
-      >
-        🏠
-      </button>
+      </footer>
 
-      <button 
-        onClick={() => setIsDonateOpen(true)}
-        className="p-2 rounded-xl transition-all hover:bg-white/15 text-rose-400 active:scale-95 cursor-pointer"
-        title="Support / Donate"
-      >
-        ❤️
-      </button>
-    </div>
-
-    {/* System Tray & Links */}
-    <div className="flex items-center gap-3 text-xs text-slate-300">
-      <div className="flex items-center gap-2 text-[11px] text-slate-400">
-        <button onClick={() => handleTabChange('about')} className="hover:underline hover:text-white cursor-pointer">About</button>
-        <span>•</span>
-        <button onClick={() => handleTabChange('contact')} className="hover:underline hover:text-white cursor-pointer">Contact</button>
-        <span>•</span>
-        <button onClick={() => handleTabChange('terms')} className="hover:underline hover:text-white cursor-pointer">Terms</button>
-        <span>•</span>
-        <button onClick={() => setIsPrivacyOpen(true)} className="hover:underline hover:text-white cursor-pointer">Privacy</button>
-      </div>
-      
-      <div className="flex items-center gap-1 bg-white/5 px-2 py-1 rounded-lg border border-white/10 text-[11px]">
-        <span>🌐</span>
-        <span>🔊</span>
-        <span>🔋</span>
-      </div>
-
-      <div className="flex flex-col items-end leading-tight font-mono text-[11px]">
-        <span>{formattedTime}</span>
-        <span className="text-[10px] text-slate-400">{formattedDate}</span>
-      </div>
-    </div>
-  </div>
-
-</footer>
       {/* Modals */}
       <DonateModal isOpen={isDonateOpen} onClose={() => setIsDonateOpen(false)} />
       <PrivacyPolicyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
+
     </div>
   );
 }
