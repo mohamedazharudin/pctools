@@ -9,13 +9,10 @@ import {
   Play, 
   Check, 
   Copy, 
-  CheckCircle2, 
   Info,
   Terminal,
   Layers,
   Sparkles,
-  RefreshCw,
-  X,
   AlertCircle
 } from 'lucide-react';
 
@@ -28,8 +25,6 @@ export default function App() {
     delete: false,
   });
 
-  // State for active code tab (All-in-one or separated)
-  const [codeTab, setCodeTab] = useState('combined');
   const [copiedSide, setCopiedSide] = useState(null);
 
   // Live Preview State (Simulating MongoDB / In-memory state)
