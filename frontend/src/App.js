@@ -40,7 +40,7 @@ function AppContent() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const toolsList = [
-    { id: 'mypc', name: 'My PC & Blogs', icon: '🖥️', category: 'System' },
+    
     { id: 'video-to-audio', name: 'Video to Audio', icon: '🎵', category: 'Media' },
     { id: 'device-health', name: 'Device Health', icon: '💻', category: 'System' },
     { id: 'water-remover', name: 'Speaker Cleaner', icon: '💧', category: 'Utilities' },
@@ -61,7 +61,7 @@ function AppContent() {
     { id: 'date-diff', name: 'Date Difference', icon: '⏳', category: 'Utilities' },
     { id: 'weight-analyzer', name: 'Weight Analyzer', icon: '⚖️', category: 'Health' },
     { id: 'humanizer', name: 'Text Humanizer', icon: '🤖', category: 'Productivity' },
-    { id: 'browser', name: 'Web Browser', icon: '🌐', category: 'Utilities' },
+
   ];
 
   const filteredTools = toolsList.filter(tool => 
