@@ -58,69 +58,11 @@ export default function PasswordGenerator() {
   const strength = getStrength();
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: 600+ Word Blog Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
-          <article className="space-y-6">
-            <header className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Cybersecurity & Authentication Guide</span>
-              <h1 className="text-2xl font-bold text-white mt-1">Understanding Password Entropy and Account Security</h1>
-            </header>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">1. The Mechanics of Password Entropy</h2>
-              <p>
-                Password security is measured using a mathematical concept known as <strong>entropy</strong>, which quantifies the randomness and unpredictability of a secret string. Higher entropy exponentially increases the time and computational power required for an attacker to crack a password.
-              </p>
-              <p>
-                When you increase the length of a password or expand the character set (mixing numbers, uppercase letters, and special symbols), the total number of possible combinations grows exponentially rather than linearly.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">2. Common Password Attacks</h2>
-              <p>
-                Cybercriminals utilize automated software to exploit weak credentials. Understanding these attack vectors highlights the necessity of complex passwords:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
-                <li>
-                  <strong className="text-slate-200">Brute-Force Attacks:</strong> Automated bots systematically guess every possible combination of characters until finding a match.
-                </li>
-                <li>
-                  <strong className="text-slate-200">Dictionary Attacks:</strong> Scripts iterate through lists of common words, phrases, and predictable substitutions (such as "P@ssword1").
-                </li>
-                <li>
-                  <strong className="text-slate-200">Credential Stuffing:</strong> Attackers use leaked passwords from past data breaches to gain access to accounts on unrelated platforms.
-                </li>
-              </ul>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">3. Cryptographic Randomness</h2>
-              <p>
-                Standard pseudo-random number generators in programming languages are predictable if the seed value is known. Modern password generators use browser-native Web Crypto APIs, such as <code>window.crypto.getRandomValues()</code>, to source cryptographically secure entropy directly from underlying operating system events.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">4. Best Practices for Credential Safety</h2>
-              <p>
-                To maximize your online account security, adopt these fundamental principles:
-              </p>
-              <p>
-                <strong>Never Reuse Passwords:</strong> Ensure every online service uses a unique credential to prevent a single leak from compromising multiple accounts.
-              </p>
-              <p>
-                <strong>Use a Password Manager:</strong> Store complex, auto-generated passwords inside encrypted password managers rather than relying on memory or unencrypted text files.
-              </p>
-            </section>
-          </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
+        {/* Right Column: Interactive Tool & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
           {/* Main Tool Card */}
           <div className="bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-xl border border-slate-800 text-white">
             <h2 className="text-white text-lg sm:text-xl font-bold mt-0 flex items-center gap-2">
@@ -230,7 +172,7 @@ export default function PasswordGenerator() {
           </div>
 
           {/* Description and FAQ Sections */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
             <section>
               <h3 className="text-base font-semibold text-white mb-2">How to Use</h3>
               <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
@@ -266,6 +208,64 @@ export default function PasswordGenerator() {
               </div>
             </section>
           </div>
+        </div>
+
+        {/* Left Column: 600+ Word Blog Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Cybersecurity & Authentication Guide</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Understanding Password Entropy and Account Security</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. The Mechanics of Password Entropy</h2>
+              <p>
+                Password security is measured using a mathematical concept known as <strong>entropy</strong>, which quantifies the randomness and unpredictability of a secret string. Higher entropy exponentially increases the time and computational power required for an attacker to crack a password.
+              </p>
+              <p>
+                When you increase the length of a password or expand the character set (mixing numbers, uppercase letters, and special symbols), the total number of possible combinations grows exponentially rather than linearly.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Common Password Attacks</h2>
+              <p>
+                Cybercriminals utilize automated software to exploit weak credentials. Understanding these attack vectors highlights the necessity of complex passwords:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">Brute-Force Attacks:</strong> Automated bots systematically guess every possible combination of characters until finding a match.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Dictionary Attacks:</strong> Scripts iterate through lists of common words, phrases, and predictable substitutions (such as "P@ssword1").
+                </li>
+                <li>
+                  <strong className="text-slate-200">Credential Stuffing:</strong> Attackers use leaked passwords from past data breaches to gain access to accounts on unrelated platforms.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. Cryptographic Randomness</h2>
+              <p>
+                Standard pseudo-random number generators in programming languages are predictable if the seed value is known. Modern password generators use browser-native Web Crypto APIs, such as <code>window.crypto.getRandomValues()</code>, to source cryptographically secure entropy directly from underlying operating system events.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">4. Best Practices for Credential Safety</h2>
+              <p>
+                To maximize your online account security, adopt these fundamental principles:
+              </p>
+              <p>
+                <strong>Never Reuse Passwords:</strong> Ensure every online service uses a unique credential to prevent a single leak from compromising multiple accounts.
+              </p>
+              <p>
+                <strong>Use a Password Manager:</strong> Store complex, auto-generated passwords inside encrypted password managers rather than relying on memory or unencrypted text files.
+              </p>
+            </section>
+          </article>
         </div>
 
       </div>

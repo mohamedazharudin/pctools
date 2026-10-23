@@ -27,58 +27,13 @@ export default function ImageCompressor() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: Detailed Blog Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
-          <article className="space-y-6">
-            <header className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Web Performance & Optimization</span>
-              <h1 className="text-2xl font-bold text-white mt-1">Understanding Image Compression and Canvas Rendering</h1>
-            </header>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">1. Why Image Compression Matters</h2>
-              <p>
-                Uncompressed media files consume significant bandwidth and slow down web page loading times. Heavy images impact Core Web Vitals, leading to poor user experience and lower search engine rankings.
-              </p>
-              <p>
-                Compressing images reduces network overhead and speeds up rendering across desktop and mobile devices without noticeably sacrificing visual quality.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">2. How Quality Factor Affects JPEG Encoding</h2>
-              <p>
-                JPEG compression uses lossy discrete cosine transform algorithms to eliminate redundant color data. Modifying quality settings balances file size and sharpness:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
-                <li>
-                  <strong className="text-slate-200">High Quality (80%-90%):</strong> Preserves fine visual details with minor file size reduction. Ideal for portfolio photography and hero banners.
-                </li>
-                <li>
-                  <strong className="text-slate-200">Balanced (60%-70%):</strong> Yields dramatic file size reductions while maintaining clear visual quality for standard web content.
-                </li>
-                <li>
-                  <strong className="text-slate-200">Maximum Compression (10%-30%):</strong> Significantly reduces file size but introduces noticeable compression artifacts and blurriness.
-                </li>
-              </ul>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">3. HTML5 Canvas Client-Side Processing</h2>
-              <p>
-                Instead of sending files to external servers, modern web applications leverage HTML5 Canvas rendering. By drawing image data onto a virtual 2D canvas context, the browser can re-encode pixels locally using <code>toDataURL()</code> for instant results and maximum privacy.
-              </p>
-            </section>
-          </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
+        {/* Right Column: Interactive Tool & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
           {/* Tool Container */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-left">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-left">
             <h2 className="text-xl font-bold text-center mb-6">⚡ Image Compressor</h2>
             
             <div className="mb-6">
@@ -137,7 +92,7 @@ export default function ImageCompressor() {
           </div>
 
           {/* Publisher Content Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
             <section>
               <h3 className="text-base font-semibold text-white mb-2">How to Compress Images</h3>
               <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
@@ -166,6 +121,51 @@ export default function ImageCompressor() {
               </div>
             </section>
           </div>
+        </div>
+
+        {/* Left Column: Detailed Blog Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Web Performance & Optimization</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Understanding Image Compression and Canvas Rendering</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. Why Image Compression Matters</h2>
+              <p>
+                Uncompressed media files consume significant bandwidth and slow down web page loading times. Heavy images impact Core Web Vitals, leading to poor user experience and lower search engine rankings.
+              </p>
+              <p>
+                Compressing images reduces network overhead and speeds up rendering across desktop and mobile devices without noticeably sacrificing visual quality.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. How Quality Factor Affects JPEG Encoding</h2>
+              <p>
+                JPEG compression uses lossy discrete cosine transform algorithms to eliminate redundant color data. Modifying quality settings balances file size and sharpness:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">High Quality (80%-90%):</strong> Preserves fine visual details with minor file size reduction. Ideal for portfolio photography and hero banners.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Balanced (60%-70%):</strong> Yields dramatic file size reductions while maintaining clear visual quality for standard web content.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Maximum Compression (10%-30%):</strong> Significantly reduces file size but introduces noticeable compression artifacts and blurriness.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. HTML5 Canvas Client-Side Processing</h2>
+              <p>
+                Instead of sending files to external servers, modern web applications leverage HTML5 Canvas rendering. By drawing image data onto a virtual 2D canvas context, the browser can re-encode pixels locally using <code>toDataURL()</code> for instant results and maximum privacy.
+              </p>
+            </section>
+          </article>
         </div>
 
       </div>

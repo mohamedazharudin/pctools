@@ -60,58 +60,13 @@ export default function DeviceHealth() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: Detailed Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
-          <article className="space-y-6">
-            <header className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">System Architecture & Hardware Diagnostics</span>
-              <h1 className="text-2xl font-bold text-white mt-1">Understanding Web API Device Health Diagnostics</h1>
-            </header>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">1. Real-Time Hardware Benchmarking</h2>
-              <p>
-                Modern web browsers expose safe, sandboxed interfaces to query host hardware parameters without elevated privileges. These metrics help applications deliver adaptive experiences tailored to device processing capabilities.
-              </p>
-              <p>
-                Evaluating processor thread concurrency and system memory prevents browser tab crashes during high-compute operations such as video encoding or complex client-side rendering.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">2. Critical System Parameters</h2>
-              <p>
-                System health evaluation measures multiple operational parameters across system hardware and network layers:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
-                <li>
-                  <strong className="text-slate-200">Logical Processors:</strong> The <code>navigator.hardwareConcurrency</code> property indicates the total number of parallel thread execution units available.
-                </li>
-                <li>
-                  <strong className="text-slate-200">Device Memory:</strong> The <code>navigator.deviceMemory</code> interface estimates system RAM capacity rounded to the nearest power of two.
-                </li>
-                <li>
-                  <strong className="text-slate-200">Network Throughput:</strong> The Network Information API measures network latency and bandwidth limits for adaptive asset loading.
-                </li>
-              </ul>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">3. Privacy and Browser Security</h2>
-              <p>
-                To prevent device fingerprinting, modern web browsers cap reported hardware values and fuzz precise memory figures. Certain privacy-focused browsers restrict API access altogether to maintain user anonymity.
-              </p>
-            </section>
-          </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
+        {/* Right Column: Interactive Tool & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
           {/* Tool Card */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
             <h1 className="text-xl font-bold mb-4 text-center">💻 System Health Checker</h1>
 
             <button
@@ -160,7 +115,7 @@ export default function DeviceHealth() {
           </div>
 
           {/* Publisher Content Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
             <section>
               <h2 className="text-lg font-bold text-white mb-2">About System Health Checker</h2>
               <p>
@@ -196,6 +151,51 @@ export default function DeviceHealth() {
               </div>
             </section>
           </div>
+        </div>
+
+        {/* Left Column: Detailed Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">System Architecture & Hardware Diagnostics</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Understanding Web API Device Health Diagnostics</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. Real-Time Hardware Benchmarking</h2>
+              <p>
+                Modern web browsers expose safe, sandboxed interfaces to query host hardware parameters without elevated privileges. These metrics help applications deliver adaptive experiences tailored to device processing capabilities.
+              </p>
+              <p>
+                Evaluating processor thread concurrency and system memory prevents browser tab crashes during high-compute operations such as video encoding or complex client-side rendering.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Critical System Parameters</h2>
+              <p>
+                System health evaluation measures multiple operational parameters across system hardware and network layers:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">Logical Processors:</strong> The <code>navigator.hardwareConcurrency</code> property indicates the total number of parallel thread execution units available.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Device Memory:</strong> The <code>navigator.deviceMemory</code> interface estimates system RAM capacity rounded to the nearest power of two.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Network Throughput:</strong> The Network Information API measures network latency and bandwidth limits for adaptive asset loading.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. Privacy and Browser Security</h2>
+              <p>
+                To prevent device fingerprinting, modern web browsers cap reported hardware values and fuzz precise memory figures. Certain privacy-focused browsers restrict API access altogether to maintain user anonymity.
+              </p>
+            </section>
+          </article>
         </div>
 
       </div>

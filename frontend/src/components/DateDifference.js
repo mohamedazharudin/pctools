@@ -51,11 +51,110 @@ export default function DateDifference() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: Detailed Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+        {/* Right Column: Interactive Tool & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
+          {/* Tool Card */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+            <h1 className="text-xl font-bold mb-4 text-center">📅 Date Difference Calculator</h1>
+
+            <div className="flex flex-col gap-4 mb-6">
+              <div>
+                <label className="text-sm text-slate-400 block mb-1">Start Date:</label>
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-400 block mb-1">End Date:</label>
+                <input
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              <button
+                onClick={calculateDifference}
+                className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer"
+              >
+                Calculate Difference
+              </button>
+            </div>
+
+            {/* Breakdown Output Section */}
+            {result !== null && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
+                {/* Years, Months & Days */}
+                <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-center">
+                  <span className="text-lg sm:text-xl font-extrabold text-blue-400">
+                    {`${result.years}y ${result.months}m ${result.days}d`}
+                  </span>
+                  <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Years, Months & Days</p>
+                </div>
+
+                {/* Total Days */}
+                <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-center">
+                  <span className="text-lg sm:text-xl font-extrabold text-blue-400">{result.totalDays.toLocaleString()}</span>
+                  <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Total Days</p>
+                </div>
+
+                {/* Total Hours */}
+                <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-center">
+                  <span className="text-lg sm:text-xl font-extrabold text-blue-400">{result.totalHours.toLocaleString()}</span>
+                  <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Total Hours</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Publisher Content Section */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+            <section>
+              <h2 className="text-lg font-bold text-white mb-2">About Date Difference Calculator</h2>
+              <p>
+                Easily measure the exact duration between any two calendar dates. This utility breaks down time into exact years, months, and days, as well as overall total days and total hours to help plan project deadlines and track time milestones accurately.
+              </p>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Use</h3>
+              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+                <li>Select your starting calendar date from the <strong className="text-slate-200">Start Date field</strong>.</li>
+                <li>Select your target ending date from the <strong className="text-slate-200">End Date field</strong>.</li>
+                <li>Click <strong className="text-slate-200">Calculate Difference</strong> to view the detailed time breakdown.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-medium text-slate-200">Does date order matter?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    No, the tool automatically calculates absolute difference so you receive a positive count regardless of date entry order.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-slate-200">Does it account for leap years?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Yes, UTC date calculations handle leap years and differing month lengths accurately.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        {/* Left Column: Detailed Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
           <article className="space-y-6">
             <header className="border-b border-slate-800 pb-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Temporal Mathematics & Logic</span>
@@ -97,105 +196,6 @@ export default function DateDifference() {
               </p>
             </section>
           </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Tool Card */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-            <h1 className="text-xl font-bold mb-4 text-center">📅 Date Difference Calculator</h1>
-
-            <div className="flex flex-col gap-4 mb-6">
-              <div>
-                <label className="text-sm text-slate-400 block mb-1">Start Date:</label>
-                <input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="text-sm text-slate-400 block mb-1">End Date:</label>
-                <input
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full p-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <button
-                onClick={calculateDifference}
-                className="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer"
-              >
-                Calculate Difference
-              </button>
-            </div>
-
-            {/* Breakdown Output Section */}
-            {result !== null && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
-                {/* Years, Months & Days */}
-                <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-center">
-                  <span className="text-xl font-extrabold text-blue-400">
-                    {`${result.years}y ${result.months}m ${result.days}d`}
-                  </span>
-                  <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Years, Months & Days</p>
-                </div>
-
-                {/* Total Days */}
-                <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-center">
-                  <span className="text-xl font-extrabold text-blue-400">{result.totalDays.toLocaleString()}</span>
-                  <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Total Days</p>
-                </div>
-
-                {/* Total Hours */}
-                <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-center">
-                  <span className="text-xl font-extrabold text-blue-400">{result.totalHours.toLocaleString()}</span>
-                  <p className="text-xs text-slate-400 mt-1 uppercase tracking-wider">Total Hours</p>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Publisher Content Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
-            <section>
-              <h2 className="text-lg font-bold text-white mb-2">About Date Difference Calculator</h2>
-              <p>
-                Easily measure the exact duration between any two calendar dates. This utility breaks down time into exact years, months, and days, as well as overall total days and total hours to help plan project deadlines and track time milestones accurately.
-              </p>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">How to Use</h3>
-              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-                <li>Select your starting calendar date from the <strong className="text-slate-200">Start Date field</strong>.</li>
-                <li>Select your target ending date from the <strong className="text-slate-200">End Date field</strong>.</li>
-                <li>Click <strong className="text-slate-200">Calculate Difference</strong> to view the detailed time breakdown.</li>
-              </ol>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
-              <div className="space-y-3">
-                <div>
-                  <h4 className="font-medium text-slate-200">Does date order matter?</h4>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    No, the tool automatically calculates absolute difference so you receive a positive count regardless of date entry order.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-slate-200">Does it account for leap years?</h4>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Yes, UTC date calculations handle leap years and differing month lengths accurately.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
         </div>
 
       </div>

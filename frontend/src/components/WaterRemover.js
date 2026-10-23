@@ -76,11 +76,88 @@ export default function WaterRemover() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: Detailed Blog Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+        {/* Right Column: Interactive Tool & Guides - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
+          {/* Tool Card */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
+            <h2 className="text-xl font-bold mb-2">💧 Speaker Water Ejector</h2>
+            <p className="text-xs text-slate-400 mb-6">
+              Turn your volume to 100% and face your device speakers downward.
+            </p>
+
+            <div className="relative w-40 h-40 mx-auto mb-6 flex flex-col items-center justify-center bg-slate-950 border border-slate-800 rounded-full">
+              <span className={`text-5xl ${isPlaying ? 'animate-bounce' : ''}`}>
+                {isPlaying ? '🔊' : '💧'}
+              </span>
+              {isPlaying && (
+                <span className="text-xs font-mono font-bold text-blue-400 mt-2">
+                  Auto-stop in: {timeLeft}s
+                </span>
+              )}
+            </div>
+
+            {!isPlaying ? (
+              <button
+                onClick={startWaterRemoval}
+                className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer shadow-lg shadow-blue-600/20"
+              >
+                ⚡ Eject Water (Play 1-Min Tone)
+              </button>
+            ) : (
+              <button
+                onClick={stopWaterRemoval}
+                className="w-full py-3.5 bg-red-600 hover:bg-red-500 rounded-xl font-semibold transition-all cursor-pointer animate-pulse"
+              >
+                🛑 Stop Sound ({timeLeft}s left)
+              </button>
+            )}
+          </div>
+
+          {/* Publisher Content Section */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Clear Water from Speakers</h3>
+              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+                <li>Increase your device sound volume to <strong className="text-slate-200">100% max volume</strong>.</li>
+                <li>Hold or position your phone/device so the speaker mesh points downward toward the floor.</li>
+                <li>Press <strong className="text-slate-200">Eject Water</strong> to activate the low-frequency acoustic vibrations.</li>
+                <li>Allow the sound to play; it will automatically stop after 60 seconds once droplets shake free.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-3">Frequently Asked Questions (FAQ)</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-slate-200">Why does a 165Hz sound frequency work best?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Low-frequency sound waves cause maximum physical displacement of the speaker membrane, generating enough physical force to push water out.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">Will playing this sound damage my speaker?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    No, standard audio tones synthesized through the Web Audio API operate safely within default hardware speaker limitations.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">How long should I run the tone?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    The tool runs automatically for 60 seconds, which is optimal to clear trapped droplets from standard phone speaker grills.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        {/* Left Column: Detailed Blog Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
           <article className="space-y-6">
             <header className="border-b border-slate-800 pb-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Acoustic Physics & Mobile Hardware</span>
@@ -129,83 +206,6 @@ export default function WaterRemover() {
               </p>
             </section>
           </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & Guides */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Tool Card */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
-            <h2 className="text-xl font-bold mb-2">💧 Speaker Water Ejector</h2>
-            <p className="text-xs text-slate-400 mb-6">
-              Turn your volume to 100% and face your device speakers downward.
-            </p>
-
-            <div className="relative w-40 h-40 mx-auto mb-6 flex flex-col items-center justify-center bg-slate-950 border border-slate-800 rounded-full">
-              <span className={`text-5xl ${isPlaying ? 'animate-bounce' : ''}`}>
-                {isPlaying ? '🔊' : '💧'}
-              </span>
-              {isPlaying && (
-                <span className="text-xs font-mono font-bold text-blue-400 mt-2">
-                  Auto-stop in: {timeLeft}s
-                </span>
-              )}
-            </div>
-
-            {!isPlaying ? (
-              <button
-                onClick={startWaterRemoval}
-                className="w-full py-3.5 bg-blue-600 hover:bg-blue-500 rounded-xl font-semibold transition-all cursor-pointer shadow-lg shadow-blue-600/20"
-              >
-                ⚡ Eject Water (Play 1-Min Tone)
-              </button>
-            ) : (
-              <button
-                onClick={stopWaterRemoval}
-                className="w-full py-3.5 bg-red-600 hover:bg-red-500 rounded-xl font-semibold transition-all cursor-pointer animate-pulse"
-              >
-                🛑 Stop Sound ({timeLeft}s left)
-              </button>
-            )}
-          </div>
-
-          {/* Publisher Content Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">How to Clear Water from Speakers</h3>
-              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-                <li>Increase your device sound volume to <strong className="text-slate-200">100% max volume</strong>.</li>
-                <li>Hold or position your phone/device so the speaker mesh points downward toward the floor.</li>
-                <li>Press <strong className="text-slate-200">Eject Water</strong> to activate the low-frequency acoustic vibrations.</li>
-                <li>Allow the sound to play; it will automatically stop after 60 seconds once droplets shake free.</li>
-              </ol>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-3">Frequently Asked Questions (FAQ)</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-slate-200">Why does a 165Hz sound frequency work best?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Low-frequency sound waves cause maximum physical displacement of the speaker membrane, generating enough physical force to push water out.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">Will playing this sound damage my speaker?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    No, standard audio tones synthesized through the Web Audio API operate safely within default hardware speaker limitations.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">How long should I run the tone?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    The tool runs automatically for 60 seconds, which is optimal to clear trapped droplets from standard phone speaker grills.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
         </div>
 
       </div>

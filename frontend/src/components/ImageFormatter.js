@@ -89,61 +89,13 @@ export default function ImageFormatter() {
   const availableTargetFormats = allFormats.filter((fmt) => fmt.mime !== currentMime);
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: 600+ Word Blog Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
-          <article className="space-y-6">
-            <header className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Digital Imaging & Media Formats</span>
-              <h1 className="text-2xl font-bold text-white mt-1">Guide to Image File Formats, Compression, and Conversion</h1>
-            </header>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">1. Lossy vs. Lossless Compression</h2>
-              <p>
-                Digital images rely on compression algorithms to balance file size and visual fidelity. Understanding compression types ensures optimal media delivery:
-              </p>
-              <p>
-                <strong>Lossy Compression:</strong> Formats like JPEG discard imperceptible color data to drastically reduce file sizes. While ideal for high-resolution photography, repeated saving degrades image quality over time.
-              </p>
-              <p>
-                <strong>Lossless Compression:</strong> Formats like PNG retain every pixel's exact original data. This guarantees pixel-perfect detail, making it indispensable for vector graphics, text, and logos.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">2. Comparing Popular Graphic Extensions</h2>
-              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
-                <li>
-                  <strong className="text-slate-200">PNG (Portable Network Graphics):</strong> Features full alpha-channel transparency and lossless rendering, perfect for web UI assets.
-                </li>
-                <li>
-                  <strong className="text-slate-200">JPEG (Joint Photographic Experts Group):</strong> Universal standard for photos, maximizing disk space savings with adjustable lossy compression.
-                </li>
-                <li>
-                  <strong className="text-slate-200">WebP:</strong> Next-generation format developed by Google offering superior lossy and lossless compression for faster website load times.
-                </li>
-                <li>
-                  <strong className="text-slate-200">HEIC (High Efficiency Image Container):</strong> Modern format used by Apple devices that offers high quality at half the file size of JPEG.
-                </li>
-              </ul>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">3. In-Browser Client-Side Processing</h2>
-              <p>
-                Browser-based image conversion utilizes HTML5 Canvas rendering context and WebAssembly libraries to process pixels directly in memory. This eliminates bandwidth consumption, preserves file privacy, and ensures instant output generation without server dependency.
-              </p>
-            </section>
-          </article>
-        </div>
-
-        {/* Right Column: Interactive Tool, Overview & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
+        {/* Right Column: Interactive Tool, Overview & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
           {/* Tool Container */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-left">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-left">
             <h2 className="text-xl font-bold text-center mb-6">🖼️ Image Format Converter</h2>
 
             <div className="mb-6">
@@ -207,7 +159,7 @@ export default function ImageFormatter() {
           </div>
 
           {/* Publisher Content & FAQ */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
             <section>
               <h3 className="text-base font-semibold text-white mb-2">Supported Formats Summary</h3>
               <ul className="list-disc list-inside space-y-1.5 text-slate-400">
@@ -238,6 +190,54 @@ export default function ImageFormatter() {
               </div>
             </section>
           </div>
+        </div>
+
+        {/* Left Column: 600+ Word Blog Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Digital Imaging & Media Formats</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Guide to Image File Formats, Compression, and Conversion</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. Lossy vs. Lossless Compression</h2>
+              <p>
+                Digital images rely on compression algorithms to balance file size and visual fidelity. Understanding compression types ensures optimal media delivery:
+              </p>
+              <p>
+                <strong>Lossy Compression:</strong> Formats like JPEG discard imperceptible color data to drastically reduce file sizes. While ideal for high-resolution photography, repeated saving degrades image quality over time.
+              </p>
+              <p>
+                <strong>Lossless Compression:</strong> Formats like PNG retain every pixel's exact original data. This guarantees pixel-perfect detail, making it indispensable for vector graphics, text, and logos.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Comparing Popular Graphic Extensions</h2>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">PNG (Portable Network Graphics):</strong> Features full alpha-channel transparency and lossless rendering, perfect for web UI assets.
+                </li>
+                <li>
+                  <strong className="text-slate-200">JPEG (Joint Photographic Experts Group):</strong> Universal standard for photos, maximizing disk space savings with adjustable lossy compression.
+                </li>
+                <li>
+                  <strong className="text-slate-200">WebP:</strong> Next-generation format developed by Google offering superior lossy and lossless compression for faster website load times.
+                </li>
+                <li>
+                  <strong className="text-slate-200">HEIC (High Efficiency Image Container):</strong> Modern format used by Apple devices that offers high quality at half the file size of JPEG.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. In-Browser Client-Side Processing</h2>
+              <p>
+                Browser-based image conversion utilizes HTML5 Canvas rendering context and WebAssembly libraries to process pixels directly in memory. This eliminates bandwidth consumption, preserves file privacy, and ensures instant output generation without server dependency.
+              </p>
+            </section>
+          </article>
         </div>
 
       </div>

@@ -43,74 +43,13 @@ export default function WeightAnalyzer() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: 600+ Word Blog Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
-          <article className="space-y-6">
-            <header className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Health & Body Composition Guide</span>
-              <h1 className="text-2xl font-bold text-white mt-1">Understanding BMI and Ideal Body Weight Metrics</h1>
-            </header>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">1. What Is Body Mass Index (BMI)?</h2>
-              <p>
-                Body Mass Index (BMI) is a standardized numerical measurement used by healthcare professionals worldwide to evaluate whether an individual falls within a healthy body weight range relative to their height.
-              </p>
-              <p>
-                Calculated by dividing weight in kilograms by height in meters squared (kg/m²), BMI offers a quick, non-invasive assessment of general health risks associated with undernutrition or excess body fat.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">2. The Clinical Devine Formula for Ideal Weight</h2>
-              <p>
-                While BMI provides a broad health indicator, the <strong>Devine Formula</strong> estimates an Ideal Body Weight (IBW) tailored to physiological frame size and biological sex:
-              </p>
-              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
-                <li>
-                  <strong className="text-slate-200">Adult Males:</strong> 50 kg + 2.3 kg per inch over 5 feet tall.
-                </li>
-                <li>
-                  <strong className="text-slate-200">Adult Females:</strong> 45.5 kg + 2.3 kg per inch over 5 feet tall.
-                </li>
-              </ul>
-              <p>
-                Originally developed to determine medication dosages, the Devine Formula remains one of the most widely referenced benchmarks in medical practice.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">3. Health Implications of BMI Ranges</h2>
-              <p>
-                Maintaining a balanced body weight supports overall cardiovascular function, metabolic health, and joint integrity:
-              </p>
-              <p>
-                <strong>Underweight (&lt; 18.5):</strong> May indicate nutritional deficiencies, weakened immune function, or reduced bone density.
-              </p>
-              <p>
-                <strong>Normal Weight (18.5 – 24.9):</strong> Associated with optimal metabolic health and lower risk for chronic conditions.
-              </p>
-              <p>
-                <strong>Overweight & Obese (&ge; 25.0):</strong> Higher risk for hypertension, type 2 diabetes, cardiovascular disease, and systemic inflammation.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">4. Limitations of General BMI Analysis</h2>
-              <p>
-                While BMI is a helpful screening tool, it does not directly differentiate between muscle mass, bone density, and visceral fat distribution. Athletic individuals with high muscle mass may be classified as overweight despite having low body fat levels.
-              </p>
-            </section>
-          </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
+        {/* Right Column: Interactive Tool & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
           {/* Tool Card */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
             <h2 className="text-xl font-bold mb-4 text-center">⚖️ Weight Analyzer</h2>
 
             {/* Gender Selection */}
@@ -180,7 +119,7 @@ export default function WeightAnalyzer() {
           </div>
 
           {/* Publisher Content & FAQ Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
             <section>
               <h3 className="text-base font-semibold text-white mb-2">Standard BMI Categories</h3>
               <ul className="list-disc list-inside space-y-1.5 text-slate-400">
@@ -217,6 +156,67 @@ export default function WeightAnalyzer() {
               </div>
             </section>
           </div>
+        </div>
+
+        {/* Left Column: 600+ Word Blog Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Health & Body Composition Guide</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Understanding BMI and Ideal Body Weight Metrics</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. What Is Body Mass Index (BMI)?</h2>
+              <p>
+                Body Mass Index (BMI) is a standardized numerical measurement used by healthcare professionals worldwide to evaluate whether an individual falls within a healthy body weight range relative to their height.
+              </p>
+              <p>
+                Calculated by dividing weight in kilograms by height in meters squared (kg/m²), BMI offers a quick, non-invasive assessment of general health risks associated with undernutrition or excess body fat.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. The Clinical Devine Formula for Ideal Weight</h2>
+              <p>
+                While BMI provides a broad health indicator, the <strong>Devine Formula</strong> estimates an Ideal Body Weight (IBW) tailored to physiological frame size and biological sex:
+              </p>
+              <ul className="list-disc list-inside space-y-2 text-slate-400 pl-1">
+                <li>
+                  <strong className="text-slate-200">Adult Males:</strong> 50 kg + 2.3 kg per inch over 5 feet tall.
+                </li>
+                <li>
+                  <strong className="text-slate-200">Adult Females:</strong> 45.5 kg + 2.3 kg per inch over 5 feet tall.
+                </li>
+              </ul>
+              <p>
+                Originally developed to determine medication dosages, the Devine Formula remains one of the most widely referenced benchmarks in medical practice.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. Health Implications of BMI Ranges</h2>
+              <p>
+                Maintaining a balanced body weight supports overall cardiovascular function, metabolic health, and joint integrity:
+              </p>
+              <p>
+                <strong>Underweight (&lt; 18.5):</strong> May indicate nutritional deficiencies, weakened immune function, or reduced bone density.
+              </p>
+              <p>
+                <strong>Normal Weight (18.5 – 24.9):</strong> Associated with optimal metabolic health and lower risk for chronic conditions.
+              </p>
+              <p>
+                <strong>Overweight & Obese (&ge; 25.0):</strong> Higher risk for hypertension, type 2 diabetes, cardiovascular disease, and systemic inflammation.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">4. Limitations of General BMI Analysis</h2>
+              <p>
+                While BMI is a helpful screening tool, it does not directly differentiate between muscle mass, bone density, and visceral fat distribution. Athletic individuals with high muscle mass may be classified as overweight despite having low body fat levels.
+              </p>
+            </section>
+          </article>
         </div>
 
       </div>

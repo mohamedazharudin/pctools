@@ -56,11 +56,100 @@ export default function VideoToAudio() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: 600+ Word Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+        {/* Right Column (Converter Tool, Instructions & FAQ) - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
+          {/* Tool Card */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
+            <h2 className="text-xl font-bold mb-4">🎬 Video to Audio Converter</h2>
+
+            <input
+              type="file"
+              accept="video/*"
+              onChange={convertVideoToAudio}
+              className="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer mb-4"
+            />
+
+            {isConverting && (
+              <div className="mb-4 space-y-2 text-left">
+                <div className="flex justify-between text-xs text-blue-400 font-semibold px-1">
+                  <span>Converting video to audio...</span>
+                  <span>{progress}%</span>
+                </div>
+                <div className="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-150 ease-out"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+              </div>
+            )}
+
+            {audioUrl && (
+              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                <audio controls src={audioUrl} className="w-full" />
+                <a
+                  href={audioUrl}
+                  download="extracted-audio.mp3"
+                  className="block w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-semibold text-sm transition-all cursor-pointer text-center"
+                >
+                  ⬇️ Download MP3
+                </a>
+              </div>
+            )}
+          </div>
+
+          {/* Publisher Content & FAQ Section */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Convert Video to Audio</h3>
+              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+                <li>Click <strong className="text-slate-200">Choose File</strong> to select a video clip from your local storage.</li>
+                <li>Wait briefly while the browser captures and extracts the embedded audio stream.</li>
+                <li>Listen to the extracted audio track using the preview player.</li>
+                <li>Click <strong className="text-slate-200">Download MP3</strong> to save the audio file to your device.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-3">Frequently Asked Questions (FAQ)</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-slate-200">Are my private videos uploaded to a server?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    No, conversion runs entirely within your browser using modern Web Media APIs for high speed and total privacy.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">Which video formats are supported?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Most standard HTML5-supported video formats including MP4, WebM, and MOV are supported.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">Why is the extraction process so fast?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Since processing happens locally on your computer's browser without network transfers, conversion finishes in seconds.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">Does extracting audio lower sound quality?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    No, the tool isolates and captures the raw audio track contained inside your video file without applying heavy lossy re-compression.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        {/* Left Column: Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
           <article className="space-y-6">
             <header className="border-b border-slate-800 pb-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Audio Engineering Guide</span>
@@ -115,95 +204,6 @@ export default function VideoToAudio() {
               </p>
             </section>
           </article>
-        </div>
-
-        {/* Right Column: Converter Tool, Instructions & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Tool Card */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
-            <h2 className="text-xl font-bold mb-4">🎬 Video to Audio Converter</h2>
-
-            <input
-              type="file"
-              accept="video/*"
-              onChange={convertVideoToAudio}
-              className="w-full text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-500 cursor-pointer mb-4"
-            />
-
-            {isConverting && (
-              <div className="mb-4 space-y-2 text-left">
-                <div className="flex justify-between text-xs text-blue-400 font-semibold px-1">
-                  <span>Converting video to audio...</span>
-                  <span>{progress}%</span>
-                </div>
-                <div className="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-                  <div
-                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-150 ease-out"
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                </div>
-              </div>
-            )}
-
-            {audioUrl && (
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-                <audio controls src={audioUrl} className="w-full" />
-                <a
-                  href={audioUrl}
-                  download="extracted-audio.mp3"
-                  className="block w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-semibold text-sm transition-all cursor-pointer text-center"
-                >
-                  ⬇️ Download MP3
-                </a>
-              </div>
-            )}
-          </div>
-
-          {/* Publisher Content & FAQ Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">How to Convert Video to Audio</h3>
-              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-                <li>Click <strong className="text-slate-200">Choose File</strong> to select a video clip from your local storage.</li>
-                <li>Wait briefly while the browser captures and extracts the embedded audio stream.</li>
-                <li>Listen to the extracted audio track using the preview player.</li>
-                <li>Click <strong className="text-slate-200">Download MP3</strong> to save the audio file to your device.</li>
-              </ol>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-3">Frequently Asked Questions (FAQ)</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-slate-200">Are my private videos uploaded to a server?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    No, conversion runs entirely within your browser using modern Web Media APIs for high speed and total privacy.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">Which video formats are supported?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Most standard HTML5-supported video formats including MP4, WebM, and MOV are supported.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">Why is the extraction process so fast?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Since processing happens locally on your computer's browser without network transfers, conversion finishes in seconds.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">Does extracting audio lower sound quality?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    No, the tool isolates and captures the raw audio track contained inside your video file without applying heavy lossy re-compression.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
         </div>
 
       </div>

@@ -34,6 +34,7 @@ function AppContent() {
   const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toolsList = [
     { id: 'video-to-audio', name: 'Video to Audio', icon: '🎵', category: 'Media' },
@@ -65,80 +66,101 @@ function AppContent() {
 
   const handleNav = (id) => {
     navigate(id === 'home' ? '/' : `/${id}`);
+    setIsMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="min-h-screen bg-[#0e1017] text-white flex flex-col font-sans">
       
-      {/* 1. Header Bar */}
-      <header className="sticky top-0 z-50 bg-[#12151e]/90 backdrop-blur-md border-b border-white/5 px-6 sm:px-12 py-5 flex items-center justify-between">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNav('home')}>
-          <span className="text-[#ff5c5c] text-3xl font-black">▶</span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-wide text-white">Pctools</h1>
+      {/* 1. Mobile-friendly Header */}
+      <header className="sticky top-0 z-50 bg-[#12151e]/90 backdrop-blur-md border-b border-white/5 px-4 sm:px-12 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNav('home')}>
+          <span className="text-[#ff5c5c] text-2xl sm:text-3xl font-black">▶</span>
+          <h1 className="text-xl sm:text-3xl font-extrabold tracking-wide text-white">Pctools</h1>
         </div>
 
-        <div className="flex items-center gap-8 text-base sm:text-lg text-slate-200 font-semibold">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-8 text-base sm:text-lg text-slate-200 font-semibold">
           <button onClick={() => handleNav('home')} className="hover:text-white transition">Tools</button>
           <button onClick={() => handleNav('about')} className="hover:text-white transition">About Us</button>
           <button onClick={() => handleNav('contact')} className="hover:text-white transition">Contact</button>
           <button onClick={() => setIsDonateOpen(true)} className="text-[#ff5c5c] hover:underline font-bold">Donate</button>
         </div>
+
+        {/* Mobile Hamburger Button */}
+        <button 
+          onClick={() => setIsMenuOpen(!isMenuOpen)} 
+          className="md:hidden text-2xl text-slate-200 focus:outline-none p-1"
+          aria-label="Toggle Navigation Menu"
+        >
+          {isMenuOpen ? '✕' : '☰'}
+        </button>
+
+        {/* Mobile Dropdown Menu */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-[#12151e] border-b border-white/10 p-6 flex flex-col gap-4 text-left font-semibold text-slate-200 md:hidden shadow-2xl">
+            <button onClick={() => handleNav('home')} className="text-left py-1 hover:text-white transition">Tools</button>
+            <button onClick={() => handleNav('about')} className="text-left py-1 hover:text-white transition">About Us</button>
+            <button onClick={() => handleNav('contact')} className="text-left py-1 hover:text-white transition">Contact</button>
+            <button onClick={() => { setIsDonateOpen(true); setIsMenuOpen(false); }} className="text-left py-1 text-[#ff5c5c] font-bold">Donate</button>
+          </div>
+        )}
       </header>
 
-      {/* 2. Hero Mission Section */}
-      <section className="py-24 px-6 text-center flex flex-col items-center justify-center bg-gradient-to-b from-[#12151e]/40 to-transparent">
-        <h1 className="text-5xl sm:text-7xl font-black tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-emerald-300 leading-tight">
+      {/* 2. Responsive Hero Section */}
+      <section className="py-12 sm:py-24 px-4 sm:px-6 text-center flex flex-col items-center justify-center bg-gradient-to-b from-[#12151e]/40 to-transparent">
+        <h1 className="text-3xl sm:text-7xl font-black tracking-tight mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-emerald-300 leading-tight">
           Paid Apps Made Fully Free
         </h1>
-        <p className="text-slate-300 text-lg sm:text-2xl max-w-3xl mb-10 leading-relaxed font-normal">
+        <p className="text-slate-300 text-sm sm:text-2xl max-w-3xl mb-8 sm:mb-10 leading-relaxed font-normal px-2">
           We build premium-grade web utilities, developer toolkits, and productivity software accessible to everyone without paywalls or subscriptions.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          <button onClick={() => handleNav('home')} className="bg-[#ff5c5c] hover:bg-[#e25353] text-white font-bold text-lg px-8 py-4 rounded-2xl transition shadow-xl shadow-rose-500/20">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4">
+          <button onClick={() => handleNav('home')} className="w-full sm:w-auto bg-[#ff5c5c] hover:bg-[#e25353] text-white font-bold text-base sm:text-lg px-8 py-3.5 sm:py-4 rounded-2xl transition shadow-xl shadow-rose-500/20">
             Explore All Tools
           </button>
-          <button onClick={() => setIsDonateOpen(true)} className="border-2 border-white/20 hover:bg-white/5 text-white font-bold text-lg px-8 py-4 rounded-2xl transition">
+          <button onClick={() => setIsDonateOpen(true)} className="w-full sm:w-auto border-2 border-white/20 hover:bg-white/5 text-white font-bold text-base sm:text-lg px-8 py-3.5 sm:py-4 rounded-2xl transition">
             Support Our Mission
           </button>
         </div>
       </section>
 
       {/* 3. Main Tool Directory */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 py-10 flex flex-col gap-12">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10 flex flex-col gap-8 sm:gap-12">
         
-        {/* Search Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-[#12151e] border border-white/10 p-8 rounded-3xl shadow-2xl">
+        {/* Responsive Search Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6 bg-[#12151e] border border-white/10 p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-3">
-              <span className="w-3.5 h-3.5 rounded-full bg-[#ff5c5c]"></span>
+            <h2 className="text-xl sm:text-3xl font-extrabold text-white flex items-center gap-3">
+              <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full bg-[#ff5c5c]"></span>
               Browse Utilities
             </h2>
-            <p className="text-base sm:text-lg text-slate-300 mt-2">Select from 20+ fully responsive client-side web applications.</p>
+            <p className="text-xs sm:text-lg text-slate-300 mt-1 sm:mt-2">Select from 20+ fully responsive client-side web applications.</p>
           </div>
           <input
             type="text"
             placeholder="Search tools..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full md:w-96 bg-[#0e1017] border border-white/10 px-5 py-3.5 rounded-2xl text-base sm:text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#ff5c5c] transition"
+            className="w-full md:w-96 bg-[#0e1017] border border-white/10 px-4 sm:px-5 py-3 sm:py-3.5 rounded-xl sm:rounded-2xl text-sm sm:text-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#ff5c5c] transition"
           />
         </div>
 
-        {/* Dynamic Route & Grid Content */}
-        <div className="bg-[#12151e]/50 border border-white/5 rounded-3xl p-8 min-h-[450px]">
+        {/* Dynamic Route & Adaptive Tool Grid */}
+        <div className="bg-[#12151e]/50 border border-white/5 rounded-2xl sm:rounded-3xl p-4 sm:p-8 min-h-[350px] sm:min-h-[450px]">
           <Routes>
             <Route path="/" element={
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-6">
                 {filteredTools.map((tool) => (
                   <div
                     key={tool.id}
                     onClick={() => handleNav(tool.id)}
-                    className="flex flex-col items-center justify-center p-6 bg-[#12151e] border border-white/10 hover:border-[#ff5c5c]/60 rounded-2xl cursor-pointer group transition-all hover:-translate-y-1 text-center shadow-lg"
+                    className="flex flex-col items-center justify-center p-4 sm:p-6 bg-[#12151e] border border-white/10 hover:border-[#ff5c5c]/60 rounded-xl sm:rounded-2xl cursor-pointer group transition-all hover:-translate-y-1 text-center shadow-lg"
                   >
-                    <span className="text-5xl mb-4 group-hover:scale-110 transition-transform">{tool.icon}</span>
-                    <span className="text-base sm:text-lg font-bold text-slate-100">{tool.name}</span>
-                    <span className="text-xs sm:text-sm text-[#ff5c5c] mt-2 font-mono uppercase font-bold tracking-wider">{tool.category}</span>
+                    <span className="text-3xl sm:text-5xl mb-2 sm:mb-4 group-hover:scale-110 transition-transform">{tool.icon}</span>
+                    <span className="text-xs sm:text-lg font-bold text-slate-100 leading-tight">{tool.name}</span>
+                    <span className="text-[10px] sm:text-sm text-[#ff5c5c] mt-1 sm:mt-2 font-mono uppercase font-bold tracking-wider">{tool.category}</span>
                   </div>
                 ))}
               </div>
@@ -171,64 +193,64 @@ function AppContent() {
           </Routes>
         </div>
 
-        {/* Key Metrics Banner */}
-        <div className="bg-[#12151e] border border-white/10 rounded-3xl p-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center shadow-2xl">
+        {/* Responsive Metrics Banner */}
+        <div className="bg-[#12151e] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-10 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center shadow-2xl">
           <div>
-            <h3 className="text-4xl sm:text-5xl font-black text-[#ff5c5c]">100%</h3>
-            <p className="text-sm sm:text-base text-slate-300 mt-2 uppercase tracking-wider font-semibold">Free Access</p>
+            <h3 className="text-2xl sm:text-5xl font-black text-[#ff5c5c]">100%</h3>
+            <p className="text-xs sm:text-base text-slate-300 mt-1 sm:mt-2 uppercase tracking-wider font-semibold">Free Access</p>
           </div>
           <div>
-            <h3 className="text-4xl sm:text-5xl font-black text-[#ff5c5c]">20+</h3>
-            <p className="text-sm sm:text-base text-slate-300 mt-2 uppercase tracking-wider font-semibold">Web Utilities</p>
+            <h3 className="text-2xl sm:text-5xl font-black text-[#ff5c5c]">20+</h3>
+            <p className="text-xs sm:text-base text-slate-300 mt-1 sm:mt-2 uppercase tracking-wider font-semibold">Web Utilities</p>
           </div>
           <div>
-            <h3 className="text-4xl sm:text-5xl font-black text-[#ff5c5c]">0</h3>
-            <p className="text-sm sm:text-base text-slate-300 mt-2 uppercase tracking-wider font-semibold">Data Tracking</p>
+            <h3 className="text-2xl sm:text-5xl font-black text-[#ff5c5c]">0</h3>
+            <p className="text-xs sm:text-base text-slate-300 mt-1 sm:mt-2 uppercase tracking-wider font-semibold">Data Tracking</p>
           </div>
           <div>
-            <h3 className="text-4xl sm:text-5xl font-black text-[#ff5c5c]">24/7</h3>
-            <p className="text-sm sm:text-base text-slate-300 mt-2 uppercase tracking-wider font-semibold">Availability</p>
+            <h3 className="text-2xl sm:text-5xl font-black text-[#ff5c5c]">24/7</h3>
+            <p className="text-xs sm:text-base text-slate-300 mt-1 sm:mt-2 uppercase tracking-wider font-semibold">Availability</p>
           </div>
         </div>
 
       </main>
 
-      {/* 4. Categorized Footer */}
-      <footer className="bg-[#12151e] border-t border-white/10 py-16 px-8 mt-auto z-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 mb-10 text-base">
+      {/* 4. Responsive Footer */}
+      <footer className="bg-[#12151e] border-t border-white/10 py-10 sm:py-16 px-6 sm:px-8 mt-auto z-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 mb-8 sm:mb-10 text-base">
           <div>
-            <h4 className="font-extrabold text-[#ff5c5c] mb-4 text-sm sm:text-base uppercase tracking-wider">Platform</h4>
-            <ul className="space-y-3 text-slate-300 text-sm sm:text-base font-medium">
+            <h4 className="font-extrabold text-[#ff5c5c] mb-3 sm:mb-4 text-xs sm:text-base uppercase tracking-wider">Platform</h4>
+            <ul className="space-y-2 sm:space-y-3 text-slate-300 text-xs sm:text-base font-medium">
               <li><button onClick={() => handleNav('about')} className="hover:text-white transition">Features</button></li>
               <li><button onClick={() => handleNav('home')} className="hover:text-white transition">Tools</button></li>
               <li><button onClick={() => handleNav('mypc')} className="hover:text-white transition">My PC Explorer</button></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-extrabold text-[#ff5c5c] mb-4 text-sm sm:text-base uppercase tracking-wider">Categories</h4>
-            <ul className="space-y-3 text-slate-300 text-sm sm:text-base font-medium">
+            <h4 className="font-extrabold text-[#ff5c5c] mb-3 sm:mb-4 text-xs sm:text-base uppercase tracking-wider">Categories</h4>
+            <ul className="space-y-2 sm:space-y-3 text-slate-300 text-xs sm:text-base font-medium">
               <li><button onClick={() => handleNav('home')} className="hover:text-white transition">Media Tools</button></li>
               <li><button onClick={() => handleNav('home')} className="hover:text-white transition">Productivity</button></li>
               <li><button onClick={() => handleNav('home')} className="hover:text-white transition">Developer Kits</button></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-extrabold text-[#ff5c5c] mb-4 text-sm sm:text-base uppercase tracking-wider">Support</h4>
-            <ul className="space-y-3 text-slate-300 text-sm sm:text-base font-medium">
+            <h4 className="font-extrabold text-[#ff5c5c] mb-3 sm:mb-4 text-xs sm:text-base uppercase tracking-wider">Support</h4>
+            <ul className="space-y-2 sm:space-y-3 text-slate-300 text-xs sm:text-base font-medium">
               <li><button onClick={() => handleNav('contact')} className="hover:text-white transition">Help Center</button></li>
               <li><button onClick={() => handleNav('contact')} className="hover:text-white transition">Contact Us</button></li>
               <li><button onClick={() => setIsDonateOpen(true)} className="hover:text-white transition">Donate</button></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-extrabold text-[#ff5c5c] mb-4 text-sm sm:text-base uppercase tracking-wider">Legal</h4>
-            <ul className="space-y-3 text-slate-300 text-sm sm:text-base font-medium">
+            <h4 className="font-extrabold text-[#ff5c5c] mb-3 sm:mb-4 text-xs sm:text-base uppercase tracking-wider">Legal</h4>
+            <ul className="space-y-2 sm:space-y-3 text-slate-300 text-xs sm:text-base font-medium">
               <li><button onClick={() => setIsPrivacyOpen(true)} className="hover:text-white transition">Privacy Policy</button></li>
               <li><button onClick={() => handleNav('terms')} className="hover:text-white transition">Terms & Conditions</button></li>
             </ul>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-sm sm:text-base text-slate-400">
+        <div className="max-w-7xl mx-auto pt-6 sm:pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs sm:text-base text-slate-400">
           <p>© 2026 Pctools Hub. All rights reserved.</p>
         </div>
       </footer>

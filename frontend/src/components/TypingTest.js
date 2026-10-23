@@ -102,43 +102,12 @@ export default function TypingTest() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-8 sm:space-y-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: Detailed Blog Article (~350 words) */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
-          <article className="space-y-6">
-            <header className="border-b border-slate-800 pb-4">
-              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Keyboard Performance & Ergonomics</span>
-              <h1 className="text-2xl font-bold text-white mt-1">Mastering Touch Typing: Speed, Accuracy, and Ergonomics</h1>
-            </header>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">1. How WPM (Words Per Minute) is Calculated</h2>
-              <p>
-                In standardized typing evaluations, Words Per Minute (WPM) does not simply count spaced words. Instead, it normalizes speed by defining one "word" as exactly 5 characters—including letters, numbers, spaces, and punctuation. Your Gross WPM counts total characters typed divided by five, whereas Net WPM subtracts uncorrected errors to give an accurate reflection of productive typing speed.
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">2. Developing Muscle Memory via Home Row Positioning</h2>
-              <p>
-                True touch typing relies on muscle memory rather than visual sight. By anchoring your index fingers on the home row keys—<strong>F</strong> and <strong>J</strong> (which feature raised tactile bumps on standard keyboards)—your remaining fingers naturally rest across <strong>A-S-D-F</strong> and <strong>J-K-L-;</strong>. Returning to this resting posture after every keystroke drastically lowers fatigue and prevents repetitive strain injury (RSI).
-              </p>
-            </section>
-
-            <section className="space-y-3">
-              <h2 className="text-lg font-semibold text-white">3. Accuracy First, Speed Second</h2>
-              <p>
-                Prioritizing keystroke accuracy over raw velocity yields faster long-term gains. Every backspace required to correct a typo breaks rhythm and costs double the effort. Focusing on 95%+ precision allows your subconscious mind to automate key reaches, naturally building continuous, rapid typing speeds over time.
-              </p>
-            </section>
-          </article>
-        </div>
-
-        {/* Right Column: Interactive Typing Tester */}
-        <div className="lg:col-span-7 space-y-8">
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+        {/* Right Column: Interactive Typing Tester - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
             <div className="flex justify-between items-center mb-6">
               <h1 className="text-xl font-bold flex items-center gap-2"><span>⌨️</span> Typing Speed Test</h1>
               <div className="flex items-center gap-4 text-sm font-mono">
@@ -153,25 +122,25 @@ export default function TypingTest() {
             </div>
 
             {/* Test Stats Bar */}
-            <div className="grid grid-cols-3 gap-4 mb-6 text-center">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 text-center">
               <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
                 <span className="text-xs text-slate-400 block">Speed</span>
-                <span className="text-2xl font-black text-blue-400 font-mono">{wpm} WPM</span>
+                <span className="text-xl sm:text-2xl font-black text-blue-400 font-mono">{wpm} WPM</span>
               </div>
               <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
                 <span className="text-xs text-slate-400 block">Accuracy</span>
-                <span className="text-2xl font-black text-emerald-400 font-mono">{accuracy}%</span>
+                <span className="text-xl sm:text-2xl font-black text-emerald-400 font-mono">{accuracy}%</span>
               </div>
               <div className="p-3 bg-slate-950 rounded-xl border border-slate-800">
                 <span className="text-xs text-slate-400 block">Characters</span>
-                <span className="text-2xl font-black text-purple-400 font-mono">{charStats.correct}/{charStats.incorrect}</span>
+                <span className="text-xl sm:text-2xl font-black text-purple-400 font-mono">{charStats.correct}/{charStats.incorrect}</span>
               </div>
             </div>
 
             {/* Typing Display Box */}
             <div
               onClick={() => inputRef.current?.focus()}
-              className="p-5 bg-slate-950 rounded-2xl border border-slate-800 text-base sm:text-lg font-mono leading-relaxed mb-6 cursor-text tracking-wide select-none min-h-[130px] flex items-center flex-wrap"
+              className="p-4 sm:p-5 bg-slate-950 rounded-2xl border border-slate-800 text-sm sm:text-lg font-mono leading-relaxed mb-6 cursor-text tracking-wide select-none min-h-[130px] flex items-center flex-wrap"
             >
               {currentText.split('').map((char, index) => {
                 let color = 'text-slate-500';
@@ -208,10 +177,41 @@ export default function TypingTest() {
           </div>
         </div>
 
+        {/* Left Column: Detailed Blog Article (~350 words) - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+          <article className="space-y-6">
+            <header className="border-b border-slate-800 pb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Keyboard Performance & Ergonomics</span>
+              <h1 className="text-2xl font-bold text-white mt-1">Mastering Touch Typing: Speed, Accuracy, and Ergonomics</h1>
+            </header>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">1. How WPM (Words Per Minute) is Calculated</h2>
+              <p>
+                In standardized typing evaluations, Words Per Minute (WPM) does not simply count spaced words. Instead, it normalizes speed by defining one "word" as exactly 5 characters—including letters, numbers, spaces, and punctuation. Your Gross WPM counts total characters typed divided by five, whereas Net WPM subtracts uncorrected errors to give an accurate reflection of productive typing speed.
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">2. Developing Muscle Memory via Home Row Positioning</h2>
+              <p>
+                True touch typing relies on muscle memory rather than visual sight. By anchoring your index fingers on the home row keys—<strong>F</strong> and <strong>J</strong> (which feature raised tactile bumps on standard keyboards)—your remaining fingers naturally rest across <strong>A-S-D-F</strong> and <strong>J-K-L-;</strong>. Returning to this resting posture after every keystroke drastically lowers fatigue and prevents repetitive strain injury (RSI).
+              </p>
+            </section>
+
+            <section className="space-y-3">
+              <h2 className="text-lg font-semibold text-white">3. Accuracy First, Speed Second</h2>
+              <p>
+                Prioritizing keystroke accuracy over raw velocity yields faster long-term gains. Every backspace required to correct a typo breaks rhythm and costs double the effort. Focusing on 95%+ precision allows your subconscious mind to automate key reaches, naturally building continuous, rapid typing speeds over time.
+              </p>
+            </section>
+          </article>
+        </div>
+
       </div>
 
       {/* FAQ Section at the bottom (~250 words) */}
-      <div className="bg-slate-900 border border-slate-800 p-6 sm:p-10 rounded-3xl shadow-xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+      <div className="bg-slate-900 border border-slate-800 p-4 sm:p-10 rounded-2xl sm:rounded-3xl shadow-xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
         <h3 className="text-xl font-bold text-white border-b border-slate-800 pb-3">Frequently Asked Questions (FAQ)</h3>
 
         <div className="space-y-4">

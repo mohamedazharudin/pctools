@@ -17,11 +17,98 @@ export default function ColorPalette() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: Detailed Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+        {/* Right Column: Interactive Tool & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
+          {/* Tool Container */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
+            <h1 className="text-xl font-bold mb-1">🎨 Developer Color Palettes</h1>
+            <p className="text-slate-400 text-sm mb-6">Click any color box or hex code to copy it to your clipboard.</p>
+
+            {copiedColor && (
+              <div className="fixed bottom-5 right-5 bg-emerald-600 text-white py-2 px-5 rounded-xl font-bold shadow-lg z-50 animate-bounce text-sm">
+                Copied {copiedColor} to clipboard!
+              </div>
+            )}
+
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4 sm:gap-5">
+              {PALETTES.map((palette, idx) => (
+                <div key={idx} className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-md">
+                  {/* Color Swatches */}
+                  <div className="flex h-20 sm:h-24">
+                    {palette.colors.map((color, i) => (
+                      <div
+                        key={i}
+                        onClick={() => copyToClipboard(color)}
+                        className="flex-1 cursor-pointer transition-opacity hover:opacity-90"
+                        style={{ backgroundColor: color }}
+                        title={`Click to copy ${color}`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Info & Hex Codes */}
+                  <div className="p-3 sm:p-4">
+                    <h3 className="m-0 mb-2 sm:mb-2.5 text-sm sm:text-base font-bold text-white">{palette.name}</h3>
+                    <div className="flex justify-between">
+                      {palette.colors.map((color, i) => (
+                        <span
+                          key={i}
+                          onClick={() => copyToClipboard(color)}
+                          className="text-[10px] sm:text-[11px] text-slate-400 cursor-pointer font-mono font-bold hover:text-blue-400 transition-colors"
+                        >
+                          {color}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Publisher Content Section */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+            <section>
+              <h2 className="text-lg font-bold text-white mb-2">About Developer Color Palettes</h2>
+              <p>
+                Choosing harmonious color schemes is essential for user interface design. This curated collection provides balanced hex code combinations optimized for modern dark and light user interface themes.
+              </p>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Use the Palette Tool</h3>
+              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
+                <li>Browse the available curated color combinations for your UI project.</li>
+                <li>Click directly on any color swatch or hex label to copy the hex code.</li>
+                <li>Paste the copied color values into your CSS, Tailwind, or design tool.</li>
+              </ol>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
+              <div className="space-y-3">
+                <div>
+                  <h4 className="font-medium text-slate-200">What color format is copied?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    The tool copies standard 6-digit hex codes (e.g. #0f172a) ready for CSS stylesheets.
+                  </p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-slate-200">Can I use these palettes in commercial projects?</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Yes, all hex code combinations are open for royalty-free personal and commercial use.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        {/* Left Column: Detailed Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
           <article className="space-y-6">
             <header className="border-b border-slate-800 pb-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">UI Design & Color Theory</span>
@@ -63,93 +150,6 @@ export default function ColorPalette() {
               </p>
             </section>
           </article>
-        </div>
-
-        {/* Right Column: Interactive Tool & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Tool Container */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white">
-            <h1 className="text-xl font-bold mb-1">🎨 Developer Color Palettes</h1>
-            <p className="text-slate-400 text-sm mb-6">Click any color box or hex code to copy it to your clipboard.</p>
-
-            {copiedColor && (
-              <div className="fixed bottom-5 right-5 bg-emerald-600 text-white py-2 px-5 rounded-xl font-bold shadow-lg z-50 animate-bounce text-sm">
-                Copied {copiedColor} to clipboard!
-              </div>
-            )}
-
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-5">
-              {PALETTES.map((palette, idx) => (
-                <div key={idx} className="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-md">
-                  {/* Color Swatches */}
-                  <div className="flex h-24">
-                    {palette.colors.map((color, i) => (
-                      <div
-                        key={i}
-                        onClick={() => copyToClipboard(color)}
-                        className="flex-1 cursor-pointer transition-opacity hover:opacity-90"
-                        style={{ backgroundColor: color }}
-                        title={`Click to copy ${color}`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Info & Hex Codes */}
-                  <div className="p-4">
-                    <h3 className="m-0 mb-2.5 text-base font-bold text-white">{palette.name}</h3>
-                    <div className="flex justify-between">
-                      {palette.colors.map((color, i) => (
-                        <span
-                          key={i}
-                          onClick={() => copyToClipboard(color)}
-                          className="text-[11px] text-slate-400 cursor-pointer font-mono font-bold hover:text-blue-400 transition-colors"
-                        >
-                          {color}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Publisher Content Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
-            <section>
-              <h2 className="text-lg font-bold text-white mb-2">About Developer Color Palettes</h2>
-              <p>
-                Choosing harmonious color schemes is essential for user interface design. This curated collection provides balanced hex code combinations optimized for modern dark and light user interface themes.
-              </p>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">How to Use the Palette Tool</h3>
-              <ol className="list-decimal list-inside space-y-1.5 text-slate-400">
-                <li>Browse the available curated color combinations for your UI project.</li>
-                <li>Click directly on any color swatch or hex label to copy the hex code.</li>
-                <li>Paste the copied color values into your CSS, Tailwind, or design tool.</li>
-              </ol>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">Frequently Asked Questions</h3>
-              <div className="space-y-3">
-                <div>
-                  <h4 className="font-medium text-slate-200">What color format is copied?</h4>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    The tool copies standard 6-digit hex codes (e.g. #0f172a) ready for CSS stylesheets.
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-medium text-slate-200">Can I use these palettes in commercial projects?</h4>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    Yes, all hex code combinations are open for royalty-free personal and commercial use.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
         </div>
 
       </div>

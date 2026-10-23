@@ -30,11 +30,79 @@ export default function SpeedTest() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-left">
+    <div className="w-full max-w-[95%] sm:max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 text-left">
         
-        {/* Left Column: 600+ Word Blog Article Container */}
-        <div className="lg:col-span-5 p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
+        {/* Right Column: Interactive Tool, Optimization Steps & FAQ - Appears FIRST on Mobile */}
+        <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 sm:space-y-8">
+          {/* Speed Test Card */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
+            <h2 className="text-xl font-bold mb-4">⚡ Internet Speed Test</h2>
+            
+            {speed && (
+              <div className="my-6">
+                <span className="text-4xl sm:text-5xl font-extrabold text-blue-500">{speed}</span>
+                <span className="text-slate-400 text-base sm:text-lg ml-2">Mbps</span>
+              </div>
+            )}
+
+            <button
+              onClick={runSpeedTest}
+              disabled={testing}
+              className="w-full sm:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 rounded-xl text-sm font-semibold transition-all cursor-pointer"
+            >
+              {testing ? 'Testing Speed...' : 'Start Speed Test'}
+            </button>
+          </div>
+
+          {/* Publisher Content & Detailed FAQ Section */}
+          <div className="p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 text-left">
+            <section>
+              <h3 className="text-base font-semibold text-white mb-2">How to Get Accurate Results</h3>
+              <ul className="list-disc list-inside space-y-1.5 text-slate-400">
+                <li>Close active downloads, streaming apps, or online video calls before starting.</li>
+                <li>Connect directly using a LAN cable or sit closer to your Wi-Fi router.</li>
+                <li>Run the test a few times to get an accurate average connection speed.</li>
+              </ul>
+            </section>
+
+            <section>
+              <h3 className="text-base font-semibold text-white mb-3">Frequently Asked Questions (FAQ)</h3>
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold text-slate-200">What does Mbps stand for?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Mbps stands for Megabits per second, which is the standard unit used to measure network download and upload bandwidth.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">Is this test completely free to use?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Yes, this online speed test runs entirely inside your web browser without requiring any software installation or sign-ups.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">Why does my speed test result differ from my ISP package?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    ISP speeds represent theoretical maximums. Real-world speeds vary due to Wi-Fi interference, hardware limitations, router distance, and network congestion.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold text-slate-200">What internet speed do I need for 4K streaming?</h4>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Most major streaming services recommend a stable download speed of at least 25 Mbps per concurrent 4K Ultra HD stream.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        {/* Left Column: 600+ Word Blog Article Container - Appears SECOND on Mobile */}
+        <div className="lg:col-span-5 order-2 lg:order-1 p-4 sm:p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6 shadow-xl">
           <article className="space-y-6">
             <header className="border-b border-slate-800 pb-4">
               <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Network & Bandwidth Guide</span>
@@ -89,74 +157,6 @@ export default function SpeedTest() {
               </p>
             </section>
           </article>
-        </div>
-
-        {/* Right Column: Interactive Tool, Optimization Steps & FAQ */}
-        <div className="lg:col-span-7 space-y-8">
-          {/* Speed Test Card */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl text-white text-center">
-            <h2 className="text-xl font-bold mb-4">⚡ Internet Speed Test</h2>
-            
-            {speed && (
-              <div className="my-6">
-                <span className="text-5xl font-extrabold text-blue-500">{speed}</span>
-                <span className="text-slate-400 text-lg ml-2">Mbps</span>
-              </div>
-            )}
-
-            <button
-              onClick={runSpeedTest}
-              disabled={testing}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 rounded-xl text-sm font-semibold transition-all cursor-pointer"
-            >
-              {testing ? 'Testing Speed...' : 'Start Speed Test'}
-            </button>
-          </div>
-
-          {/* Publisher Content & Detailed FAQ Section */}
-          <div className="p-6 bg-slate-900 border border-slate-800 rounded-2xl text-slate-300 text-sm leading-relaxed space-y-6">
-            <section>
-              <h3 className="text-base font-semibold text-white mb-2">How to Get Accurate Results</h3>
-              <ul className="list-disc list-inside space-y-1.5 text-slate-400">
-                <li>Close active downloads, streaming apps, or online video calls before starting.</li>
-                <li>Connect directly using a LAN cable or sit closer to your Wi-Fi router.</li>
-                <li>Run the test a few times to get an accurate average connection speed.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h3 className="text-base font-semibold text-white mb-3">Frequently Asked Questions (FAQ)</h3>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold text-slate-200">What does Mbps stand for?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Mbps stands for Megabits per second, which is the standard unit used to measure network download and upload bandwidth.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">Is this test completely free to use?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Yes, this online speed test runs entirely inside your web browser without requiring any software installation or sign-ups.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">Why does my speed test result differ from my ISP package?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    ISP speeds represent theoretical maximums. Real-world speeds vary due to Wi-Fi interference, hardware limitations, router distance, and network congestion.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-slate-200">What internet speed do I need for 4K streaming?</h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Most major streaming services recommend a stable download speed of at least 25 Mbps per concurrent 4K Ultra HD stream.
-                  </p>
-                </div>
-              </div>
-            </section>
-          </div>
         </div>
 
       </div>
